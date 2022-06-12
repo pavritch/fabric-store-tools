@@ -1,0 +1,925 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="ctl00_masterHead"><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><base id="ctl00_baseURL"></base><meta name="author" content="Robert Allen" /><meta name="robots" content="all" /><meta name="p:domain_verify" content="9070552fcbd53e4bdd04dc05d7f051c4" /><meta http-equiv="imagetoolbar" content="no" /><meta name="p:domain_verify" content="fbd37ec2be9767be3fb9e22dc6eae99f" /><title>
+	Robert Allen
+</title><link rel="shortcut icon" href="../IEfavicon.ico" /><link rel="icon" href="../IEfavicon.ico" type="image/x-icon" /><link type="text/css" rel="stylesheet" href="../in/styles.css" /><link type="text/css" rel="stylesheet" href="../in/videobox.css" />	
+    <script language="JavaScript" type="text/javascript">      
+        var isBlurred = true; 
+        var isGlobal = false;
+        function MM_openBrWindow(theURL,winName,features) { //v2.0
+          window.open(theURL,winName,features);
+        }
+
+        function MM_swapImgRestore() { //v3.0
+          var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+        }
+
+        function MM_preloadImages() { //v3.0
+          var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+            var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+            if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+        }
+
+        function MM_findObj(n, d) { //v4.01
+          var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+            d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+          if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+          for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+          if(!x && d.getElementById) x=d.getElementById(n); return x;
+        }
+
+        function MM_swapImage() { //v3.0
+          var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+           if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+        }
+
+        function clearform(which){
+	        if (which.value=="email")
+	        which.value='' 
+	        if (which.value=="zip")
+	        which.value='' 
+   	        if (which.value=="Enter Yardage")
+	        which.value='' 
+        }
+        
+
+        function DoValidation()
+        {	
+	        if (!(checkemail(document.frmemail.txtEmail.value)))
+	        {		
+		        alert("Please enter a valid email id")
+		        document.frmemail.txtEmail.select()
+		        document.frmemail.txtEmail.focus()
+		        return ;	
+	        }
+	        if (!(ValidZipCode(document.frmemail.txtZip.value)))
+	        {
+		        alert("Please enter a valid zip code")
+		        document.frmemail.txtZip.select()
+		        document.frmemail.txtZip.focus()
+		        return ;
+	        }
+	        document.frmemail.submit();
+        }	
+
+        function checkemail(strMail)
+        {
+	        var str=strMail
+	        var filter=/^(\w+(?:\.\w+)*)@((?:\w+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+	        if (filter.test(str))
+		        testresults=true
+	        else
+		        testresults=false
+	        return (testresults)
+        }
+
+        function ValidZipCode(ZipCode)
+        {
+	        var stringValue = new String(ZipCode);
+	        var stringLength = stringValue.length;
+	        testresults=true;
+        	
+	        if (stringLength!=5) {
+		        testresults=false
+	        }
+	        for (var i = 0; i < stringLength; i++)
+	        {			
+		        value = stringValue.charAt(i)
+		        if (!((value >= 0) && (value <=9)))
+		        {
+			        testresults=false
+		        }
+	        }
+	        return (testresults)
+        }
+        
+        // *********************************************
+        //  createCookie( name, value, days)
+        //
+        //  Creates a client cookie
+        //
+        function createCookie(name,value,days) 
+        {
+	        if (days) {
+		        var date = new Date();
+		        date.setTime(date.getTime()+(days*24*60*60*1000));
+		        var expires = "; expires="+date.toGMTString();
+	        }
+	        else var expires = "";
+	        document.cookie = name+"="+value+expires+"; path=/";
+        }
+
+        // *********************************************
+        //  readCookie( name)
+        //
+        //  Reads a client cookie
+        //
+        function readCookie(name) 
+        {
+	        var nameEQ = name + "=";
+	        var ca = document.cookie.split(';');
+	        for(var i=0;i < ca.length;i++) {
+		        var c = ca[i];
+		        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	        }
+	        return null;
+        }
+        
+        // *********************************************
+        //  PopUpDiv( e, width, height, text)
+        //
+        //  Used to show a pop up form without opening 
+        //  another window
+        function PopUpDiv( e, width, height, text)
+        {
+            var div = document.getElementById('popUpDiv');
+
+            if (div != null)
+            {
+                if (e.pageX)
+                {
+                    div.style.left = e.pageX;
+                    div.style.top = e.pageY;
+                }
+                else
+                {
+                    div.style.left = e.clientX;
+                    div.style.top = e.clientY;
+                }
+
+                div.style.width = width;
+                div.style.height = height;
+                div.innerText = text;   
+                div.style.visibility = 'visible';
+                div.style.display = '';
+                //window.setTimeout('HidePopUpDiv()', 5000);
+            }
+        }
+
+        // *********************************************
+        //  HidePopUpDiv()
+        //
+        //  Used to hide the pop up form 
+        function HidePopUpDiv()
+        {
+            var div = document.getElementById('popUpDiv');
+            
+            if (div != null)
+            {
+                div.style.visibility = 'hidden';
+                div.style.display = 'none';
+            }
+        }
+        
+        // *********************************************
+        //  KeyPressEnter(target, e)
+        //
+        //  Used to associate a click event with a 
+        //  textbox's enter keypress
+	    function KeyPressEnter(target, e)
+	    {
+	        if (isBlurred)
+	        {
+	            if (e.which == 13)          // Firefox
+	            {
+	            
+	            }
+		        else if (e.keyCode==13)     // IE
+		        {
+			        e.keyCode = 0;
+		            document.getElementById(target).click();
+		        }
+	        }
+        }
+	    
+        // *********************************************
+        //  KeyPressNext(source, e)
+        //
+        //  Used to "tab" over to the next control on 
+        //  a keypress/enter
+	    function KeyPressNext(source, e)
+	    {
+	        if (isBlurred)
+	        {
+                var key;
+                if(window.event)
+                    key = window.event.keyCode;   //IE
+                else
+                    key = e.which;                //firefox
+                
+			    if (key == 13)
+			    {
+				    for (i=0; i<source.form.elements.length; i++)
+				    {
+					    if (source == source.form.elements[i])
+					    {
+						    if (source.form.elements[i+1]) source.form.elements[i+1].focus();
+                            if(window.event)
+                                window.event.keyCode = 0;
+                            else
+                                e.which = 0;
+						    break;
+					    }
+				    }
+				    return false;
+			    }
+			    return true;
+	        }
+	    }
+			
+        // *********************************************
+        //  KeyPressClear(e)
+        //
+        //  Ignore a keypress/enter			
+		function KeyPressClear(e)
+		{
+		    if (isBlurred)
+		    {
+		        if (e)
+		        {
+                    if (e.which == 13)          // Firefox
+                    {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
+                    else if (e.keyCode == 13)   // IE
+                    {
+                        e.keyCode = 0;
+                    }
+		        }
+		    }
+		}
+
+        // #############################################
+        // These are the user defined globals.
+        // Modify the following variables to customize the inspection behaviour.
+
+        var requiredVersion = 3;   // Version the user needs to view site (max 6, min 2)
+        var useRedirect = false;    // Flag indicating whether or not to load a separate
+                                   // page based on detection results. Set to true to
+                                   // load a separate page. Set to false to embed the
+                                   // movie or alternate html directly into this page.
+                                   
+        // Only set next three vars if useRedirect is true...
+        var flashPage = "movie.html"      // The location of the flash movie page
+        var noFlashPage = "noflash.html"  // Page displayed if the user doesn't have the
+                                          // plugin or we can't detect it.
+        var upgradePage = "upgrade.html"  // Page displayed if we detect an old plugin
+        // #############################################
+
+
+
+        // *************
+        // Everything below this point is internal until after the BODY tag.
+        // Do not modify! Proceed to the BODY tag for further instructions.
+        // *************
+
+        // System globals
+        var flash2Installed = false;    // boolean. true if flash 2 is installed
+        var flash3Installed = false;    // boolean. true if flash 3 is installed
+        var flash4Installed = false;    // boolean. true if flash 4 is installed
+        var flash5Installed = false;    // boolean. true if flash 5 is installed
+        var flash6Installed = false;    // boolean. true if flash 6 is installed
+        var maxVersion = 6;             // highest version we can actually detect
+        var actualVersion = 0;          // version the user really has
+        var hasRightVersion = false;    // boolean. true if it's safe to embed the flash movie in the page
+        var jsVersion = 1.0;            // the version of javascript supported
+
+
+
+
+        // Check the browser...we're looking for ie/win
+        var isIE = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false;    // true if we're on ie
+        var isWin = (navigator.appVersion.indexOf("Windows") != -1) ? true : false; // true if we're on windows
+
+        // This is a js1.1 code block, so make note that js1.1 is supported.
+        jsVersion = 1.1;
+
+        // Write vbscript detection on ie win. IE on Windows doesn't support regular
+        // JavaScript plugins array detection.
+        if(isIE && isWin){
+          document.write('<SCR' + 'IPT LANGUAGE=VBScript\> \n');
+          document.write('on error resume next \n');
+          document.write('flash2Installed = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.2"))) \n');
+          document.write('flash3Installed = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.3"))) \n');
+          document.write('flash4Installed = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.4"))) \n');
+          document.write('flash5Installed = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.5"))) \n');  
+          document.write('flash6Installed = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.6"))) \n');  
+          document.write('</SCR' + 'IPT\> \n'); // break up end tag so it doesn't end our script
+        }
+
+
+        // Next comes the standard javascript detection that uses the 
+        // navigator.plugins array. We pack the detector into a function so it loads
+        // before we run it.
+
+        function detectFlash() {  
+          // If navigator.plugins exists...
+          if (navigator.plugins) {
+            // ...then check for flash 2 or flash 3+.
+            if (navigator.plugins["Shockwave Flash 2.0"]
+                || navigator.plugins["Shockwave Flash"]) {
+
+              // Some version of Flash was found. Time to figure out which.     
+              // Set convenient references to flash 2 and the plugin description.
+              var isVersion2 = navigator.plugins["Shockwave Flash 2.0"] ? " 2.0" : "";
+              var flashDescription = navigator.plugins["Shockwave Flash" + isVersion2].description;
+
+              // DEBUGGING: uncomment next line to see the actual description.
+              // alert("Flash plugin description: " + flashDescription);
+              
+              // A flash plugin-description looks like this: Shockwave Flash 4.0 r5
+              // We can get the major version by grabbing the character before the period
+              // note that we don't bother with minor version detection. 
+              // Do that in your movie with $version or getVersion().
+              var flashVersion = parseInt(flashDescription.charAt(flashDescription.indexOf(".") - 1));
+             
+              // We found the version, now set appropriate version flags. Make sure
+              // to use >= on the highest version so we don't prevent future version
+              // users from entering the site.
+              flash2Installed = flashVersion == 2;    
+              flash3Installed = flashVersion == 3;
+              flash4Installed = flashVersion == 4;
+              flash5Installed = flashVersion == 5;
+              flash6Installed = flashVersion >= 6;
+            }
+          }
+          	
+        // loop through all versions we're checking, and set actualVersion to highest detected version
+	        for (var i = 2; i <= maxVersion; i++) {	
+		        if (eval("flash" + i + "Installed") == true) actualVersion = i;
+	        }
+	        // if we're on webtv, the version supported is 2 (pre-summer2000, or 3, post-summer2000)
+	        // note that we don't bother sniffing varieties of webtv. you could if you were sadistic...
+	        if(navigator.userAgent.indexOf("WebTV") != -1) actualVersion = 2;	
+
+	        // uncomment next line to display flash version during testing
+	        // alert("version detected: " + actualVersion);
+
+
+	        // we're finished getting the version. time to take the appropriate action
+
+	        if (actualVersion >= requiredVersion) { 		// user has a new enough version
+		        hasRightVersion = true;						// flag: it's okay to write out the object/embed tags later
+		        if (useRedirect) {							// if the redirection option is on, load the flash page
+			        if(jsVersion > 1.0) {					// need javascript1.1 to do location.replace
+				        window.location.replace(flashPage);	// use replace() so we don't break the back button
+			        } else {
+				        window.location = flashPage;		// otherwise, use .location
+			        }
+		        }
+	        } else {	// user doesn't have a new enough version.
+        	
+		        if (useRedirect) {		// if the redirection option is on, load the appropriate alternate page
+			        if(jsVersion > 1.0) {	// need javascript1.1 to do location.replace
+				        window.location.replace((actualVersion >= 2) ? upgradePage : noFlashPage);
+			        } else {
+				        window.location = (actualVersion >= 2) ? upgradePage : noFlashPage;
+			        }
+		        }
+	        }
+        }
+
+        detectFlash();	// call our detector now that it's safely loaded.	
+    </script>
+    
+
+<meta name="google-site-verification" content="4yLR0IG79LJxUh-KbUrPnoBBFgaW8uJ77THjSpghhHc" /><base href='http://www.robertallendesign.com/' /></head>
+<body onkeypress="KeyPressClear(event)">
+    <form name="aspnetForm" method="post" action="fabric_detail.aspx?product=105654" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY5Mjc2MTYzMQ9kFgJmD2QWAgIDD2QWAgIBD2QWCgICDw8WAh4EVGV4dAUVV2VsY29tZSBJTlNJREUgU1RPUkVTZGQCBA8WAh4HVmlzaWJsZWhkAgUPDxYEHwFnHgtQb3N0QmFja1VybAUtaHR0cDovL3d3dy5yb2JlcnRhbGxlbmRlc2lnbi5jb20vU2lnbk91dC5hc3B4ZGQCBw8WAh4Fc3R5bGUFCWRpc3BsYXk6OxYCZg9kFgICAQ8WAh8BaGQCCA9kFkhmDw8WAh4LTmF2aWdhdGVVcmwFai9zZWFyY2hlcy9zZWFyY2hfcmVzdWx0c190ZXh0LmFzcHg/dHA9ZmluZGVyJnR5cGU9VHJpbSZicmFuZD0xLDQsNSZjb2xvcj0wJnR0eXBlPTAmdGNvbGw9MCZwYWdlc2l6ZT0xMDAwMDBkZAIBDxYCHgRocmVmBekCbWFpbHRvOnJlc2VhcmNoQHJvYmVydGFsbGVuZGVzaWduLmNvbT9zdWJqZWN0PVJlc2VhcmNoIFF1ZXN0aW9uJmJvZHk9VGhhbmsgeW91IGZvciBzdWJtaXR0aW5nIHlvdXIgcmVxdWVzdCB0byBUaGUgUm9iZXJ0IEFsbGVuIEdyb3VwJ3MgUmVzZWFyY2ggRGVwdC4gUGxlYXNlIGVuc3VyZSB5b3UgaGF2ZSBpbmNsdWRlZCB5b3VyIGFjY291bnQgbnVtYmVyLCB0ZWxlcGhvbmUgbnVtYmVyLCBhbnkgeWFyZGFnZSByZXF1aXJlbWVudHMsIGFuZCBzcGVjaWZpY2FsbHkgaG93IHdlIGNhbiBhc3Npc3QgeW91LiAgV2UgZG8gdmFsdWUgeW91ciBidXNpbmVzcyBhbmQgd2lsbCByZXNwb25kIHRvIHlvdXIgZW1haWwgd2l0aGluIDI0IGhvdXJzLmQCAw8PFgIfAWdkZAIEDw8WAh8AZWRkAgUPDxYCHwBlZGQCCA8PFgIeCEltYWdlVXJsBTxodHRwOi8vaW1hZ2Uucm9iZXJ0YWxsZW5kZXNpZ24uY29tL3JhL0lNR0RldGFpbC8xMDU2NTRfZC5qcGdkZAIJDw8WBh4FV2lkdGgbAAAAAAAAAAABAAAAHgZIZWlnaHQbAAAAAAAAAAABAAAAHgRfIVNCAoADZGQCCg8PFgYfBxsAAAAAAAAAAAEAAAAfCBsAAAAAAAAAAAEAAAAfCQKAA2RkAgsPDxYGHwcbAAAAAAAAAAABAAAAHwgbAAAAAAAAAAABAAAAHwkCgANkZAIMDxYCHwFoZAINDzwrAAkBAA8WAh8BaGRkAg4PDxYCHwAFBkJBUkxPV2RkAg8PDxYCHwAFDFJvYmVydCBBbGxlbmRkAhAPEA8WBh4ORGF0YVZhbHVlRmllbGQFB3Byb2R1Y3QeDURhdGFUZXh0RmllbGQFBWNvbG9yHgtfIURhdGFCb3VuZGcWAh4IT25DaGFuZ2UFSUdvVG9QYWdlKCcvdHJhZGUvZmFicmljX2RldGFpbC5hc3B4JywgJ2N0bDAwX2NvbnRlbnQxX2RkbEF2YWlsYWJsZUNvbG9yJykQFQQGQUxQSU5FCEJVUkdVTkRZBVNQSUNFCVdFREdFV09PRBUEBjEwNTY1NAYwNzg5MjEGMTE1MzcwBjA3OTM4MRQrAwRnZ2dnZGQCEQ8PFgIfAAUGQkFSTE9XZGQCEg8PFgIfAAUDNTQiZGQCEw8PFgIfAAUEMy41MGRkAhQPDxYCHwAFBDQuMDBkZAIVDw8WAh8ABQJOb2RkAhYPDxYCHwAFDVVOSVRFRCBTVEFURVNkZAIXD2QWAgICD2QWAmYPDxYCHwAFA1lEU2RkAhoPFgIfAWcWBGYPZBYCAgEPDxYCHwAFEFdob2xlc2FsZSBQcmljZTpkZAICD2QWAgIBDw8WAh8ABQckIDc0LjAwZGQCHg8PFgIfAAUeNjklIENPVFRPTjxiciAvPiAzMSUgUE9MWUVTVEVSZGQCHw8PFgIfAAUaUHVyZSBTb2x2ZW50cyBEcnkgQ2xlYW5pbmdkZAIhDw8WAh8ABb4BMTUsMDAwIERPVUJMRSBSVUJTPGJyLz5BQVRDQyBNRVRIT0QgMTA3PGJyLz5BQVRDQyBNRVRIT0QgMTYtMjAwMywgT1BUSU9OIDM8YnIvPkFTVE0gMzU5Ny9ENDM0IE9SIEQ0MDM0PGJyLz5BU1RNIDM1OTctMDIvNTAzNC05NTxici8+QVNUTSBEIDIyNjEtOTY8YnIvPkNBTCBURUNIIDExNyBTRUNUSU9OIEU8YnIvPlVGQUMgQ0xBU1MgSWRkAiIPFgIfAWcWBGYPZBYCAgEPDxYCHwAFB1N0YXR1czpkZAICD2QWAgIBDw8WAh8ABQxEaXNjb250aW51ZWRkZAIjDw8WBB8ABQZBTFBJTkUfBAVZc2VhcmNoZXMvc2VhcmNoX2Jvb2tfcmVzdWx0c19kZXRhaWwuYXNweD90eXBlPUZhYnJpYyZib29rPTk3MjIwMCZwcm9kdWN0PTEwNTY1NCZyb290PXRydWVkZAIkDxYCHwFnFgICAQ9kFgICAQ8WAh8FBUhodHRwOi8vd3d3LnJvYmVydGFsbGVub3V0bGV0LmNvbS90cmFkZS9mYWJyaWNfZGV0YWlsLmFzcHg/cHJvZHVjdD0xMDU2NTRkAicPFgIfAWdkAigPDxYCHwBlZGQCKQ8PFgIfAAVLRm9yIGFsdGVybmF0aXZlcywgY29udGFjdCByZXNlYXJjaCBhdCA8YnIvPjgwMC4zMzMuMzc3NiBleHQuIDIyMDIgb3IgZW1haWwuZGQCLA8PFgIfAWhkZAItDw8WAh8AZWRkAi4PFgQfAwUJZGlzcGxheTo7HwFoFgoCAQ8WAh8BaBYGAgEPDxYCHwFoZGQCAw8PFgIfAWhkZAIFDw8WBB4HVG9vbFRpcAW3AiBBYm91dCBNeSBTdHVkaW8gCgogTXkgU3R1ZGlvIGxldHMgeW91IHNhdmUgYW5kIHVwZGF0ZSBwcm9qZWN0cyB3aXRoIGRpZmZlcmVudCBmYWJyaWNzIG9yIHRyaW1zICB3aGljaCB5b3UgbWF5IGZpbmQgYXBwcm9wcmlhdGUgZm9yIHlvdXIgY2xpZW50cy4gUHJvamVjdCBmb2xkZXJzIGNhbiBiZSBjcmVhdGVkIGF0IHRoZSBlbmQgb2YgeW91ciBmYWJyaWMgb3IgdHJpbSBzZWFyY2gsIGFuZCBhcmUgYW4gaWRlYWwgd2F5IHRvIG9yZ2FuaXplIGZhdm9yaXRlICBzd2F0Y2hlcyBmb3IgcXVpY2sgcmVmZXJlbmNlIG9yIGZ1dHVyZSBwdXJjaGFzZS4KHwFoZGQCAw8WAh8BaGQCBQ8QDxYCHwFoZGQWAWZkAgcPZBYCZg9kFgICAQ8PFgIfAAUNRW50ZXIgWWFyZGFnZRYEHgdvbkZvY3VzBQ9jbGVhcmZvcm0odGhpcykeCm9uS2V5UHJlc3MFOktleVByZXNzRW50ZXIoJ2N0bDAwX2NvbnRlbnQxX0lCRmFicmljRGV0YWlsU3RvY2snLCBldmVudClkAg0PPCsACQEADxYCHwFoZGQCLw8WAh8BaBYIAgEPD2QWAh8QBRlLZXlQcmVzc05leHQodGhpcywgZXZlbnQpZAIDDw9kFgIfEAUxS2V5UHJlc3NFbnRlcignY3RsMDBfY29udGVudDFfaWJ0blNpZ25JbicsIGV2ZW50KWQCCg8WAh8FBQtmb3Jnb3QuYXNweGQCDA8WAh8FBQtzaWdudXAuYXNweGQCMA8WAh8DBQlkaXNwbGF5OjtkGAIFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRljdGwwMCRjb250ZW50MSRpYnRuRGV0YWlsBRdjdGwwMCRjb250ZW50MSRpYnRuRnVsbAUfY3RsMDAkY29udGVudDEkZ3J2QXZhaWxhYmxlTG90cw9nZNw/3DpsSHexXrRXGzT4Dtf7h6mT" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=9COTP_Wd_WjrTZZ848Sz_SuJnZGq-U-WpDXt5gZwezws2JPfO0xczUPi58XO37IMNfTFjtTK01t_81iC1j2m0w3k5-c1&amp;t=634604244479085897" type="text/javascript"></script>
+
+<SCRIPT Language='JavaScript'> document.getElementById('aspnetForm').action = '/trade/fabric_detail.aspx' </SCRIPT>
+<div>
+
+	<input type="hidden" name="__PREVIOUSPAGE" id="__PREVIOUSPAGE" value="S87503Lvq1F8evNHWlX7eA2wX3JIr6rlST9xfMZ69YVgGlw9YZ_81f2tkEdUP1DH2c1xcrrU7M2mXvTF2c1iHCmdPFegx0wCORVkpSD4AkFpn7gC0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCgKpp5vUBAKmiJTxCAKC74rUBAK1741WAtm62nMC+6rvfALJtt6OCgLA3s6CBQLPtpYfAvGnkJgKIVjUrZbnuLesIyYGOKhs5ixGYbk=" />
+</div>
+    
+        
+        <div>
+           
+           
+        </div>
+        
+        <script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-26608846-1']);
+	_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+
+       
+        <div>
+           
+           
+        </div>
+    
+    <a name="top"></a>
+    <div align="Center">
+    
+    </br></br>
+    <table width="852" cellpadding="0" cellspacing="-1" bgcolor="#FFFFFF" style="border-collapse:collapse">
+    <tr> 
+        <td style="width: 852px">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr > 
+              <td align="left" valign="top">  
+                    <a href="index.aspx" style="text-decoration:none" title="Robert Allen"><img src="i/home/RobertAllen_New_70K.jpg" alt="Robert Allen" style="border:0; padding-left:0px" /></a> 
+              </td>
+              <td align="right" valign="top" style="height: 34px">
+              
+                  <span id="ctl00_lblWelcome" style="display:inline-block;height:34px;font-size: 8pt; padding-left: 2px; color: #999a9b;vertical-align:middle">Welcome INSIDE STORES</span><span id="ctl00_lblSep" style="display:inline-block;height:34px;font-size: 8pt;color: #999a9b;vertical-align:middle">Â Â Â Â </span>
+                  
+                  <a href="Colorsearch/colorshome.aspx" style="text-decoration:none" title="Search our fabrics"><img src="i/home/SearchFabricsMain.jpg" alt="Search our fabrics" style="border:0; padding-top:15px" /></a> 
+                  
+              </td>
+            </tr>
+      
+                
+
+            
+            </table>
+
+       </td>
+    </tr>
+    </table>
+    </br>
+    <table width="852" border="0" cellpadding="0" cellspacing="-1" bgcolor="#FFFFFF" style="border-collapse: collapse">
+
+    <tr><td valign="middle" align="left" style="padding: 0px 0px 0px 0px; height: 26px;color: #999a9b; font-family:  Helvetica; font-size: 10pt; width: 843px;">
+            &nbsp
+            
+
+            <input type="submit" name="ctl00$btnSignOut" value="SIGN OUT" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$btnSignOut&quot;, &quot;&quot;, false, &quot;&quot;, &quot;http://www.robertallendesign.com/SignOut.aspx&quot;, false, false))" id="ctl00_btnSignOut" Title="Sign out" onmouseout="this.style.color='#999a9b'" onmouseover="this.style.color='#000000'" style="color:#999A9B;background-color:White;border-color:White;border-style:None;font-size:10pt;width:80px; border-style:none; outline-style:none; border:none; background-position:center; background-color:#FFFFFF;" />
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="fabrics/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Fabric">FABRIC</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="Collections/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Collections">COLLECTIONS</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="trim/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Trim">TRIM</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="hardware/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Hardware">HARDWARE</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="furniture/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Furniture">FURNITURE</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="contract/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Contract">CONTRACT</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <a href="showrooms/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Showrooms">SHOWROOMS</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+             <a href="fabrics/books/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="eLibrary">eLIBRARY</a
+            >
+
+            </td></tr>
+                
+
+    </table>
+    
+    <hr id="ctl00_LoggedInLine" style="color: #999a9b; height: 1px; width:852px"></hr>
+
+    <table width="852" border="0" cellpadding="0" cellspacing="-1" bgcolor="#FFFFFF" style="border-collapse: collapse">
+          
+    <tr id="ctl00_rowLoggedInButtons" style="display:;">
+	<td bgcolor="#FFFFFF" style="width: 843px"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        
+            <tr> 
+            <td valign="middle" align="left" style="padding: 0px 0px 0px 0px; height: 26px;color: #999a9b; font-family:  Helvetica; font-size: 10pt;">
+            &nbsp;&nbsp;
+            <a href="trade/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Place Orders/Check Stock">PLACE ORDERS/CHECK STOCK</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="onlinelibrarian/signin.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Online Librarian">ONLINE LIBRARIAN</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="trade/myaccount.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="My Account">MY ACCOUNT</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="trade/mystudio.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="My Studio">MY STUDIO</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="trade/downloads.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt; text-decoration: none" onmouseout="this.style.color='#999a9b'" 
+                onmouseover="this.style.color='#000000'" title="Price Lists">PRICE LISTS</a
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            
+            </td>
+            <td  valign="middle" align="center" style="padding: 0px 0px 0px 0px; height: 26px;color: #999a9b; font-family:  Helvetica; font-size: 10pt;">
+                <a href="trade/cart.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none; vertical-align:middle" onmouseout="this.style.color='#999a9b'" onmouseover="this.style.color='#000000'" title="Shopping Bag">BAG&nbsp;
+                <img src="i/home/shoppingpackage.jpg" alt="Shopping Bag" style="border:0;height:26px;width:26px; vertical-align:middle" /></a> 
+            </td>
+             
+            </tr>
+          </table>
+	      </td>
+</tr>
+
+    </table>
+    </br>
+    
+<script language="javascript" type="text/javascript"> 
+  function poponload(w,h,product,pieceNO,rowNO)
+    {
+     w += 32;
+     h += 32;  
+     if(navigator.appName == "Microsoft Internet Explorer")
+        testwindow = window.open("Piece_Reserve_Detail.aspx?product=" + product + "&pieceNO=" + pieceNO +"&rowNO=" + rowNO,"",'width=' + w + ', height=' + h + ',location=no');
+     else 
+          testwindow = window.open("trade/Piece_Reserve_Detail.aspx?product=" + product + "&pieceNO=" + pieceNO +"&rowNO=" + rowNO,"",'width=' + w + ', height=' + h + ',location=no');
+     testwindow.resizeTo(w, h);
+     testwindow.focus();  
+     testwindow.moveTo(50,50);  
+     testwindow.opener = self;
+     return false;
+    }
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+   
+   
+ !function(d,s,id)
+ {var js,fjs=d.getElementsByTagName(s)[0];
+  if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js,fjs);
+  }}(document,"script","twitter-wjs");
+  
+ 
+</script>
+
+<div id="fb-root"></div>
+ <table width="852" border="0" cellpadding="0" cellspacing="0" bgcolor="#E9E9E1">
+    <tr> </tr>
+    <tr> 
+      <td valign="top" class="trade_main"> 
+     
+        <a id="ctl00_content1_lnkReturn" href="/searches/search_results_text.aspx?tp=finder&amp;type=Trim&amp;brand=1,4,5&amp;color=0&amp;ttype=0&amp;tcoll=0&amp;pagesize=100000">Return to results ></a>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="searches/search.aspx">Start a new search &gt;</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+          <a href="mailto:research@robertallendesign.com?subject=Research Question&body=Thank you for submitting your request to The Robert Allen Group's Research Dept. Please ensure you have included your account number, telephone number, any yardage requirements, and specifically how we can assist you.  We do value your business and will respond to your email within 24 hours." id="ctl00_content1_lnkEmailResearch">
+          <span id="ctl00_content1_btnResearch">Email Research</span></a>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <a id="ctl00_content1_lnkemailpg" href="javascript:__doPostBack('ctl00$content1$lnkemailpg','')"><span id="ctl00_content1_btnPage">Email Page</span></a>            
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <a id="ctl00_content1_lnkCreatePDF" href="javascript:__doPostBack('ctl00$content1$lnkCreatePDF','')"><span id="ctl00_content1_btnCreatePDF">Create PDF</span></a>  <br />
+       
+          
+          <img src="i/global/spacer.gif" width="1" height="4"><br />
+          <img src="i/global/divline.gif" width="795" height="2"> 
+          <p>
+                <span id="ctl00_content1_lblError" style="color:Firebrick;"></span>
+                <span id="ctl00_content1_lblStatus"></span>                     
+          </p>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top">
+            <td width="1%">
+                <table width="80%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="padding: 4px;" bgcolor="#FFFFFF">
+                            <table width="245" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td rowspan="2" class="left">
+                                        <img src="i/global/fl_icon.gif" width="24" height="21" border="0"></td>
+                                    <td class="left" valign="top">
+                                        <img src="i/global/fl_title.gif" width="221" height="10" border="0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="left" valign="top" colspan=2>
+                                        <input type="image" name="ctl00$content1$ibtnDetail" id="ctl00_content1_ibtnDetail" src="i/global/fl_onetoone_on.gif" alt="View 1 to 1" style="height:12px;border-width:0px;" />
+                                        
+                                        <input type="image" name="ctl00$content1$ibtnFull" id="ctl00_content1_ibtnFull" src="i/global/fl_viewrepeat.gif" alt="View Repeat" style="height:12px;width:71px;border-width:0px;" />
+                                    </td>
+                                    <!--<td class="left" valign="top">
+                            <a href="#"><img src="i/global/fl_onetoone_on.gif" width="68" height="12" border="0"></a>
+                            <a href="#"><img src="i/global/fl_view_upclose.gif" width="82" height="12" border="0"></a>
+                            <a href="#"><img src="i/global/fl_viewrepeat.gif" width="71" height="12" border="0"></a>
+                        </td>-->
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 3px solid white;">
+                            <img id="ctl00_content1_ImgDetail" src="http://image.robertallendesign.com/ra/IMGDetail/105654_d.jpg" style="border-width:0px;" />
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <img id="ctl00_content1_ImgRulerHori" src="" style="height:0px;width:0px;border-width:0px;display:none;" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img id="ctl00_content1_ImgRulerVeri" src="" style="height:0px;width:0px;border-width:0px;display:none;" /></td>
+                                    <td valign="top">
+                                        </td>
+                                </tr>
+                                   
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td >
+                          <table width="25%">
+                             <tr>
+                                <td style="width:10%; padding-right:20px; vertical-align:top">
+                                     <div class="fb-like" data-href="http://www.robertallendesign.com/trade/fabric_detail.aspx?product=105654" 
+                                     data-send="false" data-width="90" data-layout="button_count" data-show-faces="false"></div>
+                                </td>
+                                <td style="width:10%; padding-right:40px; vertical-align:top">
+                                     <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.robertallendesign.com%2Ftrade%2Ffabric_detail.aspx%3Fproduct%3D105654&media=http%3A%2F%2Fimage.robertallendesign.com%2Fra%2FIMGThumb%2F105654_t.jpg&description=Robert%20Allen%20fabric%20pattern" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                               </td>
+                               <td style="width:10%; vertical-align:top">
+                                     <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.robertallendesign.com/trade/fabric_detail.aspx?product=105654">Tweet</a>
+                               </td>
+
+                              </tr>
+                          </table>
+                       </td>
+                    </tr>
+                </table>
+                
+                <br /> 
+               
+                 
+                <table width="95%" border="0" cellspacing="0" cellpadding="7">
+                  <tr align="left"> 
+                        <td height="150px">
+                      
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            
+            <td style="padding-left:15px; width: 48%;"> 
+                <p>
+                    <span class="boldhead">
+                        <span id="ctl00_content1_lblProductName">BARLOW</span> 
+                    </span>
+                    <br />
+                    <span id="ctl00_content1_lblBrand">Robert Allen</span>
+                    <br />
+                    <br />
+                </p>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td nowrap colspan="3">View Colors</td>
+                </tr>
+                <tr>
+                  <td nowrap colspan="3" height="18px">
+                    <select name="ctl00$content1$ddlAvailableColor" id="ctl00_content1_ddlAvailableColor" class="textbox" OnChange="GoToPage('/trade/fabric_detail.aspx', 'ctl00_content1_ddlAvailableColor')" style="vertical-align:top;">
+	<option selected="selected" value="105654">ALPINE</option>
+	<option value="078921">BURGUNDY</option>
+	<option value="115370">SPICE</option>
+	<option value="079381">WEDGEWOOD</option>
+
+</select>
+                  </td>                  
+                </tr>
+          
+                <tr>
+                  <td nowrap colspan="3">&nbsp</td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Pattern:</td>
+                  <td style="width: 6px">&nbsp;&nbsp;</td>
+                  <td width="98%"><span id="ctl00_content1_lblPattern" style="font-size:Smaller;">BARLOW</span></td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Width:</td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblWidth" style="font-size:Smaller;">54"</span> </td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Horizontal&nbsp;Repeat:</td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblHrepeat" style="font-size:Smaller;">3.50</span>  </td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Vertical Repeat:</td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblVRepeat" style="font-size:Smaller;">4.00</span></td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Railroaded:</td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblRailrd" style="font-size:Smaller;">No</span></td>
+                </tr>
+                <tr> 
+                  <td nowrap style="width: 99px">Origin:</td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblOrigin" style="font-size:Smaller;">UNITED STATES</span></td>
+                </tr>
+                <tr id="ctl00_content1_unitRow">
+	<td nowrap="nowrap" style="width: 99px; height: 17px;">Unit:</td>
+	<td style="width: 6px; height: 17px;">&nbsp;</td>
+	<td style="height: 17px"><span id="ctl00_content1_lblUnit" style="font-size:Smaller;">YDS</span> </td>
+</tr>
+                
+                 
+                
+                <tr id="ctl00_content1_priceRow">
+	<td nowrap="nowrap" style="width: 99px">
+                    <span id="ctl00_content1_lblWholesalePrice">Wholesale Price:</span>
+                  </td>
+	<td style="width: 6px">&nbsp;</td>
+	<td>
+                    <span id="ctl00_content1_lblWholesalePriceVal" style="font-size:Smaller;">$ 74.00</span>
+                  </td>
+</tr>
+                
+                <tr> 
+                  <td nowrap style="width: 99px">
+                    <span id="ctl00_content1_lblUserPrice"></span>
+                  </td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td>
+                    <span id="ctl00_content1_lblUserPriceVal" style="font-size:Smaller;"></span>
+                  </td>
+                </tr>  
+                 
+                <tr> 
+                  <td colspan="3"><br />Fabric Contents<br /> 
+                    <strong>
+                    <span id="ctl00_content1_lblFabContents">69% COTTON<br /> 31% POLYESTER</span>
+                    </strong>
+                  </td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;</td>    
+                </tr>
+                <tr> 
+                  <td nowrap valign="top" style="width: 99px">Cleaning Code:<br/></td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblCleaningCode" style="font-size:Smaller;">Pure Solvents Dry Cleaning</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;</td>    
+                </tr>
+                <tr> 
+                  <td nowrap valign="top" style="width: 90px">
+                      <span id="ctl00_content1_lblFabricPerf">Fabric Performance:</span></td>
+                  <td style="width: 6px">&nbsp;</td>
+                  <td><span id="ctl00_content1_lblperformance" style="font-size:Smaller;">15,000 DOUBLE RUBS<br/>AATCC METHOD 107<br/>AATCC METHOD 16-2003, OPTION 3<br/>ASTM 3597/D434 OR D4034<br/>ASTM 3597-02/5034-95<br/>ASTM D 2261-96<br/>CAL TECH 117 SECTION E<br/>UFAC CLASS I</span></td>
+                </tr>
+                <tr id="ctl00_content1_lifeStatusRow">
+	<td nowrap="nowrap" style="width: 99px">
+                    <span id="ctl00_content1_lblBookLifeStatus">Status:</span>
+                  </td>
+	<td style="width: 6px">&nbsp;</td>
+	<td>
+                    <span id="ctl00_content1_lblBookLifeStatusVal" style="font-size:Smaller;">Discontinued</span>
+                  </td>
+</tr>
+           
+              </table>
+              <br />Book Name: 
+                    <a id="ctl00_content1_lnkBookName" href="searches/search_book_results_detail.aspx?type=Fabric&amp;book=972200&amp;product=105654&amp;root=true">ALPINE</a>
+            </td>
+          
+            <td style="padding-left:10px;" width="52%"> 
+               <div id="ctl00_content1_DivClearance">
+                    <label id="ctl00_content1_lblClearance" style="font-style: italic; font-weight: bold;">
+                        This product is a clearance product and can be purchased at <a href="http://www.robertallenoutlet.com/trade/fabric_detail.aspx?product=105654" id="ctl00_content1_outletLnk" target="_blank">www.robertallenoutlet.com</a> for a discounted price<br /><br />
+                    </label>
+                     <span id="ctl00_content1_lblClearanceIntr" style="font-style: italic; font-weight: bold;"></span> 
+                </div>                
+             <!--   <div id="ctl00_content1_divDisc">
+                    <label style="font-style: italic; font-weight: bold;">
+                        Please note this fabric has been DISCONTINUED.<br /><br />
+                    </label>
+                </div>
+                <div id="ctl00_content1_divDiscWithStock">
+                    <label style="font-style: italic; font-weight: bold;">
+                        Please note this fabric has been DISCONTINUED, however limited yardage is available.<br /><br />
+                    </label>
+                </div>-->
+                   <div id="ctl00_content1_divOutOfStock">
+                    <label style="font-style: italic; font-weight: bold;">
+                        This product is currently sold out. We apologize for any inconvenience.
+                    </label>                                         
+                </div> 
+                 <span id="ctl00_content1_lblSoldOut" style="font-weight:bold;font-style:italic;"></span><br />
+                  <span id="ctl00_content1_lblSoAlt" style="font-weight:bold;font-style:italic;">For alternatives, contact research at <br/>800.333.3776 ext. 2202 or email.</span><br /><br />
+                 <span id="ctl00_content1_lblStockStatus"></span>
+                  <span id="ctl00_content1_lblStockError" style="color:Firebrick;"></span>  
+                    
+                     <i><b></b></i><br />
+                    <br />
+                     
+                
+               
+                 
+                
+                
+             </td>           
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+       </td>
+    </tr>
+    <tr>
+      <td><img src="i/global/base.gif" width="852" height="12"></td>
+    </tr>
+  </table>
+<script language="javascript">
+    function GoToPage(url, target)
+    {
+        document.location = url + '?product=' + document.getElementById(target).value;
+    }
+ </script>
+ <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+    <table width="852" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+        <td  style="color: #999a9b;height: 28px; font-family:  Helvetica; font-size: 10pt" valign="middle">
+            
+            
+        
+            <a href="http://www.beaconhilldesign.com" target="_blank" style="text-decoration:none; vertical-align:top;padding-top:1px"><img src="i/home/BH_Logo10pxB.JPG" alt="Beacon Hill" style="border:0;vertical-align:top;padding-top:1px" /></a> 
+            &nbsp;&nbsp;
+            <a href="http://www.robertallenoutlet.com" target="_blank" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none;" title="Outlet">OUTLET</a>
+            &nbsp;&nbsp;
+            <a href="theshadestore/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none;" title="The Shade Store">THE SHADE STORE</a>
+        
+            &nbsp;&nbsp;
+            <a href="whatsnew/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none;" title="In The News">IN THE NEWS</a>
+            &nbsp;&nbsp;
+            <a href="contact_us.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none;" title="Contact Us">CONTACT US</a>
+            &nbsp;&nbsp;
+            <a href="about_us.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 10pt;text-decoration:none;" title="About Us">ABOUT US</a>
+            &nbsp;&nbsp;1-800-333-3777
+        </td>
+            
+    <td  align="right" style="height: 28px" valign="top"> 
+             <a href="http://www.facebook.com/RobertAllenGroup" target="_blank" style="text-decoration:none;"><img src="i/home/Facebook.jpg" alt="Facebook"  style="border:0; height:25px"/></a>
+             <a href="http://www.houzz.com/pro/robert-allen-design/__public" target="_blank" style="text-decoration:none;"><img src="i/home/houzz.jpg" alt="houzz"  style="border:0; height:25px"/></a>
+             <a href="https://twitter.com/#!/R_AllenDesign" target="_blank" style="text-decoration:none;"><img src="i/home/Twitter.jpg" alt="Twitter" style="border:0; height:25px"/></a>
+             <a href="http://instagram.com/robertallendesign" target="_blank" style="text-decoration:none;"><img src="i/home/instagram.jpg" alt="instagram"  style="border:0; height:25px"/></a>
+             <a href="http://pinterest.com/RADesign/" target="_blank" style="text-decoration:none;"><img src="i/home/Pinterest.jpg" alt="Pinterest" style="border:0; height:25px"/></a>
+        </td>
+    </tr>
+    
+    </table>
+     <table width="852" border="0" cellpadding="1" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+        <td align="right" style="color:#999a9b;font-size: 8pt;font-family: Helvetica">
+               Â©2014 The Robert Allen Group &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="policies1.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 8pt;text-decoration:none;" title="Robert Allen Policies">Policies</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mobile/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 8pt;text-decoration:none;" title="Mobile Version">View Mobile Site</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="International/index.aspx" style="color: #999a9b; font-family: Helvetica; font-size: 8pt;text-decoration:none;" title="International Site">View International Site</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+  </table>
+  </br></br>
+    </div>
+    <a name="bottom"></a>
+    <div id="popUpDiv" class="popUpWindow" style="display: none; visibility: hidden;" ></div> 
+      
+  
+    </form>  
+</body>
+</html>

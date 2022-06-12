@@ -1,0 +1,235 @@
+﻿@{
+    ViewBag.Title = "Test Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+    <script type="text/javascript">
+        function performSearch(query) {
+            window.location.href = "StoreApi/1.0/ProductSearch/InsideFabric?pageSize=10&query=" + query.replace(" ", "%20")
+        }
+
+
+        // facet search
+
+        $(function () {
+
+            function onFacetSearch()
+            {
+                var url = "StoreApi/1.0/FacetProductSearch/InsideFabric?pageSize=20";
+                var mydata = {
+                    "SearchPhrase": "floral",
+                    "RecentlyViewed": [],
+                    "Facets": [
+                      {
+                          "FacetKey": "Manufacturer",
+                          "Members": [
+                            67,
+                            6,
+                            52
+                          ]
+                      },
+                      {
+                          "FacetKey": "Color",
+                          "Members": [
+                            44,
+                            39
+                          ]
+                      },
+                      {
+                          "FacetKey": "Material",
+                          "Members": [
+                            35
+                          ]
+                      }
+                    ]
+                };
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data:  JSON.stringify(mydata),
+                    contentType: "application/json",
+                    processData: false,
+                    cache: false,
+                    dataType: 'xml', // what we're expecting back
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("Facet search error.");
+                        console.log("    " + errorThrown);
+                        console.log("    " + jqXHR);
+                    }
+                });
+
+            }
+
+            $("#testFacetSearch").click(function (evt) {
+                evt.preventDefault();
+                onFacetSearch();
+            });
+        });
+
+
+    </script>
+}
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#testGeneral" data-toggle="tab">General</a></li>
+    <li><a href="#testAutosuggest" data-toggle="tab">Auto Suggest</a></li>
+    <li><a href="#testPageViews" data-toggle="tab">Page Views</a></li>
+    <li><a href="#testCampaigns" data-toggle="tab">Campaigns</a></li>
+    <li><a href="#testSearch" data-toggle="tab">Search</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="testGeneral">
+        <h2>General</h2>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturer/InsideFabric/11">Test Manufacturer 11 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategory/InsideFabric/35">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategory/InsideFabric/35/priceascend?pageNo=3&pageSize=40">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ProductSet/InsideFabric?products=681460,681571,681823">Test Product Set API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideFabric/5">Kravet-5</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideFabric/5?filterByColor=40,53">Kravet-5 (black-40 or pink-53)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideFabric/5?filterByColor=40,53&filterByPattern=126">Kravet-5 (black-40 or pink-53, plus stripes-126)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideFabric/category/35">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideFabric/category/35/priceascend?pageNo=3&pageSize=40">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideAvenue/category/71">Test IA Category 71 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategoryEx/InsideFabric/35?filterByType=35">Cotton-35</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategoryEx/InsideFabric/35?filterByType=35&filterByBrand=5,51">Cotton-35 plus brand-5 or 51</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerLabelValue/InsideFabric/55?label=book&value=1214">Stout / Book 1214 API</a></p>
+
+        <p><a href="StoreApi/1.0/ListProductsByPatternCorrelator/InsideFabric?pattern=SC-T3188">Pattern SC-T3188</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByPatternCorrelator/InsideFabric?pattern=SC-T3188&productid=889958">Pattern SC-T3188 excl 889958</a></p>
+
+        <p><a href="StoreApi/1.0/ListProductsByProductCollection/InsideFabric/34491">Products in Collection: 5</a></p>
+
+        <p><a href="StoreApi/1.0/ListBooksByManufacturer/InsideFabric/5">Books: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListPatternsByManufacturer/InsideFabric/5">Patterns: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListCollectionsByManufacturer/InsideFabric/5">Collections: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListBooksByManufacturer/InsideFabric/5?filter=silk">Kravet Books: silk</a></p>
+        <p><a href="StoreApi/1.0/CollectionsAutoSuggestQuery/InsideFabric/Books/5/Contains/100?query=silk">Kravet Books Autosuggest: silk</a></p>
+
+
+        <p><a href="StoreApi/1.0/ProductCollectionAutoSuggestQuery/InsideFabric/116/Contains/100?query=silk">Kravet Book 116: silk</a></p>
+
+
+        <p><a href="StoreApi/1.0/ListNewProducts/InsideFabric?days=90&Page=1&pageSize=32&filter=">New Products: All</a></p>
+        <p><a href="StoreApi/1.0/ListNewProducts/InsideFabric/5?days=90&Page=1&pageSize=32&filter=">New Products: Kravet</a></p>
+
+        <h2>Stock Check API</h2>
+        <p><a href="StoreApi/1.0/StockCheck/InsideFabric/Variant/2176462/5?ip=0.0.0.1">Single Variant 2176462</a></p>
+        <p><a href="StoreApi/1.0/StockCheck/InsideFabric/Vendors">List Vendor Capabilities</a></p>
+
+        <h2>Other</h2>
+        <p><a href="StoreApi/1.0/RelatedProducts/InsideFabric/7453/856?count=10">Test Related Products API</a></p>
+        <p><a href="StoreApi/1.0/CrossMarketingProducts/InsideAvenue/myreference?count=45&allowResultsFromSelf=true">Test Cross Marketing Products API</a></p>
+
+
+        <p><a href="StoreApi/1.0/ListDiscontinuedProducts/InsideFabric">Discontinued Products - All</a></p>
+        <p><a href="StoreApi/1.0/ListProductsMissingImages/InsideFabric">Products Missing Images - All</a></p>
+
+
+        <p><a href="StoreApi/1.0/ListDiscontinuedProducts/InsideFabric/5">Discontinued Products - Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListProductsMissingImages/InsideFabric/5">Products Missing Images - Kravet</a></p>
+
+        <h2>Robots API</h2>
+        <p><a href="StoreApi/1.0/Robots/RobotsData">Get Robots Data</a></p>
+        <p><a href="StoreApi/1.0/Robots/AddRobot?ip=192.168.0.1">Add Robot 192.168.0.1</a></p>
+        <p><a href="StoreApi/1.0/Robots/AddRobot?ip=192.168.0.1&agent=my-user-agent-string">Add Robot 192.168.0.1 with agent</a></p>
+
+        <h2>Share A Sale</h2>
+        <p><a href="StoreApi/1.0/ShareASale/DownloadFeed/70843">Download Feed 70843 (Houzz)</a></p>
+        <p><a href="StoreApi/1.0/ShareASale/Products/InsideFabric/12332?count=10">10 Random Products</a></p>
+    </div>
+
+
+    <div class="tab-pane fade" id="testAutosuggest">
+        <h2>Auto Suggest</h2>
+        <p><a href="StoreApi/1.0/AutoSuggestQuery/InsideFabric/0/StartsWith/100?query=RA-232">Default Suggest Query</a></p>
+    </div>
+
+    <div class="tab-pane fade" id="testPageViews">
+        <h2>Page Views</h2>
+        <p><a href="ReportPageViews/InsideFabric?home=5&manufacturer=4&category=9&product=15&other=7&bot=4">Report Views Only</a></p>
+        <p><a href="ReportPageViews/InsideFabric?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110">Report Views and Response Times</a></p>
+        <p><a href="ReportPageViews/InsideFabric?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110&responsetimes=40,30,20,100,39,59,39,18,98,67,46">Report Views, Response Times with Values</a></p>
+    </div>
+    <div class="tab-pane fade" id="testCampaigns">
+        <h2>Campaign Monitor</h2>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/Master/Add?email=peter@test.com">Add Subscriber</a></p>
+
+        <h2>SendGrid</h2>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/master/Add?email=pavritch@pcdynamics.com">subscribe master</a></p>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/master/Remove?email=pavritch@pcdynamics.com">unsubscribe master</a></p>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/fabric20off/Add?email=pavritch@pcdynamics.com">fabric20off</a></p>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/swatch/Add?email=pavritch@pcdynamics.com">swatch</a></p>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideFabric/decor20off/Add?email=pavritch@pcdynamics.com">decor20off</a></p>
+
+
+        <h2>Add Abandoned Cart Tickler Campaign</h2>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Add/AbandonedCart/InsideFabric/0">Add Tickler Campaign (IF)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Add/AbandonedCart/InsideAvenue/0">Add Tickler Campaign (IA)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Add/AbandonedCart/InsideWallpaper/0">Add Tickler Campaign (IW)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Add/AbandonedCart/InsideRugs/0">Add Tickler Campaign (IR)</a></p>
+
+        <p>These will fail token check until updated:</p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Unsubscribe/InsideFabric?kind=ac&token=00000000010000000002708BCA3BF89E48953A2A9E41581B720D925D42B89BB6169AB4E2B440D4420676">Unsubscribe Campaign (IF)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/GetUnsubscribeEmail/InsideFabric?kind=ac&token=00000000010000000002708BCA3BF89E48953A2A9E41581B720D925D42B89BB6169AB4E2B440D4420676">Get Unsubscribe Email (IF)</a></p>
+
+        <h2>Preview Notification Emails</h2>
+        <p><a href="/Preview/InStockNotificationEmail?format=html">Back in Stock Notification HTML (IF)</a></p>
+        <p><a href="/Preview/InStockNotificationEmail?format=text">Back in Stock Notification Text (IF)</a></p>
+
+        <p><a href="/Preview/AbandonedCartEmail?format=html">Abandoned Cart HTML (IF)</a></p>
+        <p><a href="/Preview/AbandonedCartEmail?format=text">Abandoned Cart Text (IF)</a></p>
+
+        <p><a href="/Preview/LongTimeNoSeeEmail?format=html">Long Time No See HTML (IF)</a></p>
+        <p><a href="/Preview/LongTimeNoSeeEmail?format=text">Long Time No See Text (IF)</a></p>
+
+        <p><a href="/Preview/OnlySwatchesEmail?format=html">Only Swatches HTML (IF)</a></p>
+        <p><a href="/Preview/OnlySwatchesEmail?format=text">Only Swatches Text (IF)</a></p>
+
+        <p><a href="/Preview/RecentSwatchPurchaseEmail?format=html">Recent Swatch Purchase HTML (IF)</a></p>
+
+
+        <h2>New Order Notification</h2>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Order/InsideFabric/0">New Order (IF)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Order/InsideWallpaper/0">New Order (IW)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Order/InsideAvenue/0">New Order (IA)</a></p>
+        <p><a href="StoreApi/1.0/TicklerCampaigns/Order/InsideRugs/0">New Order (IR)</a></p>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="testSearch">
+        <h2>Search</h2>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideFabric/PriceAscend?pageNo=13&pageSize=50&query=this%20is%20my%20query">Test Search API</a></p>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideFabric?pageSize=10&query=silk%20red">Test Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideFabric?pageSize=10&Keywords=silk%20red">Test Advanced Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideFabric?pageSize=10&Keywords=silk%20red&ColorList=11212,121218">Test Advanced Search API 2</a></p>
+
+        <p><a href="StoreApi/1.0/SearchGalleryList/InsideFabric/1">Search Gallery ID:1</a></p>
+
+        <br />
+        <br />
+
+        <p>Search Phrase: <input id="SearchPhrase" style="width:300px" /> <button onclick="performSearch(document.getElementById('SearchPhrase').value)">Search</button></p>
+
+        <br />
+        <br />
+        <p><a id="testFacetSearch" href="#">Test Facet Search POST</a></p>
+
+
+    </div>
+
+
+</div>
+
+

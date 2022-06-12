@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.125, 8.5" name="AspDotNetStoreFront">
+  <DataContextMoniker Name="/AspStoreDataContext" />
+  <nestedChildShapes>
+    <classShape Id="dabaa5da-6571-4e6c-9f0a-b60caf30c835" isExpanded="false" absoluteBounds="1.375, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="70a46bb3-055a-461e-877d-fc85c13a2501" absoluteBounds="1.3900000000000001, 0.96, 1.9700000000000002, 7.3645426432291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="43c87316-16f0-4cfa-bb29-ef7a5c32bba1" isExpanded="false" absoluteBounds="1.375, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b164747d-58a9-432f-a5c2-3359f081f9bd" absoluteBounds="1.3900000000000006, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4482f169-60b2-497e-bd04-31bdb378ded3" isExpanded="false" absoluteBounds="3.75, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4823737e-193a-4e97-9081-2eb1f15f2de2" absoluteBounds="3.7649999999999997, 1.585, 1.9700000000000002, 14.479695638020832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b6bf817f-8e09-4c78-af7b-606c268d1d88" isExpanded="false" absoluteBounds="6, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductManufacturer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5591b5f3-8d45-4c99-8c4d-8d4f5d965499" absoluteBounds="6.0150000000000006, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="28494733-34a1-40ba-92d2-ad1b87f8f445" isExpanded="false" absoluteBounds="3.75, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductVariant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="afbd4c35-668d-484d-a5a3-c0ea99701a4c" absoluteBounds="3.7649999999999997, 0.96, 1.9700000000000002, 11.402872721354166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="71f6be90-648a-4514-b7c5-e4409aa46020" isExpanded="false" absoluteBounds="6, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Manufacturer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2823a56c-9885-4c7b-9f8b-ebbbdc02b76d" absoluteBounds="6.0150000000000006, 0.96, 1.9700000000000002, 8.5183512369791661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="757af6de-d12e-4109-8966-5a811e5a2f40" isExpanded="false" absoluteBounds="8.25, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/AutoSuggestPhrase" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8da74821-a508-4d4a-8461-2b3b8c7a7a67" absoluteBounds="8.265, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="afac70f8-1307-4fd3-ac04-c0a6139f116a" isExpanded="false" absoluteBounds="8.25, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductLabel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9f461e65-be00-4424-a618-6df408e5acbe" absoluteBounds="8.265, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fdee814f-34c6-4bcb-b8cd-3f86ff53c29b" isExpanded="false" absoluteBounds="1.375, 2.375, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1f73bf4f-ab59-41aa-9863-d2d249345b84" absoluteBounds="1.3900000000000001, 2.835, 1.9700000000000002, 27.9407958984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d4f841f9-de51-4420-86e0-8a4e11968c5c" isExpanded="false" absoluteBounds="1.375, 3.125, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Orders_ShoppingCart" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ddd7e4b7-d275-4868-9678-7f3d055a0842" absoluteBounds="1.3900000000000001, 3.585, 1.9700000000000002, 10.249064127604166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fcb098dd-af4d-45d3-8ff4-d356acae583e" isExpanded="false" absoluteBounds="1.375, 3.75, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/OrderNumber" />
+      <nestedChildShapes>
+        <elementListCompartment Id="94fff348-60cc-455e-91db-52778ac6c70b" absoluteBounds="1.3899999999999997, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2c18dddb-be8e-4228-889b-0a0bff415d2f" isExpanded="false" absoluteBounds="3.875, 2.375, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductCrossLink" />
+      <nestedChildShapes>
+        <elementListCompartment Id="295e0b23-3b4a-4ed6-900c-cd7c11e3ed76" absoluteBounds="3.8899999999999997, 2.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="191e79a7-fcd2-4df9-90cc-4118dc997c3b" isExpanded="false" absoluteBounds="6.625, 2.625, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductCollection" />
+      <nestedChildShapes>
+        <elementListCompartment Id="359204f8-5ec5-4853-8489-e048cc77d07a" absoluteBounds="6.64, 3.085, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b8adbd13-2deb-4157-876d-54a65194242f" isExpanded="false" absoluteBounds="1.375, 4.875, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/EmailSubscriber" />
+      <nestedChildShapes>
+        <elementListCompartment Id="98683762-b89d-4d21-abb3-51b1b5dcc272" absoluteBounds="1.3900000000000001, 5.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8141a822-9304-44c4-a7fa-ce0909f1656d" isExpanded="false" absoluteBounds="6.625, 3.75, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ImageProcessingQueue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e44d7196-7632-4a2d-84c3-5b3f9ee5430a" absoluteBounds="6.64, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="425be80d-aa9b-4fbc-8cf3-259cfbd9e905" isExpanded="false" absoluteBounds="9.5, 2.375, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/StockCheckNotification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="61891b5f-3d6d-49f6-a817-25d8620295f3" absoluteBounds="9.515, 2.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c6e705a6-4380-4098-8175-d4dc085566cb" isExpanded="false" absoluteBounds="4, 3.25, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductFeature" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5351fac1-deb4-49b2-98e1-208c5596e7b3" absoluteBounds="4.015, 3.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3c35dc1e-ebcc-4ca0-8e3e-f8f2946977f8" isExpanded="false" absoluteBounds="6.5, 4.875, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eae1bb77-5236-47b8-b3bc-144371e8a8fe" absoluteBounds="6.5150000000000006, 5.335, 1.9700000000000002, 12.172078450520832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5bc9c84e-aa31-4149-a374-078d1df0cd27" isExpanded="false" absoluteBounds="3.875, 4.875, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/TicklerCampaign" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c5c35b17-9a6c-40d0-9a98-59339c375f34" absoluteBounds="3.89, 5.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4017bc3a-7434-4c0a-a918-3f32a6002310" isExpanded="false" absoluteBounds="9, 4.875, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ShoppingCart" />
+      <nestedChildShapes>
+        <elementListCompartment Id="130a100e-6c30-48e6-8c1a-d493eca58577" absoluteBounds="9.015, 5.335, 1.9700000000000002, 10.0567626953125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4e50b0ed-6647-4991-a1ee-a63c4e159c9f" isExpanded="false" absoluteBounds="10.25, 3.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/AlgoliaProduct" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dab5afa8-35c5-4247-a159-4d20e9e489ef" absoluteBounds="10.265, 3.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="028735f0-44d1-4066-815c-8756ebf34ae1" isExpanded="false" absoluteBounds="10.875, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/SearchGalleryQuery" />
+      <nestedChildShapes>
+        <elementListCompartment Id="069d60f5-a2fd-42bd-a593-6471f273546f" absoluteBounds="10.89, 1.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6825224a-d63e-4425-a926-2a932c6e7382" isExpanded="false" absoluteBounds="10.875, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/SearchGallery" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4217d02c-9660-4bdd-9aeb-cf55ed48de05" absoluteBounds="10.89, 0.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

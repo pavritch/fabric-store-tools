@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html ng-app="VendorStatusApp" lang="en">
+<head>
+    <title>Request Tester</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.css" />
+    <link rel="stylesheet" href="/Content/fullcalendar.css" />
+    <link rel="stylesheet" href="/Content/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="/Content/icheck/flat/blue.css" />
+    <link rel="stylesheet" href="/Content/unicorn.css" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body data-color="grey" class="flat">
+    <div id="wrapper">
+        <div id="header">
+            <h1><a href="./index.html">Admin</a></h1>
+            <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <div id="sidebar">
+            <ul>
+                <li><a href="../DashboardApp/index.html"><i class="fa fa-home"></i> <span>Live Dashboard</span></a></li>
+                <li><a href="../RequestTesterApp/index.html"><i class="fa fa-home"></i> <span>Request Tester</span></a></li>
+                <li class='active'><a href="../VendorStatusApp/index.html"><i class="fa fa-home"></i> <span>Vendor Status</span></a></li>
+            </ul>
+        </div>
+
+        <div id="content" ng-controller="VendorStatusController">
+            <div id="content-header" class="mini">
+                <h1>Vendor Status</h1>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12" style='text-align:center;'>
+                                <div style='text-align:right'>
+                                    <button type="button" ng-click='refreshVendorStatus()' class="btn btn-primary">{{refreshButtonText}}</button>
+                                </div>
+                                <div class="widget-box">
+                                    <div class="widget-content nopadding">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th ng-click='setSortField("VendorName")'>Vendor</th>
+                                                    <th ng-click='setSortField("VendorId")'>Vendor Id</th>
+                                                    <th ng-click='setSortField("StockCapabilities")'>Stock Capabilities</th>
+                                                    <th ng-click='setSortField("Available")'>Available</th>
+                                                    <th ng-click='setSortField("UnavailableSince")'>Unavailable Since</th>
+                                                    <th ng-click='setSortField("TotalQueries")'>Total Queries</th>
+                                                    <th ng-click='setSortField("LastSuccessfulQuery")'>Last Successful Query</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="status in vendorStatuses">
+                                                    <td ng-style='getRowColor(status)'>{{status.VendorName}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{status.VendorId}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{status.StockCapabilities}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{formatAvailable(status.Available, status.StockCapabilities)}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{toFormattedDate(status.UnavailableSince)}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{status.TotalQueries}}</td>
+                                                    <td ng-style='getRowColor(status)'>{{toFormattedDate(status.LastSuccessfulQuery)}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="footer" class="col-xs-12">
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/excanvas.min.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/jquery-ui.custom.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/fullcalendar.min.js"></script>
+    <script src="/Scripts/jquery.nicescroll.min.js"></script>
+    <script src="/Scripts/unicorn.js"></script>
+    <script src="/Scripts/jquery.icheck.min.js"></script>
+    <script src="/Scripts/unicorn.form_common.js"></script>
+    <script src="/Scripts/moment.js"></script>
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/jquery.signalR-2.1.0.min.js"></script>
+    <script src="/Scripts/underscore-min.js"></script>
+    <script src="/Scripts/highcharts.js"></script>
+    <script src="/Scripts/highcharts-ng.js"></script>
+    <script src="/Scripts/ui-bootstrap-0.11.0.min.js"></script>
+    <script src="/Scripts/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+    <script src="controllers.js"></script>
+</body>
+</html>

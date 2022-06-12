@@ -1,0 +1,160 @@
+﻿<views:UXViewPage 
+    xmlns:views="clr-namespace:ControlPanel.Views"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Intersoft="http://intersoft.clientui.com/schemas" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"             
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:ControlPanel.ViewModels"
+    xmlns:converters="clr-namespace:ControlPanel.Converters"    
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:controls="clr-namespace:ControlPanel.Controls"    
+
+    xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:charting="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:chartView="clr-namespace:Telerik.Windows.Controls.ChartView;assembly=Telerik.Windows.Controls.Chart"
+    
+    xmlns:MEFedMVVM_Services_CommonServices="clr-namespace:MEFedMVVM.Services.CommonServices;assembly=MEFedMVVM.SL" 
+	x:Class="ControlPanel.Views.ManufacturerCountsPage" 
+    d:DataContext="{d:DesignInstance vm:ManufacturerCountsPageViewModel, IsDesignTimeCreatable=True}"    
+    mc:Ignorable="d"
+    
+	Title="Manufacturer Counts Page"
+	d:DesignWidth="1000" d:DesignHeight="800" >
+    <views:UXViewPage.Resources>
+        <SolidColorBrush x:Key="MetricLabelBrush" Color="#FF215D86"/>
+        <SolidColorBrush x:Key="MetricValueBrush" Color="#FFD21268"/>
+        <Style x:Key="MetricLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Foreground" Value="{StaticResource MetricLabelBrush}"/>
+        </Style>
+        <Style x:Key="MetricDataValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="Foreground" Value="{StaticResource MetricValueBrush}"/>
+        </Style>
+
+        <Style x:Key="GroupBoxStyle1" TargetType="Intersoft:GroupBox">
+            <Setter Property="BorderBrush" Value="#80196389"/>
+            <Setter Property="HeaderForeground" Value="#FFDC1A70"/>
+            <Setter Property="Background" Value="#A5FFFFFF"/>
+        </Style>
+
+        <Style x:Key="ChartVerticalLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF909090" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+
+        <Style x:Key="ChartVerticalAxisStyle" TargetType="chartView:LinearAxis">
+            <Setter Property="LabelStyle" Value="{StaticResource ChartVerticalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartHorizontalLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF686868" />
+            <Setter Property="FontSize" Value="14.667" />
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Margin" Value="0,3,0,0"/>
+        </Style>
+
+        <Style x:Key="ChartHorizontalAxisStyle" TargetType="chartView:CategoricalAxis">
+            <Setter Property="LabelStyle" Value="{StaticResource ChartHorizontalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartBarSeriesStyle" TargetType="chartView:BarSeries">
+            <!--
+            <Setter Property="ShowLabels" Value="True"/>
+            -->
+        </Style>
+        <SolidColorBrush x:Key="ButtonForegroundBrush" Color="#FF3B3B3B"/>
+    </views:UXViewPage.Resources>
+
+    <Grid x:Name="LayoutRoot">
+
+            <Grid Height="475" VerticalAlignment="Top" Margin="0,0,40,0">
+            	<Grid.RowDefinitions>
+            		<RowDefinition Height="23"/>
+            		<RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,18,0">
+                    <Border Background="#FF8EC441" Width="16" Height="16" CornerRadius="2" />
+                    <TextBlock Text="In Stock" VerticalAlignment="Center" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="16" Margin="6,0,0,0" />
+                </StackPanel>
+
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,18,0">
+                    <Border Background="#FF1B9DDE" Width="16" Height="16" CornerRadius="2" />
+                    <TextBlock Text="Out of Stock" VerticalAlignment="Center" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="16" Margin="6,0,0,0" />
+                </StackPanel>
+                
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Border Background="#FFF59700" Width="16" Height="16" CornerRadius="2" />
+                    <TextBlock Text="Discontinued" VerticalAlignment="Center" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="16" Margin="6,0,0,0" />
+                </StackPanel>
+                </StackPanel>
+                
+                
+                <chart:RadCartesianChart x:Name="RadCartesianChart" Palette="Metro" Foreground="#FF25A0DA" ClipToBounds="True" Margin="15,0,0,0" Grid.Row="1" >
+
+                    <chart:RadCartesianChart.HorizontalAxis>
+                        <chartView:CategoricalAxis Title="" FontFamily="Segoe UI" FontSize="21.333" Style="{StaticResource ChartHorizontalAxisStyle}" GapLength=".3" BorderThickness="0" LineThickness="1" Foreground="#FF349BCC" ShowLabels="True" MajorTickInterval="1" Margin="0" LabelFitMode="Rotate" LastLabelVisibility="Visible" PlotMode="BetweenTicks" LabelOffset="0" HorizontalAlignment="Stretch"  >
+                            <chartView:CategoricalAxis.LineStroke>
+                                <SolidColorBrush Color="#FFB3B3B3" Opacity="0.60000002384185791"/>
+                            </chartView:CategoricalAxis.LineStroke>
+                        </chartView:CategoricalAxis>
+                    </chart:RadCartesianChart.HorizontalAxis>
+
+                    <chart:RadCartesianChart.VerticalAxis>
+                        <chartView:LinearAxis FontFamily="Segoe UI" 
+                                    Title="Product Count" Foreground="#FF25A0DA" TickThickness="1" LineThickness="1" LabelInterval="1" ShowLabels="True" Style="{StaticResource ChartVerticalAxisStyle}" FontSize="14.667" Margin="0" LabelFormat="N0"  
+                                    >
+                            <chartView:LinearAxis.LineStroke>
+                                <SolidColorBrush Color="#9E333333" Opacity="0.60000002384185791"/>
+                            </chartView:LinearAxis.LineStroke>
+                        </chartView:LinearAxis>
+                    </chart:RadCartesianChart.VerticalAxis>
+
+
+
+                    <chart:RadCartesianChart.Grid>
+                        <chartView:CartesianChartGrid MajorLinesVisibility="Y"/>
+                    </chart:RadCartesianChart.Grid>
+
+                    <chart:RadCartesianChart.Series>
+                        <chartView:BarSeries Style="{StaticResource ChartBarSeriesStyle}" ValueBinding="InStockCount"  CombineMode="Stack" CategoryBinding="ManufacturerName" ItemsSource="{Binding ManufacturesItemsSource}" ClipToPlotArea="True" Foreground="{x:Null}" />
+                       <chartView:BarSeries Style="{StaticResource ChartBarSeriesStyle}" ValueBinding="OutOfStockCount"  CombineMode="Stack" CategoryBinding="ManufacturerName" ItemsSource="{Binding ManufacturesItemsSource}" />
+                       <chartView:BarSeries Style="{StaticResource ChartBarSeriesStyle}" ValueBinding="DiscontinuedCount"  CombineMode="Stack" CategoryBinding="ManufacturerName" ItemsSource="{Binding ManufacturesItemsSource}" Opacity="0.56" />
+                    </chart:RadCartesianChart.Series>
+
+                </chart:RadCartesianChart>
+
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,30,0,0" Grid.Row="2">
+
+                <Intersoft:UXHyperlinkButton Content="Export Details" HorizontalAlignment="Left" x:Name="BtnExportDetails"  FontFamily="Segoe UI" FontSize="12" Foreground="#FF8F8F8F" HoverForeground="#FF25A0DA" PressedForeground="#FF25A0DA" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Command="{Binding ExportProductCountsCommand, Mode=OneWay}" ActiveForeground="#FF8F8F8F" Margin="0,0,0,0" />
+                <Grid>
+                    <controls:Spinner  Visibility="{Binding IsSavingFile, Converter={StaticResource BoolVisibilityConverter}}">
+                        <controls:Spinner.RenderTransform>
+                            <CompositeTransform ScaleY="0.5" ScaleX="0.5" TranslateY="-18" TranslateX="-7"/>
+                        </controls:Spinner.RenderTransform>
+                    </controls:Spinner>
+                    <Image Width="16" x:Name="ImageSuccess"  Height="16" Source="/ControlPanel;component/Assets/Images/RoundCheck32.png" Margin="2,2,0,0" Visibility="{Binding IsExportSuccessful, Converter={StaticResource BoolVisibilityConverter}}" />
+                </Grid>
+
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</views:UXViewPage>

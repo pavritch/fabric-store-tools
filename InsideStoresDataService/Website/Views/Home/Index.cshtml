@@ -1,0 +1,43 @@
+﻿@using System.Diagnostics;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+}
+
+
+
+<h2 style="margin-top:30pt;margin-bottom:8pt;">Daily Use</h2>
+<p><a href="ControlPanel.aspx">Control Panel</a></p>
+<p><a href="ProductGallery/Home">Product Gallery Designer</a></p>
+
+<h2 style="margin-top:30pt;margin-bottom:8pt;">Developer Features</h2>
+<p><a href="Maintenance">Maintenance Functions</a></p>
+<p><a href="TicklerCampaigns">Tickler Campaigns</a></p>
+<p><a href="ShopifyProducts">Shopify Product Maintenance</a></p>
+<p><a href="Test">Test Functions</a></p>
+<p><a href="TestWallpaper">Test Wallpaper Functions</a></p>
+<p><a href="TestRugs">Test Rugs Functions</a></p>
+
+<div style="margin-top:20pt;color:#808080;">
+@if (ViewBag.IsAllStoresPopulated)
+{
+    <p>Initial store population completed.</p>
+}
+else
+{
+    <p>Initial store population still running...</p>
+}
+    
+</div>
+
+@if (ViewBag.IsSomeStoresMissing)
+{ 
+    <div style="margin-top:30px;width:500px;" class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> Some stores not included. See web.config to adjust.
+    </div>
+}

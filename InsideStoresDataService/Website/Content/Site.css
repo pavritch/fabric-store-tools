@@ -1,0 +1,16 @@
+﻿
+.container
+{
+    margin-top: 20pt;
+    margin-left:30pt;
+}
+
+h2 {
+    font-size:1.5em;
+}
+
+.modal-dialog {
+    left:auto;
+    right:auto;
+}
+

@@ -1,0 +1,968 @@
+﻿<views:UXViewPage 
+    xmlns:views="clr-namespace:ControlPanel.Views"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Intersoft="http://intersoft.clientui.com/schemas" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"             
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:ControlPanel.ViewModels"
+    xmlns:converters="clr-namespace:ControlPanel.Converters"    
+    xmlns:controls="clr-namespace:ControlPanel.Controls"    
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:charting="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:chartView="clr-namespace:Telerik.Windows.Controls.ChartView;assembly=Telerik.Windows.Controls.Chart"
+	
+    xmlns:MEFedMVVM_Services_CommonServices="clr-namespace:MEFedMVVM.Services.CommonServices;assembly=MEFedMVVM.SL" 
+    xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" 
+    d:DataContext="{d:DesignInstance vm:SalesComparisonByManufacturerPageViewModel, IsDesignTimeCreatable=True}"    
+    mc:Ignorable="d"
+    
+    x:Class="ControlPanel.Views.SalesComparisonByManufacturerPage" 
+	Title="Sales Summary Page"
+	d:DesignWidth="1200" d:DesignHeight="1000">
+    <views:UXViewPage.Resources>
+
+        <SolidColorBrush x:Key="MetricLabelBrush" Color="#FFBBBBBB"/>
+        <SolidColorBrush x:Key="MetricValueBrush" Color="#FF1B9DDE"/>
+        <Style x:Key="MetricLabelStyle" TargetType="TextBlock">
+        	<Setter Property="FontSize" Value="16"/>
+        	<Setter Property="FontFamily" Value="Segoe UI"/>
+        	<Setter Property="TextWrapping" Value="NoWrap"/>
+        	<Setter Property="VerticalAlignment" Value="Top"/>
+        	<Setter Property="HorizontalAlignment" Value="RIght" />
+        	<Setter Property="Foreground" Value="{StaticResource MetricLabelBrush}"/>
+        </Style>
+        <Style x:Key="MetricDataValueStyle" TargetType="TextBlock">
+        	<Setter Property="FontSize" Value="16"/>
+        	<Setter Property="VerticalAlignment" Value="Top"/>
+        	<Setter Property="FontFamily" Value="Segoe UI"/>
+        	<Setter Property="TextWrapping" Value="NoWrap"/>
+        	<Setter Property="HorizontalAlignment" Value="Right"/>
+        	<Setter Property="Foreground" Value="{StaticResource MetricValueBrush}"/>
+        </Style>
+
+        <Style x:Key="PieChartLegendStyle" TargetType="TextBlock">
+        	<Setter Property="FontSize" Value="14.667"/>
+        	<Setter Property="FontWeight" Value="Normal"/>
+        	<Setter Property="VerticalAlignment" Value="Top"/>
+        	<Setter Property="FontFamily" Value="Verdana"/>
+        	<Setter Property="TextWrapping" Value="NoWrap"/>
+        	<Setter Property="Foreground" Value="#FF000000"/>
+
+        </Style>
+
+        <DataTemplate x:Key="MetricsDataTemplate">
+        	<Grid Margin="0,0,0,7">
+        		<Grid.ColumnDefinitions>
+        			<ColumnDefinition Width="*" />
+        			<ColumnDefinition Width="200" />
+        		</Grid.ColumnDefinitions>
+        		<TextBlock Text="{Binding Key}" Style="{StaticResource MetricLabelStyle}"   />
+        		<TextBlock Text="{Binding Value}" Grid.Column="1"  Style="{StaticResource MetricDataValueStyle}" />
+        	</Grid>
+        </DataTemplate>
+
+        <Style x:Key="ChartVerticalLabelStyle" TargetType="TextBlock">
+        	<Setter Property="Foreground" Value="#FF909090" />
+        	<Setter Property="FontSize" Value="12" />
+        </Style>
+
+
+        <Style x:Key="ChartVerticalAxisStyle" TargetType="chartView:LinearAxis">
+        	<Setter Property="LabelStyle" Value="{StaticResource ChartVerticalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartHorizontalLabelStyle" TargetType="TextBlock">
+        	<Setter Property="Foreground" Value="#FF686868" />
+        	<Setter Property="FontSize" Value="14" />
+        	<Setter Property="FontFamily" Value="Segoe UI"/>
+        	<Setter Property="Margin" Value="0,3,0,0"/>
+        </Style>
+
+        <Style x:Key="ChartHorizontalAxisStyle" TargetType="chartView:CategoricalAxis">
+        	<Setter Property="LabelStyle" Value="{StaticResource ChartHorizontalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartBarSeriesStyle" TargetType="chartView:BarSeries">
+            <!--
+            <Setter Property="ShowLabels" Value="True"/>
+            -->
+        </Style>
+
+        <DataTemplate x:Key="ProductsStackedBarTemplate">
+        	<Rectangle Fill="#FF8EC441" MaxWidth="100"/>
+        </DataTemplate>
+        <DataTemplate x:Key="SwatchesStackedBarTemplate">
+        	<Rectangle Fill="#FF1B9DDE" MaxWidth="100"/>
+        </DataTemplate>
+
+
+    	<SolidColorBrush x:Key="TabControl_ContentBorderBrush" Color="#FF25A0DA"/>
+    	<SolidColorBrush x:Key="TabControl_ContentBackground" Color="#FFFFFFFF"/>
+    	<SolidColorBrush x:Key="TabControl_HeaderBackground" Color="#FF25A0DA"/>
+    	<SolidColorBrush x:Key="ControlInnerBorder_Normal" Color="#FFFFFFFF"/>
+    	<SolidColorBrush x:Key="ControlOuterBorder_Checked" Color="#FFFFC92B"/>
+    	<LinearGradientBrush x:Key="ControlBackground_Checked" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFFFDCAB" Offset="0"/>
+    		<GradientStop Color="#FFFFD18F" Offset="0.5"/>
+    		<GradientStop Color="#FFFE9227" Offset="0.5"/>
+    		<GradientStop Color="#FFFFD74E" Offset="1"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="ControlInnerBorder_Checked" Color="#FFFFFFFF"/>
+    	<SolidColorBrush x:Key="ControlElement_Normal" Color="Black"/>
+    	<SolidColorBrush x:Key="ControlOuterBorder_MouseOver" Color="#FFFFC92B"/>
+    	<LinearGradientBrush x:Key="ControlBackground_MouseOver" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFFFFBDA" Offset="0"/>
+    		<GradientStop Color="#FFFEEBAE" Offset="0.50"/>
+    		<GradientStop Color="#FFFFD25A" Offset="0.50"/>
+    		<GradientStop Color="#FFFFFBA3" Offset="1"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="ControlInnerBorder_MouseOver" Color="#FFFFFFFF"/>
+    	<LinearGradientBrush x:Key="ControlOuterBorder_Pressed" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FF282828"/>
+    		<GradientStop Color="#FF5F5F5F" Offset="1"/>
+    	</LinearGradientBrush>
+    	<LinearGradientBrush x:Key="ControlBackground_Pressed" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFFFDCAB" Offset="0"/>
+    		<GradientStop Color="#FFFFD18F" Offset="0.5"/>
+    		<GradientStop Color="#FFFE9227" Offset="0.5"/>
+    		<GradientStop Color="#FFFFBA74" Offset="0"/>
+    	</LinearGradientBrush>
+    	<LinearGradientBrush x:Key="ControlInnerBorder_Pressed" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFB69A78"/>
+    		<GradientStop Color="#FFFFE17A" Offset="0.126"/>
+    	</LinearGradientBrush>
+    	<LinearGradientBrush x:Key="ControlBackground_Normal" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFFFFFFF" Offset="0"/>
+    		<GradientStop Color="#FFDCDCDC" Offset="0.50"/>
+    		<GradientStop Color="#FFADADAD" Offset="0.50"/>
+    		<GradientStop Color="#FFD4D4D4" Offset="1"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="ControlOuterBorder_Normal" Color="#FF25A0DA"/>
+    	<Style x:Key="DropDownButtonStyle" TargetType="ToggleButton">
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="ToggleButton">
+    					<Grid>
+    						<VisualStateManager.VisualStateGroups>
+    							<VisualStateGroup x:Name="CommonStates">
+    								<VisualState x:Name="Normal"/>
+    								<VisualState x:Name="MouseOver">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlOuterBorder_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlBackground_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="BorderBrush" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlInnerBorder_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Pressed">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlOuterBorder_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlBackground_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerBorder" Storyboard.TargetProperty="BorderBrush" Duration="0:0:0">
+    											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource ControlInnerBorder_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    							</VisualStateGroup>
+    							<VisualStateGroup x:Name="CheckStates">
+    								<VisualState x:Name="Checked">
+    									<Storyboard>
+    										<DoubleAnimation Storyboard.TargetName="CheckedVisual" Storyboard.TargetProperty="Opacity" To="1" Duration="0"/>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Unchecked"/>
+    							</VisualStateGroup>
+    						</VisualStateManager.VisualStateGroups>
+    						<Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+    							<Border x:Name="InnerBorder" BorderBrush="{StaticResource ControlInnerBorder_Normal}" BorderThickness="1"/>
+    						</Border>
+    						<Border x:Name="CheckedVisual" Opacity="0" Background="{StaticResource ControlBackground_Checked}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource ControlOuterBorder_Checked}">
+    							<Border BorderBrush="{StaticResource ControlInnerBorder_Checked}" BorderThickness="1"/>
+    						</Border>
+    						<Path x:Name="arrow" VerticalAlignment="Center" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" Fill="{StaticResource ControlElement_Normal}" Data="M0,0 L6,0 6,1 0,1 M0,2 L6,2 6,3 5,3 5,4 4,4 4,5 2,5 2,4 1,4 1,3 0,3 0,2"/>
+    					</Grid>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    		<Setter Property="Content" Value=""/>
+    		<Setter Property="Padding" Value="5 3"/>
+    		<Setter Property="telerik:RadDockPanel.Dock" Value="Right"/>
+    		<Setter Property="Background" Value="{StaticResource ControlBackground_Normal}"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource ControlOuterBorder_Normal}"/>
+    		<Setter Property="BorderThickness" Value="1"/>
+    		<Setter Property="IsTabStop" Value="False"/>
+    	</Style>
+    	<SolidColorBrush x:Key="ControlBackground" Color="#FFFFFFFF"/>
+    	<SolidColorBrush x:Key="ControlOuterBorder" Color="#FF25A0DA"/>
+    	<SolidColorBrush x:Key="TabControl_DropDownHeaderBrush" Color="Transparent"/>
+    	<Style x:Key="DropDownMenuStyle" TargetType="TabControl:DropDownMenu">
+    		<Setter Property="Background" Value="{StaticResource ControlBackground}"/>
+    		<Setter Property="VerticalContentAlignment" Value="Center"/>
+    		<Setter Property="BorderThickness" Value="1"/>
+    		<Setter Property="MaxHeight" Value="500"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource ControlOuterBorder}"/>
+    		<Setter Property="ItemsPanel">
+    			<Setter.Value>
+    				<ItemsPanelTemplate>
+    					<telerik:RadWrapPanel Orientation="Vertical"/>
+    				</ItemsPanelTemplate>
+    			</Setter.Value>
+    		</Setter>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="TabControl:DropDownMenu">
+    					<Grid>
+    						<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+    							<Border BorderBrush="{StaticResource ControlOuterBorder}" BorderThickness="0 2 0 0">
+    								<ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+    							</Border>
+    						</Border>
+    						<Rectangle x:Name="BorderMaskElement" Fill="{StaticResource TabControl_DropDownHeaderBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    					</Grid>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
+    	<CornerRadius x:Key="TabControl_ScrollButton_InnerCornerRadius">1 0 0 1</CornerRadius>
+    	<CornerRadius x:Key="TabControl_ScrollButton_CornerRadius">2 0 0 2</CornerRadius>
+    	<Style x:Key="ScrollButtonStyle" TargetType="RepeatButton">
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="RepeatButton">
+    					<Grid x:Name="ButtonBorder" Background="Transparent">
+    						<VisualStateManager.VisualStateGroups>
+    							<VisualStateGroup x:Name="CommonStates">
+    								<VisualState x:Name="Normal"/>
+    								<VisualState x:Name="MouseOver">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="OuterBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlOuterBorder_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlBackground_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="InnerBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlInnerBorder_MouseOver}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Pressed">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="OuterBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlOuterBorder_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlBackground_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="InnerBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ControlInnerBorder_Pressed}"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Disabled">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ButtonBorder">
+    											<DiscreteObjectKeyFrame KeyTime="0">
+    												<DiscreteObjectKeyFrame.Value>
+    													<Visibility>Collapsed</Visibility>
+    												</DiscreteObjectKeyFrame.Value>
+    											</DiscreteObjectKeyFrame>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    							</VisualStateGroup>
+    						</VisualStateManager.VisualStateGroups>
+    						<Border x:Name="OuterBorder" BorderBrush="{StaticResource ControlOuterBorder_Normal}" BorderThickness="1" Background="{StaticResource ControlBackground_Normal}" CornerRadius="{StaticResource TabControl_ScrollButton_CornerRadius}">
+    							<Border x:Name="InnerBorder" BorderBrush="{StaticResource ControlInnerBorder_Normal}" BorderThickness="1" Background="{x:Null}" CornerRadius="{StaticResource TabControl_ScrollButton_InnerCornerRadius}"/>
+    						</Border>
+    						<Path x:Name="Path" Data="M0.05,3.25 L5,0 L5,7 L0.05,3.25 z" Fill="{StaticResource ControlElement_Normal}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Height="7" Margin="{TemplateBinding Padding}" Opacity="0.7" Stretch="Uniform" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="5"/>
+    					</Grid>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    		<Setter Property="Width" Value="17"/>
+    		<Setter Property="Content" Value=""/>
+    		<Setter Property="Padding" Value="5 2"/>
+    		<Setter Property="Margin" Value="2"/>
+    		<Setter Property="telerik:RadDockPanel.Dock" Value="Left"/>
+    		<Setter Property="IsTabStop" Value="False"/>
+    	</Style>
+    	<Style x:Key="EmptyScrollViewerStyle" TargetType="ScrollViewer">
+    		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+    		<Setter Property="VerticalContentAlignment" Value="Top"/>
+    		<Setter Property="Padding" Value="0"/>
+    		<Setter Property="BorderThickness" Value="0"/>
+    		<Setter Property="BorderBrush" Value="Transparent"/>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="ScrollViewer">
+    					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+    						<Grid Background="{TemplateBinding Background}">
+    							<Grid.ColumnDefinitions>
+    								<ColumnDefinition Width="*"/>
+    								<ColumnDefinition Width="Auto"/>
+    							</Grid.ColumnDefinitions>
+    							<Grid.RowDefinitions>
+    								<RowDefinition Height="*"/>
+    								<RowDefinition Height="Auto"/>
+    							</Grid.RowDefinitions>
+    							<ScrollContentPresenter x:Name="ScrollContentPresenter" Cursor="{TemplateBinding Cursor}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"/>
+    						</Grid>
+    					</Border>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
+    	<telerik:InvertedBooleanToVisibilityConverter x:Key="InvertBoolToVisConverter"/>
+    	<telerik:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    	<ControlTemplate x:Key="TabControlTemplate" TargetType="telerik:RadTabControl">
+    		<Grid>
+    			<VisualStateManager.VisualStateGroups>
+    				<VisualStateGroup x:Name="CommonStates">
+    					<VisualState x:Name="Disabled"/>
+    					<VisualState x:Name="Normal"/>
+    				</VisualStateGroup>
+    				<VisualStateGroup x:Name="DropDownDisplayStates">
+    					<VisualState x:Name="DropDownButtonCollapsed"/>
+    					<VisualState x:Name="DropDownButtonVisible">
+    						<Storyboard>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DropDownButtonElement">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<Visibility>Visible</Visibility>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    						</Storyboard>
+    					</VisualState>
+    				</VisualStateGroup>
+    				<VisualStateGroup x:Name="PlacementStates">
+    					<VisualState x:Name="Left">
+    						<Storyboard>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform" Storyboard.TargetName="HeaderDockedElement">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<RotateTransform Angle="-90"/>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="ContentBorder">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<Thickness>0 1 1 1</Thickness>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    						</Storyboard>
+    					</VisualState>
+    					<VisualState x:Name="Right">
+    						<Storyboard>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform" Storyboard.TargetName="HeaderDockedElement">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<RotateTransform Angle="90"/>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="ContentBorder">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<Thickness>1 1 0 1</Thickness>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    						</Storyboard>
+    					</VisualState>
+    					<VisualState x:Name="Top"/>
+    					<VisualState x:Name="Bottom">
+    						<Storyboard>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform" Storyboard.TargetName="HeaderDockedElement">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<RotateTransform Angle="180"/>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    							<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="ContentBorder">
+    								<DiscreteObjectKeyFrame KeyTime="0">
+    									<DiscreteObjectKeyFrame.Value>
+    										<Thickness>1 1 1 0</Thickness>
+    									</DiscreteObjectKeyFrame.Value>
+    								</DiscreteObjectKeyFrame>
+    							</ObjectAnimationUsingKeyFrames>
+    						</Storyboard>
+    					</VisualState>
+    				</VisualStateGroup>
+    			</VisualStateManager.VisualStateGroups>
+    			<telerik:RadDockPanel LastChildFill="True">
+    				<telerik:LayoutTransformControl x:Name="HeaderDockedElement" telerik:RadDockPanel.Dock="Top">
+    					<Grid UseLayoutRounding="True">
+    						<Border x:Name="HeaderBackground" Background="{TemplateBinding HeaderBackground}" Visibility="{TemplateBinding BackgroundVisibility}"/>
+    						<Border BorderBrush="{StaticResource TabControl_ContentBorderBrush}" BorderThickness="0 0 0 1"/>
+    						<telerik:RadDockPanel Canvas.ZIndex="10">
+    							<ContentPresenter Content="{TemplateBinding AdditionalContent}" telerik:RadDockPanel.Dock="Right" Margin="0 4 0 2"/>
+    							<ToggleButton x:Name="DropDownButtonElement" ClickMode="Press" telerik:RadDockPanel.Dock="Right" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="2 4 4 2" Style="{TemplateBinding DropDownButtonStyle}" Visibility="Collapsed">
+    								<telerik:RadContextMenu.ContextMenu>
+    									<TabControl:DropDownMenu x:Name="DropDownMenuElement" DisplayMemberPath="{TemplateBinding DropDownDisplayMemberPath}" ItemTemplate="{TemplateBinding ItemDropDownContentTemplate}" ItemTemplateSelector="{TemplateBinding ItemDropDownContentTemplateSelector}" Placement="Bottom" Style="{TemplateBinding DropDownStyle}" StaysOpen="False"/>
+    								</telerik:RadContextMenu.ContextMenu>
+    							</ToggleButton>
+    							<RepeatButton x:Name="LeftScrollButtonElement" Margin="4 4 2 2" Style="{StaticResource ScrollButtonStyle}"/>
+    							<RepeatButton x:Name="RightScrollButtonElement" telerik:RadDockPanel.Dock="Right" Margin="2 4 2 2" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ScrollButtonStyle}">
+    								<RepeatButton.RenderTransform>
+    									<ScaleTransform ScaleX="-1"/>
+    								</RepeatButton.RenderTransform>
+    							</RepeatButton>
+    							<ScrollViewer BorderThickness="0" HorizontalScrollBarVisibility="{Binding (ScrollViewer.HorizontalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}" IsTabStop="False" Margin="2 4 2 0" Style="{StaticResource EmptyScrollViewerStyle}" VerticalScrollBarVisibility="Disabled">
+    								<ItemsPresenter/>
+    							</ScrollViewer>
+    						</telerik:RadDockPanel>
+    					</Grid>
+    				</telerik:LayoutTransformControl>
+    				<Border x:Name="ContentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{Binding BorderThickness, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+    					<Grid>
+    						
+							<telerik:RadTransitionControl x:Name="ContentElement"
+							 Content="{TemplateBinding SelectedContent}"
+							 ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+							 Duration="00:00:00.400">
+							 <telerik:RadTransitionControl.Transition>
+								 <telerik:MotionBlurredZoomTransition />
+							 </telerik:RadTransitionControl.Transition>
+							</telerik:RadTransitionControl>
+
+    						<Grid x:Name="ContentElementsPanel" Visibility="{Binding IsContentPreserved, Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+    					</Grid>
+    				</Border>
+    			</telerik:RadDockPanel>
+    		</Grid>
+    	</ControlTemplate>
+    	<Style x:Key="RadTabControlStyle1" TargetType="telerik:RadTabControl">
+    		<Setter Property="MinWidth" Value="5"/>
+    		<Setter Property="MinHeight" Value="26"/>
+    		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+    		<Setter Property="IsTabStop" Value="False"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource TabControl_ContentBorderBrush}"/>
+    		<Setter Property="BorderThickness" Value="1 0 1 1"/>
+    		<Setter Property="Background" Value="{StaticResource TabControl_ContentBackground}"/>
+    		<Setter Property="HeaderBackground" Value="{StaticResource TabControl_HeaderBackground}"/>
+    		<Setter Property="ItemsPanel">
+    			<Setter.Value>
+    				<ItemsPanelTemplate>
+    					<Primitives:TabWrapPanel/>
+    				</ItemsPanelTemplate>
+    			</Setter.Value>
+    		</Setter>
+    		<Setter Property="DropDownButtonStyle" Value="{StaticResource DropDownButtonStyle}"/>
+    		<Setter Property="DropDownStyle" Value="{StaticResource DropDownMenuStyle}"/>
+    		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+    		<Setter Property="Template" Value="{StaticResource TabControlTemplate}"/>
+    	</Style>
+
+
+    </views:UXViewPage.Resources>
+
+	<Grid x:Name="LayoutRoot">
+		<Grid Margin="0,0,40,0" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="150" />
+				<RowDefinition Height="17" />
+				<RowDefinition Height="268" />
+				<RowDefinition Height="17" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="581" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+
+			<telerik:RadTimeBar x:Name="TimeBar1" telerik:StyleManager.Theme="Windows8" Grid.ColumnSpan="2"
+				PeriodStart="{Binding PeriodStart, Mode=TwoWay}" 
+				PeriodEnd="{Binding PeriodEnd, Mode=TwoWay}"
+				VisiblePeriodStart="{Binding VisiblePeriodStart, Mode=TwoWay}" 
+				VisiblePeriodEnd="{Binding VisiblePeriodEnd, Mode=TwoWay}"
+				SelectionStart="{Binding SelectedStartDate, Mode=TwoWay}"
+				SelectionEnd="{Binding SelectedEndDate, Mode=TwoWay}"
+				MinSelectionRange="{Binding MinSelectionRange, Mode=TwoWay}"
+				IsSnapToIntervalEnabled="True" Margin="0">
+				<telerik:RadTimeBar.Intervals>
+					<telerik:YearInterval />
+					<telerik:QuarterInterval />
+					<telerik:MonthInterval />
+					<telerik:DayInterval />
+				</telerik:RadTimeBar.Intervals>
+				<telerik:RadLinearSparkline LineStroke="#80767676" ItemsSource="{Binding TimebarItemsSource}" XValuePath="Date" YValuePath="TotalSales" />
+				<!-- <telerik:RadColumnSparkline ItemFill="#FFEEEEEE" ItemsSource="{Binding TimebarItemsSource}" XValuePath="Date" YValuePath="OrderCount" /> -->
+			</telerik:RadTimeBar>
+
+
+
+
+			<Grid Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="264" />
+				</Grid.ColumnDefinitions>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="87*" />
+					<RowDefinition Height="181*" />
+				</Grid.RowDefinitions>
+
+
+				<Grid Grid.RowSpan="2">
+
+					<StackPanel  Orientation="Horizontal" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-11,0,5">
+
+						<Intersoft:UXHyperlinkButton Content="Export" HorizontalAlignment="Left" x:Name="BtnExportOrders"  FontFamily="Segoe UI" FontSize="12" Foreground="#FF8F8F8F" HoverForeground="#FF25A0DA" PressedForeground="#FF25A0DA" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Command="{Binding ExportOrdersCommand, Mode=OneWay}" ActiveForeground="#FF8F8F8F" Margin="0,0,0,0" />
+						<Grid>
+							<controls:Spinner  Visibility="{Binding IsSavingFile, Converter={StaticResource BoolVisibilityConverter}}">
+								<controls:Spinner.RenderTransform>
+									<CompositeTransform ScaleY="0.5" ScaleX="0.5" TranslateY="-18" TranslateX="-7"/>
+								</controls:Spinner.RenderTransform>
+							</controls:Spinner>
+							<Image Width="16" x:Name="ImageSuccess"  Height="16" Source="/ControlPanel;component/Assets/Images/RoundCheck32.png" Margin="2,2,0,0" Visibility="{Binding IsExportSuccessful, Converter={StaticResource BoolVisibilityConverter}}" />
+						</Grid>
+
+					</StackPanel>
+				</Grid>
+
+
+
+
+			</Grid>
+            <telerik:RadTabControl VerticalAlignment="Top" Margin="0,22,0,0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Background="#D8FFFFFF" telerik:StyleManager.Theme="Windows8"  >
+                <telerik:RadTabItem x:Name="TabTotalSales" Header="Total Sales" IsEnabled="True" Background="#238fc2" BorderBrush="#c0e1f1" >
+
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart1" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+							<telerik:RadChart.DefaultView>
+								<telerik:ChartDefaultView>
+									<telerik:ChartDefaultView.ChartLegend>
+										<telerik:ChartLegend x:Name="chartLegend1"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+											<telerik:ChartLegend.RenderTransform>
+												<CompositeTransform TranslateX="33"/>
+											</telerik:ChartLegend.RenderTransform>
+										</telerik:ChartLegend>
+									</telerik:ChartDefaultView.ChartLegend>
+									<telerik:ChartDefaultView.ChartArea>
+										<telerik:ChartArea x:Name="radChartArea1" LegendName="chartLegend1" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+											<telerik:ChartArea.RenderTransform>
+												<CompositeTransform TranslateX="11"/>
+											</telerik:ChartArea.RenderTransform>
+
+											<!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+										</telerik:ChartArea>
+
+
+									</telerik:ChartDefaultView.ChartArea>
+
+
+								</telerik:ChartDefaultView>
+							</telerik:RadChart.DefaultView>
+
+							<telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="TotalSales" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>					
+				</telerik:RadTabItem>
+                <telerik:RadTabItem x:Name="TabProductSales" Header="Product Sales" Background="#238fc2" BorderBrush="#c0e1f1" >
+
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart2" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend2"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea2" LegendName="chartLegend2" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="ProductSales" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>					
+					
+				</telerik:RadTabItem>
+
+                <telerik:RadTabItem x:Name="TabSwatchSales" Header="Swatch Sales" Background="#238fc2" BorderBrush="#c0e1f1" >
+
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart3" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend3"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea3" LegendName="chartLegend3" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="SwatchSales" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>										
+				</telerik:RadTabItem>
+
+                <telerik:RadTabItem x:Name="TabYardage" Header="Yardage" Background="#238fc2" BorderBrush="#c0e1f1" >
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart4" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend4"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea4" LegendName="chartLegend4" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="ProductYards" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>										
+				</telerik:RadTabItem>
+                <telerik:RadTabItem x:Name="TabProductOrders" Header="Product Orders" Background="#238fc2" BorderBrush="#c0e1f1" >
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart6" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend5"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea5" LegendName="chartLegend5" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="ProductOrders" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>										
+				</telerik:RadTabItem>
+
+                <telerik:RadTabItem x:Name="TabSwatchOrders" Header="Swatch Orders" Background="#238fc2" BorderBrush="#c0e1f1" >
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart5" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend6"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea6" LegendName="chartLegend6" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="SwatchOrders" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>										
+				</telerik:RadTabItem>
+
+
+
+                <telerik:RadTabItem x:Name="TabMargin" Header="Margin" Background="#238fc2" BorderBrush="#c0e1f1" >
+					<Grid VerticalAlignment="Top" Width="1000" HorizontalAlignment="Left" >
+						<telerik:RadChart x:Name="RadChart7" ItemsSource="{Binding SalesByManufacturerItemsSource}" telerik:StyleManager.Theme="Windows8" FontWeight="Normal" FontSize="14.667" UseDefaultLayout="True" PaletteBrushesRepeat="True"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" >
+							<telerik:RadChart.RenderTransform>
+								<CompositeTransform TranslateY="0"/>
+							</telerik:RadChart.RenderTransform>
+                            <telerik:RadChart.DefaultView>
+                                <telerik:ChartDefaultView>
+                                    <telerik:ChartDefaultView.ChartLegend>
+                                        <telerik:ChartLegend x:Name="chartLegend7"  Header="Manufacturers" UseAutoGeneratedItems="True" Foreground="#FF25A0DA" FontSize="12" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,45,0,0" Margin="0,-22,1,74" RenderTransformOrigin="0.5,0.5" FontFamily="Arial" Width="430"   >
+                                            <telerik:ChartLegend.RenderTransform>
+                                                <CompositeTransform TranslateX="33"/>
+                                            </telerik:ChartLegend.RenderTransform>
+                                        </telerik:ChartLegend>
+                                    </telerik:ChartDefaultView.ChartLegend>
+                                    <telerik:ChartDefaultView.ChartArea>
+                                        <telerik:ChartArea x:Name="radChartArea7" LegendName="chartLegend7" NoDataString="Loading data..." EnableAnimations="False" Margin="0" Background="{x:Null}" Height="574" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" >
+                                            <telerik:ChartArea.RenderTransform>
+                                                <CompositeTransform TranslateX="11"/>
+                                            </telerik:ChartArea.RenderTransform>
+
+                                            <!--<telerik:ChartArea.AnimationSettings>
+                                <telerik:AnimationSettings
+                           ItemDelay="00:00:00.01"
+                           ItemAnimationDuration="00:00:02" />
+                            </telerik:ChartArea.AnimationSettings>-->
+
+                                        </telerik:ChartArea>
+
+
+                                    </telerik:ChartDefaultView.ChartArea>
+
+
+                                </telerik:ChartDefaultView>
+                            </telerik:RadChart.DefaultView>
+
+                            <telerik:RadChart.SeriesMappings>
+								<telerik:SeriesMapping LegendLabel="Manufacturers" >
+									<telerik:SeriesMapping.SeriesDefinition>
+										<telerik:PieSeriesDefinition>
+
+											<telerik:PieSeriesDefinition.InteractivitySettings>
+												<telerik:InteractivitySettings HoverScope="Item" SelectionMode="Single" SelectionScope="Item"/>
+											</telerik:PieSeriesDefinition.InteractivitySettings>
+										</telerik:PieSeriesDefinition>
+									</telerik:SeriesMapping.SeriesDefinition>
+
+									<telerik:ItemMapping DataPointMember="YValue" FieldName="Margin" />
+									<telerik:ItemMapping DataPointMember="LegendLabel" FieldName="ManufacturerName" />
+								</telerik:SeriesMapping>
+							</telerik:RadChart.SeriesMappings>
+
+
+						</telerik:RadChart>
+
+
+					</Grid>										
+				</telerik:RadTabItem>
+			</telerik:RadTabControl>
+
+
+
+		</Grid>
+	</Grid>
+</views:UXViewPage>

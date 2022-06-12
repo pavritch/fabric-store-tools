@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ProductScanner.App.Controls.StartScanningInputs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:views="clr-namespace:ProductScanner.App.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="325">
+
+    <UserControl.DataContext>
+        <vm:StartScanningInputsViewModel />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.Resources>
+
+            <Style TargetType="ScrollViewer">
+                <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+            <Style TargetType="ScrollBar">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+
+
+            <DataTemplate x:Key="ScanOptionTemplate">
+                <CheckBox Margin="0,0,0,2"  Content="{Binding Description}" IsChecked="{Binding IsChecked, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" FontFamily="Segoe UI" FontSize="12" Foreground="#505050" TextOptions.TextFormattingMode="Display" />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <GroupBox Margin="10,10,10,10"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Header="OPTIONS"  Foreground="#FF0FAFE1" BorderBrush="#FFBBBBBB" FontFamily="Segoe WP" FontSize="10.667"  Background="Transparent" >
+
+            <Grid Grid.Row="0" Margin="3">
+                <ScrollViewer BorderThickness="0"  >
+                    <ItemsControl ItemsSource="{Binding Options}" Foreground="#FF909090" FontFamily="Segoe UI" FontSize="13.333" ItemTemplate="{StaticResource ScanOptionTemplate}" />
+                </ScrollViewer>
+            </Grid>
+
+        </GroupBox>
+    </Grid>
+</UserControl>

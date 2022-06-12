@@ -1,0 +1,95 @@
+﻿Additional
+Attributes
+Average
+Bolt
+Backing
+Base
+Book
+Brand
+Category
+Cleaning
+Code
+Collection
+Color
+Comment
+Construction
+Content
+Coordinates
+Cord
+Cordette
+Country
+Description
+Design
+Designer
+Direction
+Durability
+Fabric Performance
+Feature
+Finish
+Finish Treatment
+Finishes
+Fire
+Flame
+Retardant
+Flammability
+Furniture
+Grade
+Group
+Half Drop
+Hide Size
+Horizontal
+Item Number
+Cord
+Layout
+Length
+Match
+Material
+Minimum Order
+Multipurpose
+Name
+Note
+Other
+Pattern
+Prepasted
+Product
+Railroad
+Repeat
+Soft Home Grade
+Strippable
+Style
+Tassel
+Thickness
+Treatment
+Type
+Types
+Unit
+Unit Of Measure
+Upholstery Use
+Use
+Protection
+Resistance
+Vertical
+Weight
+Width
+WYZ/MAR
+Minimum
+Made to Order
+Available
+Discontinued
+Stock
+Wallpaper
+Fabric
+Trim
+Trimmings
+Wallcovering
+Indoor
+Outdoor
+Upholstery
+Delivery
+Shipped
+Sold
+Out of
+Panel
+Allowed
+
+

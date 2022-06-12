@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="ProductScanner.App.Views.ContentHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:views="clr-namespace:ProductScanner.App.Views"
+             DataContext="{Binding ContentHostViewModel, Source={StaticResource Locator}}"
+             d:DataContext="{d:DesignInstance Type=vm:ContentHostViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="600" d:DesignWidth="800">
+    
+    <Grid>
+        
+        <Grid.Resources>
+            <local:PageTransitionToTelerikTransitionConverter x:Key="PageTransitionToTelerikTransitionConverter" />
+
+            <!-- implicit styles for our various kinds of pages -->
+            <!-- there is a bug using implicit styles like this when the page uses the visual state manager, so -->
+            <!-- these here are being obsoleted in favor of a traditional factory method. -->
+
+            <DataTemplate DataType="{x:Type vm:HomeDashboardViewModel}">
+                <views:HomeDashboard />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vm:StoreCommitSummaryViewModel}">
+                <views:StoreCommitSummary />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:StoreDashboardViewModel}">
+                <views:StoreDashboard />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:StoreLoginsSummaryViewModel}">
+                <views:StoreLoginsSummary />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:StoreScanSummaryViewModel}">
+                <views:StoreScanSummary />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorCommitBatchViewModel}">
+                <views:VendorCommitBatch />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type vm:VendorCommitsViewModel}">
+                <views:VendorCommits />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorDashboardViewModel}">
+                <views:VendorDashboard />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorPropertiesViewModel}">
+                <views:VendorProperties />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorScanLogsViewModel}">
+                <views:VendorScanLogs />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorScanLogViewModel}">
+                <views:VendorScanLog />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorScanViewModel}">
+                <views:VendorScan />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorStockCheckViewModel}">
+                <views:VendorStockCheck />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:VendorTestsViewModel}">
+                <views:VendorTests />
+            </DataTemplate>
+
+
+        </Grid.Resources>
+
+        <telerik:RadTransitionControl 
+            Transition="{Binding Transition, Converter={StaticResource PageTransitionToTelerikTransitionConverter}, ConverterParameter=Transition}" 
+            Duration="{Binding Transition, Converter={StaticResource PageTransitionToTelerikTransitionConverter}, ConverterParameter=Duration}" 
+            Easing="{Binding Transition, Converter={StaticResource PageTransitionToTelerikTransitionConverter}, ConverterParameter=Easing}"             
+            Content="{Binding PageContent}"  />            
+    </Grid>
+</UserControl>

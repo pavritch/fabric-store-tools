@@ -1,0 +1,170 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:views="clr-namespace:ProductScanner.App.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="ProductScanner.App.Views.ActivityPanel"
+             mc:Ignorable="d" Height="150"
+              d:DesignHeight="150" d:DesignWidth="1200">
+
+	<UserControl.DataContext>
+		<Binding Path="ActivityPanelViewModel" Source="{StaticResource Locator}"/>
+	</UserControl.DataContext>
+
+	<Grid>
+        <Grid.Resources>
+            <Style x:Key="StatusMessageStyle" TargetType="TextBlock" >
+                <Setter Property="Foreground" Value="#FF595959" />
+                <Setter Property="FontSize" Value="13.333" />
+				<Style.Triggers>
+                    <DataTrigger Binding="{Binding ActivityRequest.CompletedResult}" Value="Failed" >
+                        <Setter Property="Foreground" Value="#FFDA0B0B" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="CompletionResultImageStyle" TargetType="Image" >
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ActivityRequest.HasEverRun}" Value="false" >
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>                    
+                    
+                    <!--<DataTrigger Binding="{Binding ActivityRequest.CompletedResult}" Value="Cancelled" >
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>-->
+                </Style.Triggers>
+            </Style>
+            
+        </Grid.Resources>
+		<i:Interaction.Behaviors>
+			<ei:DataStateBehavior Binding="{Binding ActivityRequest.IsCompleted}" Value="true" TrueState="IsCompleted" FalseState="IsNotCompleted"/>
+			<ei:DataStateBehavior Binding="{Binding ActivityRequest.IsRunning}" Value="true" TrueState="IsRunning" FalseState="IsNotRunning"/>
+		</i:Interaction.Behaviors>		
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="RunningStateGroup">
+				<VisualStateGroup.Transitions>
+					<VisualTransition GeneratedDuration="0:0:0.25"/>
+				</VisualStateGroup.Transitions>
+				<VisualState x:Name="IsRunning">
+					<Storyboard>
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="spinner">
+							<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+						</DoubleAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="IsNotRunning">
+					<Storyboard>
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="spinner">
+							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+						</DoubleAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+			<VisualStateGroup x:Name="CompletedStateGroup">
+				<VisualStateGroup.Transitions>
+					<VisualTransition GeneratedDuration="0:0:0.4"/>
+					<VisualTransition GeneratedDuration="0:0:0.1" To="IsNotCompleted"/>
+				</VisualStateGroup.Transitions>
+				<VisualState x:Name="IsCompleted">
+					<Storyboard>
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
+							<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+						</DoubleAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="IsNotCompleted">
+					<Storyboard>
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
+							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+						</DoubleAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<Border BorderBrush="#FF787878" BorderThickness="0,1,0,0" Background="#F2FDFDFD">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="245"/>
+					<ColumnDefinition Width="15"/>
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+        
+				<Grid Grid.Row="0" Grid.Column="0" Background="#FF25A0DA" >
+					<TextBlock Text="{Binding ActivityRequest.Caption}" Foreground="White" FontSize="26.667" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,7,0,0" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="2">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="22" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+        
+					<Grid Grid.Row="0" Grid.Column="0" >
+						
+						<Grid.RowDefinitions>
+							<RowDefinition Height="50" />
+							<RowDefinition Height="37*" />
+							<RowDefinition Height="72*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="600" />
+                            <ColumnDefinition  />
+                        </Grid.ColumnDefinitions>
+
+						<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4.038" Height="31.924" >
+							<TextBlock Text="{Binding ActivityRequest.Title}" Foreground="#FF25A0DA" FontSize="26.667" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,22,0" />
+                            <Image x:Name="image" Style="{StaticResource CompletionResultImageStyle}" Source="{Binding ActivityRequest.CompletedResult, Converter={StaticResource ActivityResultIconConverter}}" Width="24" Height="24" Margin="0" VerticalAlignment="Center" Opacity="1">
+
+							</Image>
+						</StackPanel>
+
+                        <TextBlock Grid.Row="1" Style="{DynamicResource StatusMessageStyle}" Grid.Column="0" x:Name="StatusMsg" Text="{Binding ActivityRequest.StatusMessage}" VerticalAlignment="Bottom"  HorizontalAlignment="Stretch" TextAlignment="Left" Height="19.507"  />
+						<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,9.36" Height="21.28"  >
+							<telerik:RadButton Foreground="#FF25A0DA" telerik:StyleManager.Theme="Windows8" Width="75" Content="{Binding ActivityRequest.AcceptButtonText}" Command="{Binding AcceptCommand}"  Visibility="{Binding ShowCloseButton, Converter={StaticResource InverseBoolVisibilityConverter}}" Background="#C3FFFFFF"/>
+							<telerik:RadButton IsCancel="True" Foreground="#FF25A0DA" telerik:StyleManager.Theme="Windows8" Width="75" Content="Cancel" Margin="10,0,0,0" Command="{Binding CancelCommand}" Visibility="{Binding ShowCloseButton, Converter={StaticResource InverseBoolVisibilityConverter}}" Background="#C3FFFFFF" />
+                            <telerik:RadButton IsCancel="True" Foreground="#FF25A0DA" telerik:StyleManager.Theme="Windows8" Width="75" Content="Close" Margin="10,0,0,0"  Command="{Binding CloseCommand}"  Visibility="{Binding ShowCloseButton, Converter={StaticResource BoolVisibilityConverter}}" Background="#C3FFFFFF" />
+						</StackPanel>
+						<StackPanel  Grid.Row="2" Grid.Column="0"  Orientation="Horizontal" VerticalAlignment="Top" Height="72" Margin="0,3,0,0">
+							<telerik:RadProgressBar Height="14" Value="{Binding ActivityRequest.PercentComplete}" Width="450" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" IsIndeterminate="{Binding ActivityRequest.IsIndeterminateProgress}"  Visibility="{Binding ShowProgressBar, Converter={StaticResource BoolVisibilityConverter}}" >
+								<telerik:StyleManager.Theme>
+									<telerik:SummerTheme/>
+								</telerik:StyleManager.Theme>
+							</telerik:RadProgressBar>
+							<controls:Spinner x:Name="spinner" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Opacity="1" Visibility="{Binding ActivityRequest.IsIndeterminateProgress, Converter={StaticResource InverseBoolVisibilityConverter}}"  >
+								<controls:Spinner.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+										<SkewTransform/>
+										<RotateTransform/>
+										<TranslateTransform X="-22" Y="-26"/>
+									</TransformGroup>
+								</controls:Spinner.RenderTransform>
+							</controls:Spinner>
+						</StackPanel>
+						
+
+					</Grid>
+
+                    <Grid Grid.Row="0" Grid.Column="2"   >
+                        <!-- custom control goes here approx 325x150 -->
+                        <ContentControl Content="{Binding ActivityRequest.CustomElement}" />
+						
+                    </Grid>
+                </Grid>				
+
+			</Grid>
+		</Border>	
+	</Grid>
+</UserControl>

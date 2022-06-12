@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html ng-app="RequestTesterApp" lang="en">
+<head>
+    <title>Request Tester</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.css" />
+    <link rel="stylesheet" href="/Content/fullcalendar.css" />
+    <link rel="stylesheet" href="/Content/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="/Content/icheck/flat/blue.css" />
+    <link rel="stylesheet" href="/Content/unicorn.css" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body data-color="grey" class="flat">
+    <div id="wrapper">
+        <div id="header">
+            <h1><a href="./index.html">Admin</a></h1>
+            <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <div id="sidebar">
+            <ul>
+                <li><a href="../DashboardApp/index.html"><i class="fa fa-home"></i> <span>Live Dashboard</span></a></li>
+                <li class='active'><a href="../RequestTesterApp/index.html"><i class="fa fa-home"></i> <span>Request Tester</span></a></li>
+                <li><a href="../VendorStatusApp/index.html"><i class="fa fa-home"></i> <span>Vendor Status</span></a></li>
+            </ul>
+        </div>
+
+        <div id="content" ng-controller="RequestTestController">
+            <div id="content-header" class="mini">
+                <h1>Request Tester</h1>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6" style='text-align:center;'>
+                                <div style="margin-top:30px;">
+                                    {{number}}
+                                    <form id="testForm" class='form-horizontal'>
+                                        <div class="form-group">
+                                            <div class="row" style='font-weight:bold;'>
+                                                <div class="col-md-1" style='padding-top:8px'></div>
+                                                <div class="col-md-4" style='padding-top:8px'>Variant Id</div>
+                                                <div class="col-md-3" style='padding-top:8px'>Quantity</div>
+                                                <div class="col-md-4" style='padding-top:8px'>Force Fetch</div>
+                                            </div>
+                                            <div class="row" ng-repeat="check in stockChecks track by $index">
+                                                <div class="col-md-1" style='padding-top:8px'>
+                                                    <a ng-show="$index == stockChecks.length - 1" ng-click="addCheck()"><i class="fa fa-plus-square" style='font-size:1.2em'></i></a>
+                                                    <a ng-show="$index != stockChecks.length - 1" ng-click="removeCheck()"><i class="fa fa-minus-square" style='font-size:1.2em'></i></a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input id="variantId" ng-model='check.variantId' type="text" class="form-control">
+                                                </div>
+                                                <div class="col-md-3"><input id="quantity" ng-model='check.quantity' type="text" class="form-control"></div>
+                                                <div class="col-md-4" style='padding-top:4px'>
+                                                    <input type="checkbox" ng-model='check.forceFetch' name="checkboxes" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="button" style="margin-top:20px;" ng-click='submitProductRequest()' class="btn btn-primary">Submit</button>
+                                        </div>
+                                        
+                                    </form>
+
+                                    <div id='isLoading' style="margin-top:20px;" ng-show='isLoading'>
+                                        <i class="fa fa-spinner fa-spin fa-4x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6" style='text-align:center;'>
+                                <div class="widget-box">
+                                    <div class="widget-title">
+                                        <span class="icon">
+                                            <i class="fa fa-th"></i>
+                                        </span>
+                                        <h5>Results</h5>
+                                    </div>
+                                    <div class="widget-content nopadding">
+                                        <table class='table table-striped' id="results" ng-show="allResults">
+                                            <thead>
+                                                <tr>
+                                                    <th>VariantId</th>
+                                                    <th>MPN</th>
+                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Stock Check Time</th>
+                                                    <th>From Cache</th>
+                                                    <th>Request</th>
+                                                </tr>
+                                            </thead>
+                                            <tr ng-repeat="result in allResults">
+                                                <td ng-style="getColor(result)">{{result.VariantId}}</td>
+                                                <td ng-style="getColor(result)">{{result.MPN}}</td>
+                                                <td ng-style="getColor(result)">{{result.VendorName}}</td>
+                                                <td ng-style="getColor(result)">{{result.StockCheckStatus}}</td>
+                                                <td ng-style="getColor(result)">{{toFormattedDate(result.StockCheckTime)}}</td>
+                                                <td ng-style="getColor(result)">{{result.FromCache}}</td>
+                                                <td ng-style="getColor(result)">{{result.RequestNum}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="footer" class="col-xs-12">
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/excanvas.min.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/jquery-ui.custom.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/fullcalendar.min.js"></script>
+    <script src="/Scripts/jquery.nicescroll.min.js"></script>
+    <script src="/Scripts/unicorn.js"></script>
+    <script src="/Scripts/jquery.icheck.min.js"></script>
+    <script src="/Scripts/unicorn.form_common.js"></script>
+    <script src="/Scripts/moment.js"></script>
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/jquery.signalR-2.1.0.min.js"></script>
+    <script src="/Scripts/underscore-min.js"></script>
+    <script src="/Scripts/highcharts.js"></script>
+    <script src="/Scripts/highcharts-ng.js"></script>
+    <script src="/Scripts/ui-bootstrap-0.11.0.min.js"></script>
+    <script src="/Scripts/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers.js"></script>
+</body>
+</html>

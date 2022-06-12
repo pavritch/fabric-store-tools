@@ -1,0 +1,449 @@
+﻿.@model Dictionary<StoreKeys, Website.Controllers.TicklerCampaignsController.TicklerMetrics>
+@{
+    ViewBag.Title = "Tickler Campaigns Page";
+    
+    
+}
+
+@section scripts {
+    <!-- scripts here -->
+
+    <script>
+
+        $(function () {
+
+            $(".confirmAction").click(function (evt) {
+                evt.preventDefault();
+
+                var href = $(this).attr("href");
+
+                if ($(this).hasClass("tag")) {
+
+                    var panel = $(this).parentsUntil(".panel-body").parent();
+                    var startDate = panel.find("#startDate").val();
+                    var endDate = panel.find("#endDate").val();
+                    var minDays = panel.find("#minDays").val();
+
+                    if (startDate.length == 0 || Date.parse(startDate) < Date.parse("1/1/2010"))
+                    {
+                        bootbox.alert("Missing or invalid start date.")
+                        return;
+                    }
+
+                    if (endDate.length == 0 || Date.parse(endDate) < Date.parse("1/1/2010")) {
+                        bootbox.alert("Missing or invalid end date.")
+                        return;
+                    }
+
+                    if (minDays.length == 0 || parseInt(minDays) < 5) {
+                        bootbox.alert("Missing or invalid min days. Minimum is 5.")
+                        return;
+                    }
+
+                    if (Date.parse(startDate) >= Date.parse(endDate))
+                    {
+                        bootbox.alert("Start date must be earlier than end date.")
+                        return;
+                    }
+
+                    var params = { startDate: startDate, endDate: endDate, minimumDaysSinceLastEmail: minDays };
+                    href = href + "&tag=" + encodeURI(JSON.stringify(params));
+                }
+                console.log(href);
+
+                bootbox.confirm("Run " + $(this).text() + "?", function (result) {
+
+                    if (result === true)
+                        location.href = href;
+                });
+            })
+
+        });
+    </script>
+
+}
+
+<style type="text/css">
+    .actions p
+    {
+        margin-top:0;
+    }
+</style>
+
+<h2>Tickler Campaigns</h2>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#insideFabric" data-toggle="tab">Inside Fabric</a></li>
+    <li><a href="#insideWallpaper" data-toggle="tab">Inside Wallpaper</a></li>
+    <li><a href="#insideRugs" data-toggle="tab">Inside Rugs</a></li>
+    <li><a href="#insideAvenue" data-toggle="tab">Inside Avenue</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="insideFabric">
+
+        <div style="width:430px;margin-top:20px;" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                @if(@Model.ContainsKey(StoreKeys.InsideFabric) && @Model[StoreKeys.InsideFabric].IsTicklerCampaignsEnabled)
+                { 
+                <p>Is Running: @Model[StoreKeys.InsideFabric].IsRunning.ToString() <a style="margin-left:10pt;"  class="confirmAction" href="TicklerCampaigns/PauseTicklerCampaignProcessing/InsideFabric">Pause</a><a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/ResumeTicklerCampaignProcessing/InsideFabric">Resume</a></p>
+                <p>Active Campaigns: @Model[StoreKeys.InsideFabric].CountActiveCampaigns.ToString("N0")</p>
+                <p>Staged Campaigns: @Model[StoreKeys.InsideFabric].CountStagedCampaigns.ToString("N0")</p>
+                <p>Suspended Campaigns: @Model[StoreKeys.InsideFabric].CountSuspendedCampaigns.ToString("N0")</p>
+                }
+                else
+                {
+                    <p>Not enabled.</p>
+                        
+                }
+            </div>
+        </div>
+
+        @if (@Model.ContainsKey(StoreKeys.InsideFabric) && @Model[StoreKeys.InsideFabric].IsTicklerCampaignsEnabled) { 
+            <table style="margin-top:30px;">
+                <tr>
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Long Time No See Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideFabric?method=StageTicklerLongTimeNoSee">Stage Tickler Long Time No See</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td style="width:30px;"></td>
+
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Swatch Only Buyers Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideFabric?method=StageSwatchOnlyBuyers">Stage Swatch Only Buyers</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </table>
+
+
+            <div style="width:430px;margin-top:20px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Actions</h3>
+                </div>
+                <div class="panel-body actions">
+                    <p><a class="confirmAction" href="TicklerCampaigns/MoveStagedTicklerCampaignsToRunning/InsideFabric">Move Staged Tickler Campaigns To Running</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/DeleteStagedTicklerCampaigns/InsideFabric">Delete Staged Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/SuspendRunningTicklerCampaigns/InsideFabric">Suspend Running Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/ResumeSuspendedTicklerCampaigns/InsideFabric">Resume Suspended Campaigns</a></p>
+                </div>
+            </div>
+            
+        }
+
+    </div>
+
+    <div class="tab-pane fade" id="insideWallpaper">
+
+        <div style="width:430px;margin-top:20px;" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                @if (@Model.ContainsKey(StoreKeys.InsideWallpaper) && @Model[StoreKeys.InsideWallpaper].IsTicklerCampaignsEnabled)
+                {
+                    <p>Is Running: @Model[StoreKeys.InsideWallpaper].IsRunning.ToString() <a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/PauseTicklerCampaignProcessing/InsideWallpaper">Pause</a><a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/ResumeTicklerCampaignProcessing/InsideWallpaper">Resume</a></p>
+                    <p>Active Campaigns: @Model[StoreKeys.InsideWallpaper].CountActiveCampaigns.ToString("N0")</p>
+                    <p>Staged Campaigns: @Model[StoreKeys.InsideWallpaper].CountStagedCampaigns.ToString("N0")</p>
+                    <p>Suspended Campaigns: @Model[StoreKeys.InsideWallpaper].CountSuspendedCampaigns.ToString("N0")</p>
+
+                }
+                else
+                {
+                    <p>Not enabled.</p>
+
+                }
+            </div>
+        </div>
+
+        @if (@Model.ContainsKey(StoreKeys.InsideWallpaper) && @Model[StoreKeys.InsideWallpaper].IsTicklerCampaignsEnabled) { 
+            <table style="margin-top:30px;">
+                <tr>
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Long Time No See Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideWallpaper?method=StageTicklerLongTimeNoSee">Stage Tickler Long Time No See</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td style="width:30px;"></td>
+
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Swatch Only Buyers Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideWallpaper?method=StageSwatchOnlyBuyers">Stage Swatch Only Buyers</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </table>
+
+
+
+            <div style="width:430px;margin-top:20px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Actions</h3>
+                </div>
+                <div class="panel-body actions">
+                    <p><a class="confirmAction" href="TicklerCampaigns/MoveStagedTicklerCampaignsToRunning/InsideWallpaper">Move Staged Tickler Campaigns To Running</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/DeleteStagedTicklerCampaigns/InsideWallpaper">Delete Staged Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/SuspendRunningTicklerCampaigns/InsideWallpaper">Suspend Running Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/ResumeSuspendedTicklerCampaigns/InsideWallpaper">Resume Suspended Campaigns</a></p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+    <div class="tab-pane fade" id="insideRugs">
+
+        <div style="width:430px;margin-top:20px;" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                @if (@Model.ContainsKey(StoreKeys.InsideRugs) && @Model[StoreKeys.InsideRugs].IsTicklerCampaignsEnabled)
+                {
+                    <p>Is Running: @Model[StoreKeys.InsideRugs].IsRunning.ToString() <a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/PauseTicklerCampaignProcessing/InsideRugs">Pause</a><a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/ResumeTicklerCampaignProcessing/InsideRugs">Resume</a></p>
+                    <p>Active Campaigns: @Model[StoreKeys.InsideRugs].CountActiveCampaigns.ToString("N0")</p>
+                    <p>Staged Campaigns: @Model[StoreKeys.InsideRugs].CountStagedCampaigns.ToString("N0")</p>
+                    <p>Suspended Campaigns: @Model[StoreKeys.InsideRugs].CountSuspendedCampaigns.ToString("N0")</p>
+                }
+                else
+                {
+                    <p>Not enabled.</p>
+
+                }
+            </div>
+        </div>
+
+
+        @if (@Model.ContainsKey(StoreKeys.InsideRugs) && @Model[StoreKeys.InsideRugs].IsTicklerCampaignsEnabled) { 
+
+            <table style="margin-top:30px;">
+                <tr>
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Long Time No See Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideRugs?method=StageTicklerLongTimeNoSee">Stage Tickler Long Time No See</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td style="width:30px;"></td>
+
+                    <td style="width:430px;vertical-align:top;">
+                    </td>
+
+                </tr>
+            </table>
+
+
+
+            <div style="width:430px;margin-top:20px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Actions</h3>
+                </div>
+                <div class="panel-body actions">
+                    <p><a class="confirmAction" href="TicklerCampaigns/MoveStagedTicklerCampaignsToRunning/InsideRugs">Move Staged Tickler Campaigns To Running</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/DeleteStagedTicklerCampaigns/InsideRugs">Delete Staged Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/SuspendRunningTicklerCampaigns/InsideRugs">Suspend Running Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/ResumeSuspendedTicklerCampaigns/InsideRugs">Resume Suspended Campaigns</a></p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="tab-pane fade" id="insideAvenue">
+
+        <div style="width:430px;margin-top:20px;" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                @if (@Model.ContainsKey(StoreKeys.InsideAvenue) && @Model[StoreKeys.InsideAvenue].IsTicklerCampaignsEnabled)
+                {
+                    <p>Is Running: @Model[StoreKeys.InsideAvenue].IsRunning.ToString() <a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/PauseTicklerCampaignProcessing/InsideAvenue">Pause</a><a style="margin-left:10pt;" class="confirmAction" href="TicklerCampaigns/ResumeTicklerCampaignProcessing/InsideAvenue">Resume</a></p>
+                    <p>Active Campaigns: @Model[StoreKeys.InsideAvenue].CountActiveCampaigns.ToString("N0")</p>
+                    <p>Staged Campaigns: @Model[StoreKeys.InsideAvenue].CountStagedCampaigns.ToString("N0")</p>
+                    <p>Suspended Campaigns: @Model[StoreKeys.InsideAvenue].CountSuspendedCampaigns.ToString("N0")</p>
+
+                }
+                else
+                {
+                    <p>Not enabled.</p>
+
+                }
+            </div>
+        </div>
+
+        @if (@Model.ContainsKey(StoreKeys.InsideAvenue) && @Model[StoreKeys.InsideAvenue].IsTicklerCampaignsEnabled) { 
+            <table style="margin-top:30px;">
+                <tr>
+                    <td style="width:430px;vertical-align:top;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Stage Long Time No See Campaign</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minDays">Minimum Days Since Last Mailed</label>
+                                    <input type="number" class="form-control" id="minDays" value="30">
+                                </div>
+
+                                <p><a class="confirmAction tag" href="Maintenance/RunActionForStore/InsideAvenue?method=StageTicklerLongTimeNoSee">Stage Tickler Long Time No See</a></p>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td style="width:30px;"></td>
+
+                    <td style="width:430px;vertical-align:top;">
+
+                    </td>
+
+                </tr>
+            </table>
+
+
+
+
+            <div style="width:430px;margin-top:20px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Actions</h3>
+                </div>
+                <div class="panel-body actions">
+                    <p><a class="confirmAction" href="TicklerCampaigns/MoveStagedTicklerCampaignsToRunning/InsideAvenue">Move Staged Tickler Campaigns To Running</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/DeleteStagedTicklerCampaigns/InsideAvenue">Delete Staged Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/SuspendRunningTicklerCampaigns/InsideAvenue">Suspend Running Campaigns</a></p>
+                    <p><a class="confirmAction" href="TicklerCampaigns/ResumeSuspendedTicklerCampaigns/InsideAvenue">Resume Suspended Campaigns</a></p>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+

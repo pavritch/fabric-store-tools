@@ -1,0 +1,265 @@
+﻿<UserControl x:Class="ProductScanner.App.Views.StoreDashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"             
+             xmlns:views="clr-namespace:ProductScanner.App.Views"
+             d:DataContext="{d:DesignInstance Type=vm:StoreDashboardViewModel, IsDesignTimeCreatable=True}"             
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="900">
+    <Grid>
+        <Grid.Resources>
+            <local:ScanStateIconConverter x:Key="ScanStateIconConverter" />
+            <local:ScanningStatusIconConverter x:Key="ScanningStatusIconConverter" />
+
+            <ItemsPanelTemplate x:Key="RingItemsPanelTemplate">
+                <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+
+            <Style TargetType="Button" x:Key="VendorIcon">
+                <!--<Setter Property="Cursor" Value="Hand" />-->
+                <Setter Property="Height" Value="14" />
+                <Setter Property="Width" Value="14" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </Grid.Resources>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="RefreshStates">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.3">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <QuadraticEase EasingMode="EaseOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="IsRefreshing">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="radProgressBar">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="IsNotRefreshing">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="radProgressBar">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <i:Interaction.Behaviors>
+            <ei:DataStateBehavior Binding="{Binding IsRefreshing}" Value="True" TrueState="IsRefreshing" FalseState="IsNotRefreshing"/>
+        </i:Interaction.Behaviors>
+
+        <Grid  Width="700" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition  />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition  />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" >
+                    <ItemsControl ItemsPanel="{StaticResource RingItemsPanelTemplate}">
+                        <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#FFC65F8C" Value="{Binding VendorCount}" Label="VENDORS" />
+                        <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#FFC5CE4D" Value="{Binding ScanningCount}" Label="SCANNING" />
+                        <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#FFF4B400" Value="{Binding SuspendedCount}" Label="SUSPENDED" />
+                        <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#8ec441" Value="{Binding CommitsCount}" Label="COMMITS" />
+                    </ItemsControl>
+                </StackPanel>
+
+                <GroupBox Height="220" Grid.Row="0" Grid.Column="1" Header="ACTIONS" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Foreground="#FF0FAFE1" BorderBrush="#FFBBBBBB" FontFamily="Segoe WP" FontSize="10.667" >
+
+                    <StackPanel Margin="10">
+                        <ContentControl FontFamily="Segoe UI" FontSize="13.333">
+                            <StackPanel>
+                                <Button Style="{StaticResource LinkButtonStyle}"  Command="{Binding ShowScanningSummary}" Content="Active Scans"  Margin="0,0,0,8"  />
+                                <Button Style="{StaticResource LinkButtonStyle}"  Command="{Binding ShowCompletedScansSummary}" Content="Completed Scans"    Margin="0,0,0,8"  />
+                                <Button Style="{StaticResource LinkButtonStyle}"  Command="{Binding ShowCommitsSummary}" Content="Commit History"   Margin="0,0,0,8"  />
+                                <Button Style="{StaticResource LinkButtonStyle}"  Command="{Binding ShowLoginsSummary}" Content="Vendor Logins"   Margin="0,0,0,20" />
+                                <Button Style="{StaticResource LinkButtonStyle}"  Command="{Binding ShowTestsSummary}" Content="Vendor Tests"   Margin="0,0,0,20" />
+                            </StackPanel>
+                        </ContentControl>
+                        <telerik:RadButton   Width="140" Content="Delete Cached Files"  Command="{Binding DeleteCacheFilesCommand}" Margin="0,0,8,10" HorizontalAlignment="Left"  />
+
+                    </StackPanel>
+                </GroupBox>
+                
+            </Grid>
+            
+            
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+
+
+                <Border Background="#FF25A0DA" CornerRadius="5,5,0,0"  HorizontalAlignment="Stretch" Margin="0,12,0,0"  >
+                    <TextBlock Text="VENDORS" Margin="10,5,0,5" Foreground="White" FontFamily="Segoe WP SemiLight" FontSize="18.667" />
+                </Border>
+
+
+            </StackPanel>
+
+
+
+            <!-- Grid Variable Length -->
+            <telerik:RadGridView x:Name="RadGrid1"  Grid.Row="2" telerik:StyleManager.Theme="Windows8" MinHeight="150"  HorizontalAlignment="Left"  SelectionChanging="RadGridView_SelectionChanging"  ItemsSource="{Binding Store.Vendors}" AutoGenerateColumns="False" CanUserFreezeColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" RowIndicatorVisibility="Collapsed" DragElementAction="None" ShowGroupPanel="False" Foreground="#FF464646" ShowColumnFooters="True" FontFamily="Segoe WP" VerticalAlignment="Stretch" SnapsToDevicePixels="True" FontSize="13.333">
+                <telerik:RadGridView.Columns>
+                    <telerik:GridViewDataColumn Header="Vendor"  DataMemberBinding="{Binding Name}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsGroupable="False" IsFilterable="False" ShowDistinctFilters="False" Width="*">
+                        <telerik:GridViewDataColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <controls:VendorRadContextMenu Style="{StaticResource ContextMenuStyle}">
+                                            <telerik:RadMenuItem Header="Start" Command="{StaticResource NullCommand}" >
+                                                <telerik:RadMenuItem.Icon>
+                                                    <Image Source="/ProductScanner.App;component/Assets/Images/Start24.png" Width="16" Height="16" />
+                                                </telerik:RadMenuItem.Icon>
+                                            </telerik:RadMenuItem>
+                                            <telerik:RadMenuItem Header="Suspend" Command="{StaticResource NullCommand}">
+                                                <telerik:RadMenuItem.Icon>
+                                                    <Image Source="/ProductScanner.App;component/Assets/Images/ScanningStatus/Suspended24.png" Width="16" Height="16" />
+                                                </telerik:RadMenuItem.Icon>
+                                            </telerik:RadMenuItem>
+                                            <telerik:RadMenuItem Header="Resume" Command="{StaticResource NullCommand}">
+                                                <telerik:RadMenuItem.Icon>
+                                                    <Image Source="/ProductScanner.App;component/Assets/Images/Resume24.png" Width="16" Height="16" />
+                                                </telerik:RadMenuItem.Icon>
+                                            </telerik:RadMenuItem>
+                                            <telerik:RadMenuItem Header="Cancel" Command="{StaticResource NullCommand}">
+                                                <telerik:RadMenuItem.Icon>
+                                                    <Image Source="/ProductScanner.App;component/Assets/Images/ScanningStatus/Cancelled24.png" Width="16" Height="16" />
+                                                </telerik:RadMenuItem.Icon>
+                                            </telerik:RadMenuItem>
+                                            <!--<telerik:RadMenuItem IsSeparator="True" />
+                                            <telerik:RadMenuItem Header="Commit Pending" Command="{StaticResource NullCommand}"  />
+                                            <telerik:RadMenuItem Header="Discard Pending" Command="{StaticResource NullCommand}" />
+                                            <telerik:RadMenuItem Header="Delete Batches" Command="{StaticResource NullCommand}" />-->
+                                            <telerik:RadMenuItem IsSeparator="True" />
+                                            <telerik:RadMenuItem Header="Clear Log" Command="{StaticResource NullCommand}" />
+                                            <telerik:RadMenuItem Header="Clear Warning" Command="{StaticResource NullCommand}" />
+                                            <telerik:RadMenuItem Header="Delete Cache" Command="{StaticResource NullCommand}" />
+                                            <telerik:RadMenuItem IsSeparator="True" />
+                                            <!--<telerik:RadMenuItem Header="Scanner Page" Command="{StaticResource NullCommand}" />-->
+                                        </controls:VendorRadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    
+                                    <Button Tag="{Binding}" Grid.Column="2" Width="14" Height="14" VerticalAlignment="Center" Margin="0,2,3,0" Click="VendorScanIcon_Click" Style="{StaticResource VendorIcon}" >
+                                        <Image Source="{Binding ScanningOperationStatus, Converter={StaticResource ScanningStatusIconConverter}, ConverterParameter=24}" Width="14" Height="14"  />
+                                    </Button>
+                                    <!--<Image Source="{Binding ScannerState, Converter={StaticResource ScanStateIconConverter}, ConverterParameter=16}" Width="16" Height="16" />-->
+                                    <Grid>
+                                        <TextBlock Text="{Binding Name}" Foreground="#AAc65f8c" Visibility="{Binding IsFullyImplemented, Converter={StaticResource InverseBoolVisibilityConverter}, Mode=OneWay}" />
+                                        <Button Style="{StaticResource LinkButtonStyle}" Content="{Binding Name}" Tag="{Binding}" Click="VendorLinkButton_Click"  Visibility="{Binding IsFullyImplemented, Converter={StaticResource BoolVisibilityConverter}, Mode=OneWay}" />
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </telerik:GridViewDataColumn.CellTemplate>
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Scan State " DataMemberBinding="{Binding ScannerState}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsGroupable="False" IsFilterable="False" ShowDistinctFilters="False" Width="120"  HeaderTextAlignment="Right" TextAlignment="Right">
+
+                        <!--<telerik:GridViewDataColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="4" />
+                                        <ColumnDefinition Width="16" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{Binding ScannerState}" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <Image Grid.Column="2" Source="{Binding ScanningOperationStatus, Converter={StaticResource ScanningStatusIconConverter}, ConverterParameter=24}" Width="14" Height="14" VerticalAlignment="Center" Margin="0,2,0,0" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </telerik:GridViewDataColumn.CellTemplate>-->
+
+
+
+                    </telerik:GridViewDataColumn>
+                    <telerik:GridViewDataColumn Header="Last Commit " DataMemberBinding="{Binding LastCommitDate}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsFilterable="False" ShowDistinctFilters="False"  DataFormatString="{}{0:g}" Width="140" HeaderTextAlignment="Right" TextAlignment="Right" >
+
+                    </telerik:GridViewDataColumn>
+                    <telerik:GridViewDataColumn Header="Commits "  DataMemberBinding="{Binding PendingCommitBatchCount}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsGroupable="False" IsFilterable="False" ShowDistinctFilters="False"  DataFormatString="{}{0:N0}" Width="65" HeaderTextAlignment="Right" TextAlignment="Right" >
+
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Products " DataMemberBinding="{Binding ProductCount}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsGroupable="False" IsFilterable="False" ShowDistinctFilters="False" Width="85" DataFormatString="{}{0:N0}" HeaderTextAlignment="Right" TextAlignment="Right">
+                        <telerik:GridViewDataColumn.AggregateFunctions>
+                            <telerik:SumFunction 
+									ResultFormatString="{}{0:N0}"
+									SourceField="ProductCount" />
+                        </telerik:GridViewDataColumn.AggregateFunctions>
+                    </telerik:GridViewDataColumn>
+                    <telerik:GridViewDataColumn Header="Variants "   DataMemberBinding="{Binding ProductVariantCount}"  IsReorderable="False" IsResizable="False" IsReadOnly="True" IsFilterable="False" ShowDistinctFilters="False"  DataFormatString="{}{0:N0}" Width="85" HeaderTextAlignment="Right" TextAlignment="Right" >
+
+                        <telerik:GridViewDataColumn.AggregateFunctions>
+                            <telerik:SumFunction 
+									ResultFormatString="{}{0:N0}"
+									SourceField="ProductVariantCount" />
+                        </telerik:GridViewDataColumn.AggregateFunctions>
+                    </telerik:GridViewDataColumn>
+
+                    <!-- add this back in if we add support for individual selection -->
+                    <!--<telerik:GridViewCheckBoxColumn Header=""  DataMemberBinding="{Binding IsSelected}"  IsReorderable="False" IsResizable="False" IsReadOnly="False" IsFilterable="False" ShowDistinctFilters="False"  Width="30" HeaderTextAlignment="Center" TextAlignment="Center" >
+
+  
+                    </telerik:GridViewCheckBoxColumn>-->
+
+
+
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+            
+            <!-- Below Grid -->
+            <!-- Refresh not used, so collapse this section for now -->
+            <Grid Margin="0,2,0,0" Grid.Row="3"  HorizontalAlignment="Stretch"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!-- progress bar not used for now -->
+                <telerik:RadProgressBar Visibility="Collapsed" x:Name="radProgressBar"   HorizontalAlignment="Left" VerticalAlignment="Center"  IsIndeterminate="True"  Opacity="0" FontSize="8" Height="11" MinHeight="11" Width="66" >
+                    <telerik:StyleManager.Theme>
+                        <telerik:SummerTheme/>
+                    </telerik:StyleManager.Theme>
+                </telerik:RadProgressBar>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource LinkButtonStyle}" Content="Clear Logs" Margin="0,0,10,0" Command="{Binding ClearIdleStatesCommand}" />
+                    <Button Style="{StaticResource LinkButtonStyle}" Content="Export" Command="{Binding ExportCommand}" />
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+
+
+
+
+    </Grid>
+</UserControl>

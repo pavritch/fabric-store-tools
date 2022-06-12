@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Run Action for Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+@section scripts {
+    <script type="text/javascript">
+
+        /// <reference path="~/scripts/jquery-1.8.2.js" />
+
+        function finished() {
+            $("#spinner").hide();
+            $("#meterContainer .active").removeClass("active");
+        }
+
+        function disableCancelButton() {
+            $("#btnCancel").attr("disabled", "disabled");
+        }
+
+
+        $(function () {
+
+            var maintenanceHub = $.connection.maintenanceHub;
+
+            maintenanceHub.client.runStoreActionPctComplete = function (pct) {
+                $("#meterbar").css("width", "" + pct + "%");
+
+            };
+
+            maintenanceHub.client.runStoreActionStatus = function (msg) {
+
+                if (msg === "[[finished]]") {
+                    disableCancelButton();
+                    finished();
+                    return;
+                }
+
+                $("#statusText").html(msg);
+            };
+
+            $.connection.hub.start().done(function () {
+                $("#btnCancel").click(function () {
+                    maintenanceHub.server.cancelStoreAction("@ViewBag.StoreKey");
+                });
+
+            });
+
+
+        });
+
+    </script>
+}
+
+
+
+
+
+<style type="text/css">
+    #meterContainer {
+        width: 400px;
+    }
+
+    #statusText {
+        margin-top: 10pt;
+        font-family: Arial;
+        font-size: 12pt;
+        color: #505050;
+    }
+</style>
+
+
+
+<h2>Store Action</h2>
+<p>Run the designated <span style="text-decoration:underline">Action</span> on the store.</p>
+<p>Action: @ViewBag.ActionName</p>
+<p>@ViewBag.Message</p>
+
+
+<div style="margin-top:20pt;">
+    <div id="meterContainer" class="pull-left">
+        <div class="progress progress-striped active">
+            <div id="meterbar" class="progress-bar " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+        </div>
+    </div>
+    <div class="pull-left" style="margin-left: 10px;"><i id="spinner" class="fa fa-cog fa-spin"></i></div>
+
+    <div class="clearfix"></div>
+    <div id="statusText">Initializing...</div>
+
+    <div style="margin-top:20pt;">
+        <button id="btnCancel" class="btn btn-primary" style="width:100px;">Cancel</button>
+    </div>
+</div>

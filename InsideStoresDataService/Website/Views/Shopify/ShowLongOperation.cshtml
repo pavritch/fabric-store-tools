@@ -1,0 +1,60 @@
+﻿@model LongOperationProgress
+@{
+    ViewBag.Title = "Simple Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    <!-- scripts here -->
+}
+
+<style type="text/css">
+
+.dataTable .tdLabel
+{
+    text-align:left;
+    width:300px;
+    padding-right:10px;
+}
+
+#log p {
+    margin:0px;
+}
+.dataTable .tdData
+{
+    text-align:left;
+    width:400px;
+}
+
+    h5 {
+        margin-top:20pt;
+        margin-bottom:3pt;
+    }
+</style>
+
+
+<h2>@Model.Title</h2>
+
+<p>OperationID: @Model.ShortId</p>
+<p>Time started: @Model.TimeStarted.ToString("G")</p>
+<p>Time ended: @(Model.TimeFinished.HasValue ? Model.TimeFinished.Value.ToString("G") : "--")</p>
+<p>Count total: @(Model.CountTotal.ToString("N0"))</p>
+<p>Count remaining: @(Model.CountRemaining.ToString("N0"))</p>
+
+<p>Percent complete: @Math.Round(Model.PercentComplete, 2)</p>
+<p>Status Message: @(Model.StatusMessage ?? "")</p>
+
+<p>Result: @(Model.Result ?? "None")</p>
+
+@if (Model.IsRunning)
+{
+    <p><a href="/Shopify/CancelLongOperation/@Model.Key">Cancel Operation</a></p>
+}
+
+<h4 style="margin-top:25pt;">Log</h4>
+<div id="log">
+@foreach (var item in Model.Log)
+{
+    <p>@item</p>
+}
+</div>

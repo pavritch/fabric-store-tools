@@ -1,0 +1,158 @@
+﻿@model Website.Emails.RecentSwatchPurchaseEmail
+Content-Type: text/html; charset=utf-8
+
+<html>
+<head>
+    <title>View</title>
+    <style type="text/css">
+
+        h3 {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14pt;
+            color: #808080;
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        table {border-collapse: collapse;}
+        table td {border-collapse:collapse; mso-table-lspace: 0; mso-table-rspace: 0;}
+
+        img { display:block; }
+        p
+        {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 10pt;
+        }
+
+        td
+        {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 10pt;
+        }
+
+        .ReadMsgBody
+        {
+            width: 100%;
+        }
+
+        .ExternalClass {
+            width: 100%;
+            line-height: 100%;
+        }
+
+        .logoImage
+        {
+
+        }
+
+        .unsub{
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            color: #808080;
+            margin-top:20pt;
+        }
+
+    </style>
+
+
+    <style type="text/css">
+        @@media only screen and (max-width: 640px) {
+            body {
+                width: auto !important;
+            }
+        }
+    </style>
+
+    <style type="text/css">
+        @@media only screen and (max-width: 479px) {
+            body {
+                width: auto !important;
+            }
+
+            .logoImage {
+                width: 250px;
+            }
+
+        }
+    </style>
+
+
+    <meta name="format-detection" content="telephone=no">
+</head>
+<body>
+        <a href="@Model.StoreLink">
+            <img class="logoImage" alt="" src="@Model.StoreLogoUrl" />
+        </a>
+
+
+        <table  cellpadding="0" cellspacing="0" border="0"><tr><td height="15"></td></tr></table>
+
+        @if (string.IsNullOrWhiteSpace(Model.Order.FirstName))
+        {
+            <p>Hello,</p>
+        }
+        else
+        {
+            <p>Hello @Model.Order.FirstName,</p>
+        }
+
+    <p style="margin-top:4pt;">We're just following up on the swatches you recently purchased from us on @Model.Order.OrderDate.ToShortDateString().</p>
+
+    <p>We understand looking for fabric or wallpaper is a tedious task.  If you need any help, whether it's finding a coordinating pattern, searching for an alternative, or anything at all, please
+    send us an email and we'll do our best to assist you.</p>
+
+    @if (Model.IncludeCoupon)
+    { 
+        <p>Once you've found something you like, please take advantage of our latest promotion and take 10% off your next order. Free shipping over $200.</p>  
+
+        <h3>10% OFF YOUR NEXT ORDER</h3>
+        <p style="margin-top:3pt;">Use coupon code <b>tenoff</b> at time of check out.</p>
+        <p>We hope to see you again soon!</p>
+    }
+    else
+    {
+        <p>Once you've made your final pattern selections, please come back soon to order the actual products while we still have stock.</p>
+    }
+
+
+    <h3>Order Number @Model.Order.OrderNumber</h3>
+
+    <p style="margin-top:3pt;">These are the swatches you purchased:</p>
+
+
+    <table style="margin-top:20pt;" cellpadding="0" cellspacing="0" border="0">
+        @foreach (var item in @Model.PurchasedProducts.Take(20))
+        {
+            <tr>
+                <td valign="top"><a href="@item.PageUrl"><img style="display:block;width:150px;height:150px;" alt="" border="0" width="150" height="150" src="@item.ImageUrl" ></a></td>
+                <td width="10"></td>
+                <td valign="top">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr><td valign="top">@item.SKU</td></tr>
+                        <tr><td valign="top">@item.Name</td></tr>
+                        <tr><td style="height:5px;"></td></tr>
+                        <tr><td valign="top"><a href="@item.PageUrl">view product</a></td></tr>
+                        @if (Model.FindSimilarUrlTemplate != null)
+                        {
+                        <tr><td style="height:5px;"></td></tr>
+                        <tr><td valign="top"><a href="@(Model.FindSimilarUrlTemplate.Replace("@@SKU@@", item.SKU))">find similar</a></td></tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+            <tr><td height="20"></td><td height="20"></td><td height="20"></td></tr>
+        }
+    </table>
+
+
+    <p><a href="@Model.MyPurchasesUrl">View All Purchases</a></p>
+    
+    <p>Thank you,</p>
+    <p>Inside Stores<br />Customer Service<br /><a href="https://www.insidestores.com">www.InsideStores.com</a></p>
+
+    <p class="unsub">This is the only reminder email you will receive. However, if you choose to <a href="@Model.UnsubscribeUrl">unsubscribe</a>, we will never send reminders about future swatch purchases.</p>
+    <br />
+    <br />
+    <br />
+</body>
+</html>

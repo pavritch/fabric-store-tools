@@ -1,0 +1,1546 @@
+<!DOCTYPE HTML>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- itemdetail.jsp -->
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    
+  
+
+  
+
+   
+    
+  
+
+  
+
+   
+    
+  
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+<html>
+<head>
+
+
+	
+		<meta http-equiv="Refresh" content="3600; URL=sessionExpired.do">
+	
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<!-- javascriptLibraries.jsp -->
+
+
+
+
+
+<script type="text/javascript" src="/storefrontCommerce/N1994863108/bundles/lib.js" ></script>
+ 
+<script type="text/javascript" src="/storefrontCommerce/N588628412/js/functions.js" ></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="/storefrontCommerce/N1971662305/bundles/SFCommerce.css" />
+
+
+	<link type="image/x-icon" href="images/favicon.ico" rel="shortcut icon">
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" >
+	<title>Silver State Inc. - Search Results Detail</title>
+	
+
+	<script type="text/javascript" src="/storefrontCommerce/N1668759797/js/itemdetail.js" ></script>
+
+
+	
+	<script language="javascript">
+
+	    function itemRecalculate(form)
+	    {
+	       form.action = "/storefrontCommerce/itemRecalculate.do";
+		   form.submit();
+	    }
+		function itemDetail(form)
+		{
+		   form.action = "/storefrontCommerce/itemDetail.do";
+		   form.submit();
+		}	
+		
+		function setAction(form, path)
+		{
+		   form.action = "/storefrontCommerce/" + path ;
+		   form.submit();
+		}
+		function setActionForShoppingList(form)
+		{
+			var selectedObject = document.getElementById('listId');	
+		   var selectedIndex = selectedObject.selectedIndex;
+		   
+		   var selectedText = selectedObject.options[selectedIndex].text;
+		   
+		   if (selectedIndex == 1) {
+		      <!-- Create a shopping list -->
+		      form.action = "/storefrontCommerce/shoppinglistCreate.do";
+		      form.submit();
+			}
+		   else  {
+		      <!-- Add to shopping list -->
+		      form.action = "/storefrontCommerce/shoppinglistAddItem.do";
+		      form.submit();
+		   }
+		}
+		$(document).ready(function(){
+			$( "#itemDetailScreen .addToCartButton" ).click(function() {
+					$( ".processingRequestMessageContainer" ).css('display', 'block');
+					$( ".processingRequestMessage" ).dialog( "open" );
+			});
+		});
+	</script>
+	
+	<script language="javascript">
+
+
+
+//# Project Item
+	function project_item(p_action, p_itm_pk, p_itm_title, p_itm_image)
+	{
+	// verify that we need to display the item
+		if(p_action == 'display')
+		{
+			//document.getElementById('project' + p_itm_pk).style.display = ('inline');
+			document.getElementById('project_item_image').src = (p_itm_image);
+			//document.getElementById('project_item_subtitle').innerHTML = (p_itm_pk);
+			document.getElementById('project_item_title').innerHTML = (p_itm_title);
+			document.getElementById('project').style.display = ('inline');
+			document.getElementById('project_remove').href = ('javascript: project_item(\'remove\', \'' + p_itm_pk + '\');');
+		}
+	// verify that we need to modify the project
+		else
+		{
+		// initialize project
+			$.ajax({ type: "POST", xhrFields: { withCredentials: true }, crossDomain: true, url: "/ajax_project.php",  data: { p_action: p_action, p_itm_pk: p_itm_pk }}).done(function(p_response)
+			{
+
+                 
+				if(p_action == 'add')
+				{
+					document.getElementById('project_items_item'+p_itm_pk).style.display = ('inline');					
+					document.getElementById('project_item_title').innerHTML = (p_itm_title);
+					document.getElementById('project_item_image').src = (p_itm_image);
+					document.getElementById('project_remove').href = ('javascript: project_item(\'remove\', \'' + p_itm_pk + '\');');
+					document.getElementById('project').style.display = ('inline');
+                                        document.getElementById('itemNum' + p_itm_pk).value = (p_response);
+				}
+				
+				else if(p_action == 'remove') location.reload();
+                        });
+		}
+	} 
+
+
+
+	function popup_image(p_display)
+	{
+		document.getElementById('popup_image').style.display = (p_display);
+	}
+
+        function requestSample (form, path, memoSample, memoId, cartType) {
+          if (cartType == 'c' || cartType == 'r' || cartType == 'o') {
+           // alert('Memo Sample requests must be placed separately, cannot be combined with fabric orders or reserve orders. Thank you.');
+            $("#memosamplemsg")[0].style.display="block";
+            
+          } else {
+            document.cookie="orderType" + "=" + "m"; 
+            document.forms.itemDetailForm.order_qty.value=1;
+            document.forms.itemDetailForm.itm_num.value=memoSample;
+            document.forms.itemDetailForm.itm_id.value=memoId;
+            setAction(form, path);
+          }
+        }
+
+        function seqvalidateQtyText(event, itemDetailForm, path,outlet,maxQty,cartType) {
+          var key=event.keyCode;
+          if (key==13) {
+            event.preventDefault();
+          } else {
+          validateQtyText(event);
+          }
+        }
+
+        function valProceed (form, path, outlet, maxQty, cartType, maxLotQty) {
+          maxQty=parseInt(maxQty);
+          maxLotQty=parseInt(maxLotQty);
+          if (isNaN(maxQty)) {
+            maxQty=0;
+          }
+          if (isNaN(maxLotQty)) {
+            maxLotQty=0;
+          }
+          if (cartType == 'm') {
+           // alert('Memo Sample requests must be placed separately, cannot be combined with fabric orders or reserve orders. Thank you.');
+            $("#memosamplemsg")[0].style.display="block";
+            return false;
+            } else {
+            if (form.order_process) {
+              document.cookie="orderType" + "=" + form.order_process[0].value;         
+              for ( var i=0; i<3; i++)
+              {
+                if (form.order_process[i].checked==true) {
+                  document.cookie="orderType" + "=" + form.order_process[i].value;
+                }
+              }
+            }
+            if (outlet == 'yes' && parseInt(form.order_qty.value) > maxQty) {
+              form.order_qty.value=maxQty;
+              alert('Changing order quantity to '+maxQty);
+            }
+            if (parseInt(form.order_qty.value) > maxLotQty && maxQty > 0) {
+              if (document.getElementById("backordmsg").style.display=="none") {
+                document.getElementById("backordmsg").style.display="block";
+                return false;
+              }
+            }
+
+            setAction(form, path); 
+          } 
+        }
+
+        function orderType(type) {
+          document.cookie= "orderType" + "=" + type;        
+        }
+
+	function cartValBlur(el, outlet, maxQty, maxLotQty) {
+          ret_dec=0;
+          maxQty=parseFloat(maxQty);
+          maxLotQty=parseFloat(maxLotQty);
+          enteredVal=parseFloat(el.value);
+          if (enteredVal%.25 != 0) {
+            num_int=Math.floor(enteredVal);
+            num_dec=enteredVal-num_int;
+            if (num_dec>.75) {
+              num_int+=1;
+              ret_dec=0;
+            } else if (num_dec>.5) {
+              ret_dec=.75;
+            } else if (num_dec>.25) {
+              ret_dec=.50;
+            } else if (num_dec>0) {
+              ret_dec=.25;
+            }
+              enteredVal=num_int+ret_dec;
+          }
+          if (outlet == 'yes' && enteredVal>maxQty){
+             enteredVal=maxQty;
+            // alert('Unable to order more than '+maxQty);
+             $('#outletqtyqty')[0].innerHTML=maxQty;
+             $('#outletqty')[0].style.display="block";
+          }
+        //  if (enteredVal > maxLotQty && maxQty > 0) {
+           //  alert("There is not enough yardage in one piece to fill your order.  Please select from available piece sizes or place the entire quantity on back order.");
+        //     document.getElementById("backordmsg").style.display="block";
+        //  }
+        }
+	function cartBlur(el) {
+          if (el.value == '') {
+            el.value = el.defaultValue;
+          }
+        }
+        function cartFocus(el) {
+          if (el.value=el.defaultValue) {
+            el.value='';
+          }
+        }
+
+function getCookie(c_name)
+{
+var c_value = document.cookie;
+var c_start = c_value.indexOf(" " + c_name + "=");
+if (c_start == -1)
+{
+c_start = c_value.indexOf(c_name + "=");
+}
+if (c_start == -1)
+{
+c_value = null;
+}
+else
+{
+c_start = c_value.indexOf("=", c_start) + 1;
+var c_end = c_value.indexOf(";", c_start);
+if (c_end == -1)
+{
+c_end = c_value.length;
+}
+c_value = unescape(c_value.substring(c_start,c_end));
+}
+return c_value;
+}
+
+
+
+	</script>
+
+
+
+	
+	
+	
+
+	
+
+
+
+</head>
+
+
+<!-- Body (tag) -->
+<script type="text/javascript">
+function getPB()
+  {
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function()
+    {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+    //  document.getElementById("PBhere").innerHTML=xmlhttp.responseText;
+      $('#PBhere')[0].innerHTML=xmlhttp.responseText;   
+      }
+    } 
+  
+  xmlhttp.open("GET","/pb_include.php?Item=CARESS SHELL",true);
+  xmlhttp.withCredentials = true;
+  xmlhttp.send();
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+<body id="itemDetailScreen" onload="getPB();"> 
+
+
+
+
+
+
+<!-- inline style is necessary to prevent the div from sometimes displaying for a split second -->
+<div class="processingRequestMessage" style="display: none;">
+	<p>
+		Processing request.<br>
+		<img src="images/infor_ajax-loader_24x24.gif" alt="#" />
+	</p>
+</div>
+
+
+<!-- Container (id) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+            
+              
+                
+                
+                  
+                
+              
+              
+            
+          
+        
+          
+        
+          
+        
+
+
+
+<!-- form print -->
+<form action="print.jsp" method="post" name="form_print" target="print">
+<!-- hidden fields -->
+<input name="p_message" type="hidden" value="">
+<input name="p_title" type="hidden" value="Silver State Inc. - Caress Shell">
+</form> 
+
+
+
+
+<div id="container">
+	<!-- Master Header (id) -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<div class="body">
+<table>
+  <tr>
+    <td>
+      <div class="body_column_left">
+        <div class="header">
+          <div class="header_logo">
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+    
+
+  
+
+
+
+            <a href="https://silverstatetextiles.com"><img title="Silver State Inc." src="/images/header_logo.png" alt="Silver state Inc."></a>
+          </div>
+          <div id="ss_header_logo" class="header_logo">
+            <a href="https://silverstatetextiles.com"><img title="Silver State Inc." src="/images/header_logo_silverstate.png" alt="Silver State Inc."></a>
+          </div>
+          <div id="alaxi_header_logo" class="header_logo">
+            <a href="https://silverstatetextiles.com"><img title="Silver State Inc." src="/images/header_logo_alaxi.png" alt="Silver state Inc."></a>
+          </div>
+          <div class="menu">
+            <div class="menu_actions">
+              <div>
+                
+		  
+                    <a href="http://silverstatetextiles.com/storefrontCommerce/logout.do">SIGN OUT</a>
+                  
+                  
+                
+              </div>
+              
+                <div>
+                  <a href="/storefrontCommerce/accountSummary.do">MY ACCOUNT</a>
+                </div>
+              
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=about">ABOUT US</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=search&p_action=reset&p_filters_icc_alaxi=~&p_filters_icc_outlet=~&p_filters_icc_silverstate=~">SEARCH FABRICS</a>
+              </div>
+              <div id="submenu_search" class="submenus_menu">
+                <div>
+                  <a href="https://silverstatetextiles.com/index.php?p_resource=search&p_action=reset&p_filters_icc_alaxi=yes&p_filters_icc_silverstate=~">Alaxi Fabrics</a>
+                </div>
+                <div>
+                  <a href="https://silverstatetextiles.com/index.php?p_resource=search&p_action=reset&p_filters_icc_alaxi=~&p_filters_icc_silverstate=yes">Silver state Fabrics</a>
+                </div>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=brands">BRANDS & COLLECTIONS</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=showrooms">SHOWROOMS</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=news">NEWS & MEDIA</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=help">FAQS</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=care">CARE & MAINTENANCE</a>
+              </div>
+              <div>
+                <a href="https://silverstatetextiles.com/index.php?p_resource=contact">CONTACT US</a>
+              </div>
+              <div>
+                <a style="color:#760030;" href="https://silverstatetextiles.com/index.php?p_resource=search&p_action=search&p_filters_icc_alaxi=~&p_filters_icc_outlet=yes&p_filters_icc_silverstate=~">OUTLET STORE</a>
+              </div>
+              <div>
+                <a href="/storefrontCommerce/cartView.do">SHOPPING CART</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="footer_promotion">
+            <div><a target="promotion" href="http://www.facebook.com/silverstatetextiles"><img title="Facebook" src="images/icon_facebook.png" alt="Facebook"></a></div>
+            <div><a target="Pinterest" href="http://pinterest.com/silverstateinc/"><img title="Pinterest" src="images/icon_pinterest.png" alt="Pinterest"></a></div>
+            <div><a target="Google +" href="https://plus.google.com/113924742039374076581/posts"><img title="Google +" src="images/icon_google.png" alt="Google +"></a></div>               
+          </div>
+          <div class="footer_copyright">&copy; Thu Jun 12 16:04:11 MDT 2014 Silver State Inc.</div>
+          <div class="footer_actions">
+            <div><a href="https://silverstatetextiles.com/index.php?p_resource=sitemap">Site Map</a></div>
+            <div><a href="https://silverstatetextiles.com/index.php?p_resource=terms">Terms & Conditions</a></div>
+            <div><a href="https://silverstatetextiles.com/index.php?p_resource=privacy">Privacy Policy</a></div>
+          </div>
+        </div>
+      </div>
+    </td>
+  <td>
+    <div style="margin: 0px;padding:0px;">
+
+
+     <img style="margin:0px;padding:0px;" src="/uploads/1391124068_Global-beat-bar-orange.jpg" alt="Promotion" style="height:115px;width:985px;"> 
+  
+    </div>
+
+
+
+
+
+	
+	<!-- Application Navigation Bar (id) -->
+ 
+   
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+	$(document).ready(function() {	
+		var timeStamp = new Date();	
+		var urlToSend = "./ajaxCartTotal.do";
+		var form = timeStamp.getMinutes() + "-" + timeStamp.getSeconds();
+		$.getJSON(urlToSend, form, function(data) {	   	
+// 		   Update the item count and the price
+			$('#numberOfCartItems').html(data.itemsInCart);
+			$('#numberOfCartItemsDisplayText').html("Item(s)&nbsp;");
+			$('#cartMoneyTotal').html(data.valueOfCart);
+			if (null == null) {
+				// if there are items in the cart then checkout should be clickable, unclickable otherwise-->
+				if (data.itemsInCart > 0) {
+					if (false == true){
+
+						$('#displayCheckout').html(" <a id=\"chkout\" href='#' onclick=\"displayProcessingMessage();checkout('/checkout.do')\">Checkout</a>&nbsp;");
+					} else {
+						$('#displayCheckout').html(" <a id=\"chkout\" href='#' onclick=\"displayProcessingMessage();checkout('/checkout.do')\">Checkout</a>&nbsp;");
+					
+					}
+				} else {
+					$('#displayCheckout').html(" Checkout&nbsp;");
+				}
+			} 
+	        else {
+				$('#displayCancelOrder').html(" <a href='/storefrontCommerce/cartClear.do'>cancel order</a>&nbsp;");
+			}
+			$.unblockUI;
+		});
+	});
+	
+	$(document).ready(function(){
+		if ($('#searchType').val() == "orderNumber" || $('#searchType').val() == "purchaseOrder") {
+			$('#emailspan').css('display', 'inline');
+			$('#emailspan').css('visibility', 'visible');
+		} else {
+			$('#emailspan').css('display', 'none');
+			$('#emailspan').css('visibility', 'hidden');
+		}
+	});
+	
+	// show or hide the email input text field for order number searching
+	$(function(){
+		$('#searchType').change( function() {
+			
+		});
+	});
+
+	function submitSimpleSearch(form) {
+		if (validateSimpleSearch(form)) {
+			if (form.searchType.value == "orderNumber" || form.searchType.value == "purchaseOrder") {
+				form.action = "simpleOrderSearch.do";
+			}
+			else {
+				form.action = "search.do";
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	function validateSimpleSearch(form) {
+		if (trim(form.keyword.value) == "") {
+			if (form.searchType.value == "orderNumber") {
+				alert('Specify an order number.');
+				form.keyword.focus();
+				return false;
+			}
+			if (form.searchType.value == "purchaseOrder") {
+				alert('Specify a purchase order number.');
+				form.keyword.focus();
+				return false;
+			}
+		}
+		else if (trim(form.emailAddress.value) == "" &&
+					document.getElementById('emailspan').style.display == 'inline') {
+			alert('An e-mail address is required.');
+			form.emailAddress.focus();
+			return false;
+		}
+		return true;
+	}
+	
+	function checkout(action) {
+		// If we are on the cart page, submit the form so that updates are processed
+		var form = document.getElementById("cartPageForm");
+		if (form != null) {
+			form.action = "/storefrontCommerce" + action;
+			form.submit();
+		} else {
+			window.location.replace("/storefrontCommerce" + action);
+		}
+	}
+</script>
+
+
+
+		<div id="applicationNavigationBar">
+
+
+
+  
+<div class="resource_search_item_logo">
+  
+    <img src="/images/header_logo_silverstate.png">
+  
+</div>
+
+  <div id="userAccountWelcome">
+    
+      Welcome, Tessa Luu 
+
+    
+  </div>
+
+			
+				
+					<div id="leftNavColumn">
+						<ul class="navBar">
+							<li id="searchAllCategoriesContainer">
+								<a href="http://silverstatetextiles.com/storefrontCommerce/categorybrowse.do"><div id="searchAllCategoriesButton" class="dir">
+										<p>Browse All Categories</p>
+									</div></a>
+								
+									<ul id="browseMenuInvisible">
+										<li>
+											
+											<a href="categorybrowse.do?category_name=main&amp;path=&amp;currentPage=1&amp;numResults=10" id="applicationNavigationCatalogLabel">
+												main
+											</a>
+										</li>
+										
+										<li class="lastMenuOption"><a href="http://silverstatetextiles.com/storefrontCommerce/categorybrowse.do">See All</a></li>
+									</ul>
+								
+							</li>
+						</ul>
+					</div>
+				
+			
+			
+				
+					<div id="rightNavColumn">
+						<a id="cartLink" onclick="javascript:displayProcessingMessage();" href="/storefrontCommerce/cartView.do">
+							<div id="cart">
+								<img src="images/icn_cart16x16_white.png" alt="Cart image" />
+								<span>Cart</span>
+							</div>
+						</a>
+						<div id="cartInfo">
+							<span id="numberOfCartItems"></span>&nbsp;
+							<span id="numberOfCartItemsDisplayText"><img src="images/infor_ajax-loader_24x24.gif" alt="#" /></span>
+							
+							
+								<p id="cartMoneyTotal"></p>
+							
+							
+								<p id="displayCheckout"></p>
+							
+							<span id="displayCancelOrder"></span>
+						</div>
+					</div>
+				
+			
+			<div id="searchNavColumn">
+				<div id="navBarSpecialsLinkContainer">
+					<a href="http://silverstatetextiles.com/storefrontCommerce/home.do">Home</a>
+					
+						<a href="http://silverstatetextiles.com/storefrontCommerce/specialsListView.do" id="navBarSpecialsLink">Specials</a>
+					
+				</div>
+				
+				<div id="searchContainer">
+					<form id="navigationSearchForm" name="searchForm" method="get" action="/storefrontCommerce/search.do" onsubmit="return submitSimpleSearch(this);" accept-charset="UTF-8">
+						<span id="searchInputLabel">Search</span>
+						<select id="searchType" name="searchType">
+							<option value="keyword">Keyword</option>
+							<option value="itemNumber">Item Number</option>
+							
+								<option value="orderNumber">Order Number</option>
+							 
+							
+								<option value="purchaseOrder">Purchase Order</option>
+							 
+						</select>
+						<input type="text" name="keyword" id="searchInput" />
+						<span id="emailspan">
+							<label>E-mail</label>
+							<input type="text" name="emailAddress" id="emailAddressInput" size="18" maxlength="80"/>
+						</span>
+						<input type="submit" id="searchGoButton" value="Go" />
+					</form>
+				</div>
+				
+			</div>
+
+
+		</div>
+
+
+	<!-- MainContent2Container (id) -->
+	<div id="mainContent2ColumnContainer">
+		<div id="mainContent2ColumnWrapper">
+			<!-- CenterMainColumn (id) -->
+			<div id="centerMainColumn2">
+				<!-- CenterMainColumn Padding -->
+
+<div id="memosamplemsg" class="itemalertmsg">
+*Memo Sample requests must be placed separately, cannot be combined with fabric orders or reserve orders. Thank you.
+</div>
+
+				<div id="centerMainColumnPadding">
+			
+					
+					<!-- Continue Shopping -->
+				
+					
+					<!-- Replace with new confirmMessage design -->
+					
+					
+					<!-- Replaced with new errorMessage design -->
+					
+					
+					<!-- Detail Item Information -->
+
+					<form name="itemDetailForm" method="post" action="/storefrontCommerce/itemDetail.do" accept-charset="UTF-8" enctype="multipart/form-data">
+						
+					<input type="hidden" name="itm_id" value="40792">
+					<input type="hidden" name="cust_item" value="CARESS SHELL">
+
+					
+					<div id="itemDetailContainer">
+
+					
+
+
+
+
+
+
+
+<div id="print" class="resource" style="padding: 0px;">
+
+
+        
+        
+
+          
+          
+          
+          
+          
+        
+
+          
+          
+          
+          
+          
+        
+
+          
+          
+          
+          
+          
+            
+            
+              
+              
+            
+          
+        
+
+          
+          
+            
+            
+              
+            
+          
+          
+          
+          
+        
+
+          
+          
+          
+          
+          
+        
+
+          
+            
+            
+              
+            
+          
+          
+          
+          
+          
+        
+
+          
+          
+          
+          
+            
+            
+              
+            
+          
+          
+        
+
+          
+          
+          
+          
+            
+            
+              
+            
+          
+          
+        
+        
+        
+        
+        
+        
+
+  <div class="resource_search_item">
+    <div class="realtive">
+    </div>
+    <div class="resource_search_item_title">Caress Shell</div>
+    <div class="resource_search_item_actions">
+      <a href="/storefrontCommerce/returnSearch.jsp">&laquo; Return to Search</a>
+    </div>
+    <div class="resource_search_item_images_popup">
+      <div id="popup_image" class="resource_search_item_images_popup_frame" style="display: none;">
+        <div class="resource_search_item_images_popup_image" title="Click to Close" onclick="popup_image('none');">
+          <div>
+            <img height=600 width=600 src="/storefrontCommerce/imageContent.do?contentKey=7f68e889-8c7c-4d4f-b119-b3d3ba7dfad5&size=PRIMARY"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resource_search_item_images">
+      
+        <div class="resource_search_item_images_image">
+          
+          
+
+ 
+
+<a href="javascript: popup_image('inline');">
+ <img title="Caress Shell" src="/storefrontCommerce/images/items/large/CARESS SHELL.jpg" alt="Caress Shell"> 
+</a>
+          	
+        </div>
+      
+      <div class="resource_search_item_images_actions">
+        <a href="javascript: popup_image('inline'); ">Large</a>
+        <a href="javascript: document.form_print.p_message.value = (document.getElementById('print').innerHTML); document.form_print.submit();">Print</a>
+      </div>
+      <div class="resource_search_item_images_actions">
+      </div>
+
+
+
+
+  
+    
+    
+      <div class="resource_search_item_images_actions">
+        
+        <a style="background-color: #01B1EA;font-size:15px;" href="javascript: requestSample(itemDetailForm, 'cartAddItem.do','M6 CARESS SHELL','43958','');">Request Sample</a>
+      </div>
+     
+  
+
+      <div class="resource_search_item_images_actions">
+        <a href="javascript: project_item('add','2879','Caress Shell','/storefrontCommerce/images/items/small/CARESS SHELL.jpg');">Add to Project Board</a>
+      </div>
+      <br />
+      <div class="resource_search_item_images_colors">
+        <div class="reource_search_item_images_colors_title">Additional Colors:</div>
+        <div class="resource_search_item_images_colors_items">
+
+
+
+  
+
+
+
+  
+  
+  
+    
+     
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        
+           
+          
+          <a href="/storefrontCommerce/itemDetail.do?itm_id=40790">
+            <img title="Indigo" alt="Indigo" src="/storefrontCommerce/images/items/small/CARESS INDIGO.jpg">
+          </a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+  
+  
+    
+     
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        
+        
+           
+          
+          <a href="/storefrontCommerce/itemDetail.do?itm_id=40791">
+            <img title="Sand" alt="Sand" src="/storefrontCommerce/images/items/small/CARESS SAND.jpg">
+          </a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+
+
+        </div>
+      </div>
+      <div class="resource_search_item_images_colors">
+        <div class="resource_search_item_images_colors_title">Coordinates:</div>
+        <div class="resource_search_item_images_colors_items">
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+           
+          
+
+              <a href="/storefrontCommerce/itemDetail.do?itm_id=45724">
+                <img title="Paragon Shell" src="/storefrontCommerce/images/items/small/PARAGON SHELL.jpg" alt="Paragon Shell">
+              </a>
+
+             
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+           
+          
+
+              <a href="/storefrontCommerce/itemDetail.do?itm_id=40919">
+                <img title="Cobblestone Shell" src="/storefrontCommerce/images/items/small/COBBLESTONE SHELL.jpg" alt="Cobblestone Shell">
+              </a>
+
+             
+          
+            
+            
+
+
+
+
+
+
+             
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+           
+          
+
+              <a href="/storefrontCommerce/itemDetail.do?itm_id=40794">
+                <img title="Carlton Shell" src="/storefrontCommerce/images/items/small/CARLTON SHELL.jpg" alt="Carlton Shell">
+              </a>
+
+             
+          
+        </div>
+      </div>
+
+      
+
+    </div>
+    <div class="resource_search_item_data">
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Pattern:</div>
+        <div class="item_detail_spec_detail">Caress</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Color:</div>
+        <div class="item_detail_spec_detail">Shell</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Brand:</div>
+        <div class="item_detail_spec_detail"></div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Application:</div>
+        <div class="item_detail_spec_detail">Residential, Contract/Hospitality, </div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Width:</div>
+        <div class="item_detail_spec_detail">54\"</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Contents:</div>
+        <div class="item_detail_spec_detail">82% Polyester, 18% Cotton</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Repeat:</div>
+        <div class="item_detail_spec_detail">N/A</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Finish:</div>
+        <div class="item_detail_spec_detail">Stain Repellent</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Cleaning Code:</div>
+        <div class="item_detail_spec_detail"><a href="/uploads/" target="_blank">See Cleaning Instructions</a></div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Abrasion:</div>
+        <div class="item_detail_spec_detail">100,000 Double Rubs</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Fire Retardant Specs:</div>
+        <div class="item_detail_spec_detail">UFAC Class 1, Cal 117 Section E</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Railroaded:</div>
+        <div class="item_detail_spec_detail">NO</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Country of Origin:</div>
+        <div class="item_detail_spec_detail">KOREA</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Collection:</div>
+        <div class="item_detail_spec_detail">SSF Ready for Wear</div>
+      </div>
+      <div class="resource_search_item_data_field">
+        <div class="item_detail_spec_label">Use-ACT Standards:</div>
+        <div class="item_detail_spec_detail">Heavy Duty</div>
+      </div>
+      <div class="resource_search_item_data_field">&nbsp;</div>
+
+      <table>
+        <tr>
+          <td>
+            <div class="social_item">
+              <a class="pin-it-button" count=layout="horizontal" href="http://pinterest.com/pin/create/button/?url=https://silverstatetextiles.com:443/storefrontCommerce/itemDetail.do?itm_id=40792&media=https://silverstatetextiles.com:443/storefrontCommerce/images/items/medium/CARESS SHELL.jpg&description=Caress Shell">
+                <img border="0" title="PintIt" src="//assets.pinterest.com/images/PinExt.png">
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="social_item">
+              <iframe src="//www.facebook.com/plugins/like.php?href=https://silverstatetextiles.com:443/storefrontCommerce/itemDetail.do?itm_id=40792&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+					
+					
+						<!-- Detail item information (middle) -->
+              
+						<!-- Item Order/Recalc form -->
+   
+				
+							<!-- Warehouse list display -->
+							
+								<input type="hidden" name="whs_id" value="">
+							
+							
+							<!-- Add To Cart, Recalculate buttons -->
+						
+						<!--Shopping Lists and the Wish List are not available to the Anonymous User.-->
+
+						
+					</div>
+					
+
+
+
+				
+					
+					
+					<!-- End of Detail Item Information -->
+						
+				</div>
+			</div>
+
+			<!-- End CenterMainColumn -->
+			
+			<!-- RightMainColumn (id)-->
+			<div id="rightMainColumn">
+
+
+
+
+
+
+
+
+<div class="relative">
+  <div class="resource_search_item_project" style="display: inline;">
+    
+    <div class="resource_search_item_project_decor"></div>
+    <div class="resource_search_item_project_title">
+      
+        
+          This product <font style="font-weight:bold">Is Available</font>
+        
+        
+      
+    </div>
+    <div class="resource_search_item_project_item">
+
+          <div id="itemDetailInfo">
+            <table>
+              <tr>
+                <td class="item_price_label">Price Per Yard</td>
+                <td id="priceamount">
+                  
+                    
+                    <TABLE>
+<TR>
+<TD  colspan="1" rowspan="1" align="right" nowrap  height="10" class="item_price">$33.75</TD>
+</TR>
+</TABLE>
+
+                  
+                </td>
+              </tr>
+            </table>
+          </div>
+
+<script type="text/javascript">
+
+if ($('.item_price').html()=="$0.00") {$('.item_price').html('Unkown<br /><span style="font-size:9px">Please call customer service</span>')};
+
+</script>
+
+
+      
+        
+          <table class="item_available_display">
+            <tr>
+              <th class="item_available_display_header" style="padding-left:0;">Piece ID</th>
+              <th class="item_available_display_header">On Hand</th>
+              <th class="item_available_display_header">Reserved</th>
+              <th class="item_available_display_header" style="padding-right:0;">Available</th>
+            </tr> 
+            
+             
+                  
+            
+              
+                <tr>
+                  <td class="item_available_display_line" style="padding-left:0;">10708076-000060</td>
+                    
+                    
+                    
+                      
+                    
+                  <td class="item_available_display_line">4.00</td>
+                  <td class="item_available_display_line">0.00</td>
+                  <td class="item_available_display_line" style="padding-right:0;">4.00</td>
+                </tr>
+              
+                
+            
+              
+                
+            
+              
+                <tr>
+                  <td class="item_available_display_line" style="padding-left:0;">10708076-000120</td>
+                    
+                    
+                    
+                      
+                    
+                  <td class="item_available_display_line">5.25</td>
+                  <td class="item_available_display_line">0.00</td>
+                  <td class="item_available_display_line" style="padding-right:0;">5.25</td>
+                </tr>
+              
+                
+            
+              
+                
+            
+              
+                <tr>
+                  <td class="item_available_display_line" style="padding-left:0;">10732850-60</td>
+                    
+                    
+                    
+                      
+                    
+                  <td class="item_available_display_line">25.75</td>
+                  <td class="item_available_display_line">0.00</td>
+                  <td class="item_available_display_line" style="padding-right:0;">25.75</td>
+                </tr>
+              
+                
+            
+
+          </table>
+        
+        
+      
+      <br />
+
+
+
+
+
+
+<div>
+
+</div>
+
+
+      <div class="item_available_order_select">
+        <input type="radio" checked="checked" class="radio" name="order_process" value="o"><font class="radio_label">Order</font><br />
+        <input type="radio" class="radio" name="order_process" value="c"><font class="radio_label">Reserve with CFA</font><br />
+        <input type="radio" class="radio" name="order_process" value="r"><font class="radio_label">Reserve</font>
+      </div>
+
+
+
+    </div>
+    <div class="item_checkout">
+      <span class="radio_label">To Proceed:</span>
+<input type="text" name="order_qty" maxlength="20" size="10" value="Enter Yardage" onkeypress="seqvalidateQtyText(event, itemDetailForm, 'cartAddItem.do','no','35.0','')" onblur="cartValBlur(this,'no','35.0','25.75')" onfocus="cartFocus(this)" id="qtyText" class="input_qty">
+ <input type="hidden" name="uoms" value="[YD]">
+      <input type="hidden" name="order_uom" value="YD">
+      <input type="hidden" name="itm_num" value="CARESS SHELL">
+      <input type="image" src="images/button_go.png" class="button_go" style="" onclick="javascript:return valProceed(itemDetailForm, 'cartAddItem.do','no','35.0','','25.75');" />
+    </div>
+    
+    <div id="backordmsg" class="itemalertmsg" style="display:none;">*There is not enough yardage in one piece to fill your order. Please select from available piece sizes or place the entire quantity on back order.</div>
+    <div id="outletqty" class="itemalertmsg" style="display:none;">*Unable to order more than <span id="outletqtyqty"></span></div>
+    <div id="PBhere" name="PBhere">
+      <div style="margin-left: 90px; margin-top:60px; min-height:500px;"><img src="images/infor_ajax-loader_24x24.gif" height="60px" width="60px" alt="#" /></div>
+    </div>
+  </div>
+</div>
+</form>
+
+<script>
+
+$("#qtyTextx").keyup(function(event){
+    if(event.keyCode == 13){
+      var ok = cartValBlur(this,'no','35.0','25.75');
+      if (!ok) {
+        event.preventDefault();
+        return false;
+      } else {
+        valProceeds(itemDetailForm, 'cartAddItem.do','no','35.0','');
+      }
+    }
+});
+</script>
+
+
+			</div>
+			<!-- End RightMainColumn -->
+		</div>
+	</div>
+	
+	<!-- Footer (id) -->
+	
+</div>
+
+
+
+
+
+</body>
+</html>

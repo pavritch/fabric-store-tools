@@ -1,0 +1,52 @@
+﻿@model IList<LongOperationProgress>
+@{
+    ViewBag.Title = "Simple Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    <!-- scripts here -->
+}
+
+<style type="text/css">
+
+#Operations
+{
+
+}
+
+.operation {
+    background-color:#F0F0F0;
+    padding:10px;
+    margin-bottom: 15pt;
+    border: 1px solid #DDDDDD;
+}
+
+.operation h5
+{
+    font-weight:bold;
+    color:#505050;
+}
+.operation p{
+
+}
+</style>
+
+
+<h2>List of Long Operations</h2>
+
+<div id="Operations">
+    @foreach (var item in Model)
+    {
+        <div class="operation">
+            <h5>@item.Title</h5>
+            <p>Time started: @item.TimeStarted.ToString("G")</p>
+            <p>Status: @(item.IsRunning ? "Running" : (item.Result ?? "None"))</p>
+
+            <p>Percent complete: @Math.Round(item.PercentComplete, 2)</p>
+            <p><a href="/Shopify/ShowLongOperation/@item.Key">Show</a>@if (item.IsRunning)
+                                                                      {<a style="margin-left:15pt;" href="/Shopify/CancelLongOperation/@item.Key">Cancel</a>}</p>
+        </div>
+    }
+</div>
+

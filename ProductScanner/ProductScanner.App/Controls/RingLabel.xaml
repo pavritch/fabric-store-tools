@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ProductScanner.App.Controls.RingLabel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <Grid>
+        <controls:Arc StrokeThickness="{Binding Path=RingThickness, RelativeSource={RelativeSource AncestorType={x:Type controls:RingLabel}}}" Stroke="{Binding Path=RingColor, RelativeSource={RelativeSource AncestorType={x:Type controls:RingLabel}}}" Margin="0" StartAngle="0" EndAngle="359.999"   />
+        <TextBlock Text="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type controls:RingLabel}}}" VerticalAlignment="Center" HorizontalAlignment="Center"  >
+        	<TextBlock.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform X="{Binding Path=XOffset, RelativeSource={RelativeSource AncestorType={x:Type controls:RingLabel}}}" Y="{Binding Path=YOffset, RelativeSource={RelativeSource AncestorType={x:Type controls:RingLabel}}}"/>
+        		</TransformGroup>
+        	</TextBlock.RenderTransform>
+        </TextBlock>
+    </Grid>
+
+</UserControl>

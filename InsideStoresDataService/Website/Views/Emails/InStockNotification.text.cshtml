@@ -1,0 +1,24 @@
+﻿@model Website.Emails.InStockNotificationEmail
+Content-Type: text/plain; charset=utf-8
+
+Hello,
+
+You had asked us to let you know when certain products were back in stock.
+
+Now in stock:
+
+@foreach(var item in @Model.Products)
+{
+    @item.Name
+    @Html.Raw("\n")
+    @item.PageUrl
+    @Html.Raw("\n\n")
+}
+
+
+
+Thank you!
+Inside Stores
+Customer Service
+https://www.insidestores.com
+

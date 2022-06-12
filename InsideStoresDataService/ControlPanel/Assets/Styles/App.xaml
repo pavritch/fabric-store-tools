@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Intersoft="http://intersoft.clientui.com/schemas" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"             
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:ControlPanel.ViewModels"
+    xmlns:converters="clr-namespace:ControlPanel.Converters"    
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    
+    >
+		<SolidColorBrush x:Key="GroupBoxHeaderHeaderForeground" Color="#FF6888A0"/>
+		<Style x:Key="GroupBoxStyle1" TargetType="Intersoft:GroupBox">
+			<Setter Property="BorderBrush" Value="#80196389"/>
+			<Setter Property="HeaderForeground" Value="{StaticResource GroupBoxHeaderHeaderForeground}"/>
+			<Setter Property="Background" Value="#A5FFFFFF"/>
+		</Style>
+
+    <converters:IsAdvancedSearchBrushConverter x:Key="IsAdvancedSearchBrushConverter" />
+
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="RadioButton">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF666666" />
+    </Style>
+
+    <Style TargetType="telerik:RadComboBox">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="telerik:RadButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <Style TargetType="telerik:RadToggleButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+
+    <Style TargetType="telerik:RadListBox">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+
+    <Style TargetType="telerik:RadSplitButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <Style TargetType="telerik:RadNumericUpDown">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF666666" />
+    </Style>
+
+    <Style TargetType="telerik:RadTabControl">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+    
+</ResourceDictionary>

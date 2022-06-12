@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Test Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+    <script type="text/javascript">
+        function performSearch(query) {
+            window.location.href = "StoreApi/1.0/ProductSearch/InsideRugs?pageSize=10&query=" + query.replace(" ", "%20").replace("#", "%23").replace(":", "%3A").replace("/", "%2F")
+        }
+    </script>
+}
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#testGeneral" data-toggle="tab">General</a></li>
+    <li><a href="#testAutosuggest" data-toggle="tab">Auto Suggest</a></li>
+    <li><a href="#testPageViews" data-toggle="tab">Page Views</a></li>
+    <li><a href="#testSearch" data-toggle="tab">Search</a></li>
+    <li><a href="#testImageSearch" data-toggle="tab">Image Search</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="testGeneral">
+        <h2>General</h2>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturer/InsideRugs/106">Test Manufacturer API (Rizzy 106)</a></p>
+
+        @*<p><a href="StoreApi/1.0/ListProductsByCategory/InsideRugs/35">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategory/InsideRugs/35/priceascend?pageNo=3&pageSize=40">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ProductSet/InsideRugs?products=681460,681571,681823">Test Product Set API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideRugs/5">Kravet-5</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideRugs/5?filterByColor=40,53">Kravet-5 (black-40 or pink-53)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideRugs/5?filterByColor=40,53&filterByPattern=126">Kravet-5 (black-40 or pink-53, plus stripes-126)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideRugs/category/35">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideRugs/category/35/priceascend?pageNo=3&pageSize=40">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideAvenue/category/71">Test IA Category 71 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategoryEx/InsideRugs/35?filterByType=35">Cotton-35</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategoryEx/InsideRugs/35?filterByType=35&filterByBrand=5,51">Cotton-35 plus brand-5 or 51</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerLabelValue/InsideRugs/55?label=book&value=1214">Stout / Book 1214 API</a></p>
+
+        <p><a href="StoreApi/1.0/ListProductsByPatternCorrelator/InsideRugs?pattern=SC-T3188">Pattern SC-T3188</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByPatternCorrelator/InsideRugs?pattern=SC-T3188&productid=889958">Pattern SC-T3188 excl 889958</a></p>
+
+        <p><a href="StoreApi/1.0/ListProductsByProductCollection/InsideRugs/34491">Products in Collection: 5</a></p>
+
+        <p><a href="StoreApi/1.0/ListBooksByManufacturer/InsideRugs/5">Books: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListPatternsByManufacturer/InsideRugs/5">Patterns: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListCollectionsByManufacturer/InsideRugs/5">Collections: Kravet</a></p>
+        <p><a href="StoreApi/1.0/ListBooksByManufacturer/InsideRugs/5?filter=silk">Kravet Books: silk</a></p>
+        <p><a href="StoreApi/1.0/CollectionsAutoSuggestQuery/InsideRugs/Books/5/Contains/100?query=silk">Kravet Books Autosuggest: silk</a></p>
+
+
+        <p><a href="StoreApi/1.0/ProductCollectionAutoSuggestQuery/InsideRugs/116/Contains/100?query=silk">Kravet Book 116: silk</a></p>
+
+
+        <p><a href="StoreApi/1.0/ListNewProducts/InsideRugs?days=90&Page=1&pageSize=32&filter=">New Products: All</a></p>
+        <p><a href="StoreApi/1.0/ListNewProducts/InsideRugs/5?days=90&Page=1&pageSize=32&filter=">New Products: Kravet</a></p>
+
+        <h2>Stock Check API</h2>
+        <p><a href="StoreApi/1.0/StockCheck/InsideRugs/Variant/2176462/5?ip=0.0.0.1">Single Variant 2176462</a></p>
+        <p><a href="StoreApi/1.0/StockCheck/InsideRugs/Vendors">List Vendor Capabilities</a></p>
+
+        <h2>Other</h2>
+        <p><a href="StoreApi/1.0/RelatedProducts/InsideRugs/7453/856?count=10">Test Related Products API</a></p>
+        <p><a href="StoreApi/1.0/CrossMarketingProducts/InsideAvenue/myreference?count=12">Test Cross Marketing Products API</a></p>*@
+
+
+        <p><a href="StoreApi/1.0/ListDiscontinuedProducts/InsideRugs">Discontinued Products - All</a></p>
+        <p><a href="StoreApi/1.0/ListProductsMissingImages/InsideRugs">Products Missing Images - All</a></p>
+
+
+        <p><a href="StoreApi/1.0/ListDiscontinuedProducts/InsideRugs/106">Discontinued Products - Rizzy</a></p>
+        <p><a href="StoreApi/1.0/ListProductsMissingImages/InsideRugs/106">Products Missing Images - Rizzy</a></p>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="testAutosuggest">
+        <h2>Auto Suggest</h2>
+        <p><a href="StoreApi/1.0/AutoSuggestQuery/InsideRugs/0/StartsWith/100?query=Kr">Default Suggest Query</a></p>
+    </div>
+
+    <div class="tab-pane fade" id="testPageViews">
+        <h2>Page Views</h2>
+        <p><a href="ReportPageViews/InsideRugs?home=5&manufacturer=4&category=9&product=15&other=7&bot=4">Report Views Only</a></p>
+        <p><a href="ReportPageViews/InsideRugs?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110">Report Views and Response Times</a></p>
+        <p><a href="ReportPageViews/InsideRugs?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110&responsetimes=40,30,20,100,39,59,39,18,98,67,46">Report Views, Response Times with Values</a></p>
+    </div>
+
+    <div class="tab-pane fade" id="testSearch">
+        <h2>Search</h2>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideRugs/PriceAscend?pageNo=13&pageSize=50&query=this%20is%20my%20query">Test Search API</a></p>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideRugs?pageSize=10&query=silk%20red">Test Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideRugs?pageSize=10&Keywords=silk%20red">Test Advanced Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideRugs?pageSize=10&Keywords=silk%20red&ColorList=11212,121218">Test Advanced Search API 2</a></p>
+
+        <br />
+        <br />
+
+        <p>Search Phrase: <input id="SearchPhrase" style="width:300px" /> <button onclick="performSearch(document.getElementById('SearchPhrase').value)">Search</button></p>
+    </div>
+
+
+    <div class="tab-pane fade" id="testImageSearch">
+        <h2>ImageSearch</h2>
+
+        <p><a href="StoreApi/1.0/ImageSearch/InsideRugs?pageSize=10&productid=1">Similar to 1</a></p>
+        <p><a href="StoreApi/1.0/ImageSearch/InsideRugs?pageSize=10&productid=1&mode=color">Similar by color to 1</a></p>
+        <p><a href="StoreApi/1.0/ImageSearch/InsideRugs?pageSize=10&productid=1&mode=texture">Similar by texture to 1</a></p>
+        <br />
+        <p><a href="StoreApi/1.0/ColorSearch/InsideRugs?pageSize=10&color=%2355554F&mode=top">Top Dominant Color 5% (#55554F)</a></p>
+        <p><a href="StoreApi/1.0/ColorSearch/InsideRugs?pageSize=10&color=%23D2CEB1&mode=any">Any Dominant Color 5% (#D2CEB1)</a></p>
+        <br />
+        <br />
+
+    </div>
+</div>
+
+

@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Test Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+    <script type="text/javascript">
+        function performSearch(query) {
+            window.location.href = "StoreApi/1.0/ProductSearch/InsideWallpaper?pageSize=10&query=" + query.replace(" ", "%20")
+        }
+    </script>
+}
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#testGeneral" data-toggle="tab">General</a></li>
+    <li><a href="#testAutosuggest" data-toggle="tab">Auto Suggest</a></li>
+    <li><a href="#testPageViews" data-toggle="tab">Page Views</a></li>
+    <li><a href="#testCampaigns" data-toggle="tab">Campaigns</a></li>
+    <li><a href="#testSearch" data-toggle="tab">Search</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="testGeneral">
+        <h2>General</h2>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturer/InsideWallpaper/5">Test Manufacturer 5 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategory/InsideWallpaper/35">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategory/InsideWallpaper/35/priceascend?pageNo=3&pageSize=40">Test Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ProductSet/InsideWallpaper?products=685130,685455,791319,953872">Test Product Set API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideWallpaper/5">Ex Kravet-5</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideWallpaper/5?filterByColor=40,53">Kravet-5 (black-40 or pink-53)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByManufacturerEx/InsideWallpaper/5?filterByColor=40,53&filterByPattern=126">Kravet-5 (black-40 or pink-53, plus stripes-126)</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideWallpaper/category/35">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideWallpaper/category/35/priceascend?pageNo=3&pageSize=40">Test Entity Category 35 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByEntity/InsideAvenue/category/71">Test IA Category 71 API</a></p>
+        <p><a href="StoreApi/1.0/ListProductsByCategoryEx/InsideWallpaper/35?filterByType=35&filterByBrand=5,51">Cotton-35 plus brand-5 or 51</a></p>
+
+        <h2>Other</h2>
+        <p><a href="StoreApi/1.0/RelatedProducts/InsideWallpaper/7453/856?count=10">Test Related Products API</a></p>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="testAutosuggest">
+        <h2>Auto Suggest</h2>
+        <p><a href="StoreApi/1.0/AutoSuggestQuery/InsideWallpaper/0/StartsWith/100?query=Kr">Default Suggest Query</a></p>
+    </div>
+
+    <div class="tab-pane fade" id="testPageViews">
+        <h2>Page Views</h2>
+        <p><a href="ReportPageViews/InsideWallpaper?home=5&manufacturer=4&category=9&product=15&other=7&bot=4">Report Views Only</a></p>
+        <p><a href="ReportPageViews/InsideWallpaper?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110">Report Views and Response Times</a></p>
+        <p><a href="ReportPageViews/InsideWallpaper?home=5&manufacturer=4&category=9&product=15&other=7&bot=4&responsetimelow=30&responsetimehigh=765&responsetimeavg=110&responsetimes=40,30,20,100,39,59,39,18,98,67,46">Report Views, Response Times with Values</a></p>
+    </div>
+    <div class="tab-pane fade" id="testCampaigns">
+        <h2>Campaign Monitor</h2>
+        <p><a href="StoreApi/1.0/Campaigns/Subscribers/InsideWallpaper/Master/Add?email=peter@test.com">Add Subscriber</a></p>
+    </div>
+
+
+    <div class="tab-pane fade" id="testSearch">
+        <h2>Search</h2>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideWallpaper/PriceAscend?pageNo=13&pageSize=50&query=this%20is%20my%20query">Test Search API</a></p>
+
+        <p><a href="StoreApi/1.0/ProductSearch/InsideWallpaper?pageSize=10&query=silk%20red">Test Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideWallpaper?pageSize=10&Keywords=silk%20red">Test Advanced Search API</a></p>
+        <p><a href="StoreApi/1.0/AdvProductSearch/InsideWallpaper?pageSize=10&Keywords=silk%20red&ColorList=11212,121218">Test Advanced Search API 2</a></p>
+
+        <br />
+        <br />
+
+        <p>Search Phrase: <input id="SearchPhrase" style="width:300px" /> <button onclick="performSearch(document.getElementById('SearchPhrase').value)">Search</button></p>    </div>
+
+
+</div>
+
+

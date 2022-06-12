@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>Scalamandre Designer Portal Product Display</title>
+    <link rel="stylesheet" type="text/css" href="/web_content/css/OE.SKU.DES.CSS">
+<script language="JavaScript" type="text/javascript">
+function loadmissing(pmt,folder){
+ pmt.src = 'http://VISUALACCESS.SCALAMANDRE.COM/Scalamandre/'+folder+'/NOIMAGE.jpg';
+ return;
+}
+function showlargeimage(img){
+ document.getElementById('largeimagebg').style.display = "block";
+ if (document.getElementById('largeimage').innerHTML == ''){document.getElementById('largeimage').innerHTML = '<img src="http://VISUALACCESS.SCALAMANDRE.COM/Scalamandre/images/'+img+'.jpg" onerror="loadmissing(this,'+"'imagesa'"+')" border=0 width="660">'};
+ return;
+}
+function hidelargeimage(){
+ document.getElementById('largeimagebg').style.display = "none";
+ return;
+}
+</script>
+  </head>
+  <body>
+   <table cellpadding=0 cellspacing=0>
+     <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+    <td valign=top id="desriptiontd"><span id=firstline>TURANDOT PLAID</span><br>
+<span id=secondline>sku: 30157M-011</span><br>
+<span id=desc><br>Plaid Taffeta<br>100% Silk<br>Color:  Greens, Cream<br>Approx Width:  54"<br>Approx Rpt: V. 4 3/4", H. 4 3/4"<br>Modified Pattern<br>Price $119.50<br>Stock Quantity: -2 YD<br><table cellspacing=0 cellpadding=0><tr><td><strong>Lot #</strong></td><td align=right style="padding-left:40px"><strong>Quantity</strong></td></tr></table></span><br><br><br>
+<a href="http://visualaccess.scalamandre.com/wwiz.asp?wwizmstr=OE.RECORDCLICK&ID=01!30157M-011&CALLPROG=OE.SEARCH&PARAM1=sku&VALUE1=30157M-011&TYPE=M"><img src="http://VISUALACCESS.SCALAMANDRE.COM/Scalamandre/images/ltlbag.gif" border=0><a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://visualaccess.scalamandre.com/wwiz.asp?wwizmstr=OE.RECORDCLICK&ID=01!30157M-011&CALLPROG=OE.SEARCH&PARAM1=sku&VALUE1=30157M-011&TYPE=R"><img src="http://VISUALACCESS.SCALAMANDRE.COM/Scalamandre/images/ltltrk.gif" border=0><a></td>
+     <td align=center width=320 height=306 style="padding-left:10px" id="imagetd">
+      <a href="javascript:showlargeimage('30157M-011')"><img src="http://VISUALACCESS.SCALAMANDRE.COM/Scalamandre/imagesa/30157M-011.jpg" onerror="loadmissing(this,'imagesa')" border=0></a>
+      <br><br><a href="javascript:showlargeimage('30157M-011')"><font size=-1>Click here to see a larger image</font></a>
+     </td></tr>
+    <tr><td COLSPAN=2 style="padding-top:5px" id="commenttd"><br><br><span id=comments>All images are the property of Scalamandre. Reproductions or use of these images without the consent of Scalamandre is prohibited. All rights reserved Images are subject to variation in color and size and not exact to the original item.</span></td></tr>
+   </table>
+    <div id="largeimagebg" style="display:none" onclick="hidelargeimage()">
+    <table cellpadding=0 cellspacing=0 width="100%"><tr>
+    <td width="20%"></td>
+    <td align=center><span id="descitem"><span id=descitem>30157M-011 - TURANDOT PLAID</span></span><br>
+    <span id="clicktocontinue">Click on the X to return to the item details</span></td>
+    <td width="20%" id=close align=right>X</td>
+    </tr></table>    
+    <div id="largeimage" onclick="hidelargeimage()"></div>
+    </div>
+   </body>
+</html>

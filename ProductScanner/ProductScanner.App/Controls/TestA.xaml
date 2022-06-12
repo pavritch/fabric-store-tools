@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ProductScanner.App.Controls.TestA"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"             
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <Grid>
+        <Grid Visibility="Collapsed">
+            <Ellipse  Stroke="#FFE5E5E5" StrokeThickness="0" Fill="#BCE82020"  />
+            <controls:Arc StrokeThickness="15" Stroke="#FFE5E5E5" Margin="0" StartAngle="0" EndAngle="359.999"   />
+            <controls:Arc StrokeThickness="15" Stroke="#FF0FAFE0" Margin="0" StartAngle="240" EndAngle="-60" StrokeStartLineCap="Round"  StrokeEndLineCap="Round" />
+        </Grid>
+
+    </Grid>
+</UserControl>

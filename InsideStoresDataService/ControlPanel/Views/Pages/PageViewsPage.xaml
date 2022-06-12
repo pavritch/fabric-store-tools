@@ -1,0 +1,200 @@
+﻿<views:UXViewPage 
+    xmlns:views="clr-namespace:ControlPanel.Views"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Intersoft="http://intersoft.clientui.com/schemas" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"             
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:ControlPanel.ViewModels"
+    xmlns:converters="clr-namespace:ControlPanel.Converters"    
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+
+    xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:charting="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:chartView="clr-namespace:Telerik.Windows.Controls.ChartView;assembly=Telerik.Windows.Controls.Chart"
+    
+    xmlns:MEFedMVVM_Services_CommonServices="clr-namespace:MEFedMVVM.Services.CommonServices;assembly=MEFedMVVM.SL" 
+	x:Class="ControlPanel.Views.PageViewsPage" 
+    d:DataContext="{d:DesignInstance vm:PageViewsPageViewModel, IsDesignTimeCreatable=True}"    
+    mc:Ignorable="d"
+    
+	Title="StoreDashboardPage Page"
+	d:DesignWidth="1000" d:DesignHeight="800" >
+    <views:UXViewPage.Resources>
+        <SolidColorBrush x:Key="MetricLabelBrush" Color="#FF215D86"/>
+        <SolidColorBrush x:Key="MetricValueBrush" Color="#FFD21268"/>
+        <Style x:Key="MetricLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Foreground" Value="{StaticResource MetricLabelBrush}"/>
+        </Style>
+        <Style x:Key="MetricDataValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="Foreground" Value="{StaticResource MetricValueBrush}"/>
+        </Style>
+
+        <Style x:Key="GroupBoxStyle1" TargetType="Intersoft:GroupBox">
+            <Setter Property="BorderBrush" Value="#80196389"/>
+            <Setter Property="HeaderForeground" Value="#FFDC1A70"/>
+            <Setter Property="Background" Value="#A5FFFFFF"/>
+        </Style>
+
+        <Style x:Key="ChartVerticalLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF909090" />
+            <Setter Property="FontSize" Value="10" />
+        </Style>
+
+        <Style x:Key="ChartVerticalAxisStyle" TargetType="chartView:LinearAxis">
+            <Setter Property="LabelStyle" Value="{StaticResource ChartVerticalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartHorizontalLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF909090" />
+            <Setter Property="FontSize" Value="10" />
+        </Style>
+
+        <Style x:Key="ChartHorizontalAxisStyle" TargetType="chartView:CategoricalAxis">
+            <Setter Property="LabelStyle" Value="{StaticResource ChartHorizontalLabelStyle}" />
+        </Style>
+
+        <Style x:Key="ChartAreaSeriesStyle" TargetType="chartView:AreaSeries">
+            <!--
+            <Setter Property="ShowLabels" Value="True"/>
+            -->
+        </Style>
+        <SolidColorBrush x:Key="ButtonForegroundBrush" Color="#FF3B3B3B"/>
+        <DataTemplate x:Key="ChartLegendItemDataTemplate">
+            <Grid Width="210" Margin="0,0,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="2" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding FillColor}"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left"  TextWrapping="NoWrap" Text="{Binding Name}" VerticalAlignment="Center" Foreground="#FF727272" FontFamily="Segoe UI" FontSize="16"/>
+            </Grid>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="ChartLegendItemsPanelTemplate">
+            <Intersoft:UXGridPanel AllowDrop="False" ItemWidth="176" Column="2" ItemHeight="30" ItemMargin="0" Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" />
+        </ItemsPanelTemplate>
+
+    </views:UXViewPage.Resources>
+
+    <Grid x:Name="LayoutRoot" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="318"/>
+            <ColumnDefinition Width="26"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <StackPanel>
+                <telerik:RadRadialGauge x:Name="radialGauge" Width="300" Height="300" Margin="0" telerik:StyleManager.Theme="Windows8">
+                    <telerik:RadialScale Min="0"  Max="{Binding RequestsPerSecondMeterMaxValue}">
+                        <telerik:RadialScale.Indicators>
+                            <telerik:Needle telerik:StyleManager.Theme="Windows8" IsAnimated="True" Value="{Binding RequestsPerSecond }" Duration="00:00:01" />
+                            <telerik:Pinpoint />
+                        </telerik:RadialScale.Indicators>
+                    </telerik:RadialScale>
+                </telerik:RadRadialGauge>
+                <TextBlock Text="Requests/Second" HorizontalAlignment="Center" Foreground="#FF25A0DA" FontFamily="Segoe UI" FontSize="12" />
+            </StackPanel>
+            <Grid Margin="15,26,10,0" Height="75">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23" />
+                    <RowDefinition Height="23" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="196" />
+                    <ColumnDefinition Width="42" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Grid.RowSpan="3"  >
+                    <TextBlock Text="MEDIAN	RESPONSE TIME" Foreground="#FFBBBBBB" FontFamily="Segoe UI" FontSize="14"/>
+                    <TextBlock TextWrapping="NoWrap" Text="{Binding ResponseTimeMedian}" Foreground="#FF1B9DDE" FontFamily="Segoe UI Light" FontSize="48" VerticalAlignment="Center" Margin="0,-10,0,0" TextAlignment="Left" />
+                </StackPanel>
+                <TextBlock Text="HIGH" Grid.Column="1" Grid.Row="0" Foreground="#FFBBBBBB" FontFamily="Segoe UI" FontSize="14"   TextAlignment="Left" Grid.RowSpan="2" />
+                <TextBlock Text="LOW" Grid.Column="1" Grid.Row="1" Foreground="#FFBBBBBB" FontFamily="Segoe UI" FontSize="14"  TextAlignment="Left"  />
+                <TextBlock Text="AVG" Grid.Column="1" Grid.Row="2" Foreground="#FFBBBBBB" FontFamily="Segoe UI" FontSize="14"  TextAlignment="Left"  />
+
+                <TextBlock TextWrapping="NoWrap"  Grid.Column="2" Grid.Row="0" Text="{Binding ResponseTimeHigh}" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="14"   TextAlignment="Right" Grid.RowSpan="2"  />
+                <TextBlock TextWrapping="NoWrap"  Grid.Column="2" Grid.Row="1" Text="{Binding ResponseTimeLow}" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="14"   TextAlignment="Right"  />
+                <TextBlock TextWrapping="NoWrap"  Grid.Column="2" Grid.Row="2" Text="{Binding ResponseTimeAvg}" Foreground="#FF1B9DDE" FontFamily="Segoe UI" FontSize="14"   TextAlignment="Right"  />
+
+
+            </Grid>
+
+
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="2" Width="650" HorizontalAlignment="Left" Margin="-2,3,0,-3" d:LayoutOverrides="GridBox">
+
+            <Grid Height="316">
+                <chart:RadCartesianChart x:Name="RadCartesianChart" Palette="Windows8" Foreground="#FF25A0DA" ClipToBounds="True" >
+
+                    <chart:RadCartesianChart.HorizontalAxis>
+                        <chartView:CategoricalAxis Title="{Binding RequestsChartHorizontalAxisTitle}" FontFamily="Segoe UI" FontSize="12" Style="{StaticResource ChartHorizontalAxisStyle}" GapLength="{Binding RequestsChartGapLength}" BorderThickness="0" LabelInterval="1" LineThickness="1" TickThickness="1" Foreground="#FF349BCC" ShowLabels="True" MajorTickInterval="5" PlotMode="OnTicks"  >
+                            <chartView:CategoricalAxis.LineStroke>
+                                <SolidColorBrush Color="#FFB3B3B3" Opacity="0.60000002384185791"/>
+                            </chartView:CategoricalAxis.LineStroke>
+                        </chartView:CategoricalAxis>
+                    </chart:RadCartesianChart.HorizontalAxis>
+
+                    <chart:RadCartesianChart.VerticalAxis>
+                        <chartView:LinearAxis FontFamily="Segoe UI" 
+                                    Title="{Binding RequestsChartVerticalAxisTitle}" Foreground="#FF25A0DA" TickThickness="1" LineThickness="1" LabelInterval="1" ShowLabels="True" Style="{StaticResource ChartVerticalAxisStyle}" FontSize="12" Maximum="{Binding RequestsChartVerticalAxisMaxValue}" LabelFormat="N0"  
+                                    >
+                            <chartView:LinearAxis.LineStroke>
+                                <SolidColorBrush Color="#9E333333" Opacity="0.60000002384185791"/>
+                            </chartView:LinearAxis.LineStroke>
+                        </chartView:LinearAxis>
+                    </chart:RadCartesianChart.VerticalAxis>
+
+
+
+                    <chart:RadCartesianChart.Grid>
+                        <chartView:CartesianChartGrid MajorLinesVisibility="Y"/>
+                    </chart:RadCartesianChart.Grid>
+
+                    <chart:RadCartesianChart.Series>
+
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value1"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" />
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value2"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" />
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value3"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" />
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value4"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" Fill="#FFF7EF1D" />
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value5"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" Fill="#FFc55e8b" />
+                        <chartView:AreaSeries Style="{StaticResource ChartAreaSeriesStyle}" ValueBinding="Value6"  CombineMode="Stack" CategoryBinding="Category" ItemsSource="{Binding RequestsChartItemsSource}" Fill="#20808080" />
+
+                    </chart:RadCartesianChart.Series>
+
+                </chart:RadCartesianChart>
+
+                <Grid x:Name="GraphControls" Width="243" Height="16" Background="White" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <telerik:RadSlider Margin="35,3,0,0" Width="134" telerik:StyleManager.Theme="Windows8" HorizontalAlignment="Left" Ticks="4" Value="{Binding RequestsChartSliderIntervalValue, Mode=TwoWay}" Maximum="3" IsMouseWheelEnabled="False" BorderBrush="#FFABABAB" BorderThickness="0" Background="#FFD8D8D8" Height="12" ThumbStyle="{StaticResource ThumbStyle1}" />
+
+                </Grid>
+            </Grid>
+            <Grid x:Name="Legend" Margin="0,35,0,0">
+                <ItemsControl ItemsSource="{Binding ChartLegendItemsSource}" ItemTemplate="{StaticResource ChartLegendItemDataTemplate}" Margin="40,0,159,0" ItemsPanel="{StaticResource ChartLegendItemsPanelTemplate}"/>
+            </Grid>
+
+        </StackPanel>
+
+    </Grid>
+</views:UXViewPage>

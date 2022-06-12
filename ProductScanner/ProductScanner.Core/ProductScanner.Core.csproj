@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3863B1CC-E94E-410C-B77F-F68F5372CCC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProductScanner.Core</RootNamespace>
+    <AssemblyName>ProductScanner.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.1.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPPlus.4.0.1.1\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\packages\ExcelLibrary.1.2011.7.30\lib\ExcelLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Fizzler">
+      <HintPath>..\ReferencedAssemblies\Fizzler.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="InsideFabric.Data">
+      <HintPath>..\ReferencedAssemblies\InsideFabric.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SimpleInjector, Version=2.6.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleInjector.2.6.1\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\AuthenticationResult.cs" />
+    <Compile Include="Authentication\AuthenticationTester.cs" />
+    <Compile Include="Authentication\IAuthenticationTester.cs" />
+    <Compile Include="Authentication\IVendorAuthenticator.cs" />
+    <Compile Include="Config\AppSettings.cs" />
+    <Compile Include="Config\IAppSettings.cs" />
+    <Compile Include="Monitoring\ActivityProgress.cs" />
+    <Compile Include="PlatformEntities\AppSettingType.cs" />
+    <Compile Include="PlatformEntities\CommitBatchType.cs" />
+    <Compile Include="PlatformEntities\CommitBatchStatus.cs" />
+    <Compile Include="Monitoring\IVendorPerformanceMonitor.cs" />
+    <Compile Include="RugExtensions.cs" />
+    <Compile Include="Scanning\FileLoading\CsvFileLoader.cs" />
+    <Compile Include="Scanning\FileLoading\IDesignerFileLoader.cs" />
+    <Compile Include="Scanning\Pipeline\Metadata\DefaultProductValidator.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\Country.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\RugDimensions.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\RugMaterial.cs" />
+    <Compile Include="RugParser.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\ItemCollection.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\ItemColor.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\RugWeave.cs" />
+    <Compile Include="Scanning\Commits\AssociatedVariant.cs" />
+    <Compile Include="Scanning\Commits\CommitBatchResult.cs" />
+    <Compile Include="Scanning\Commits\CommitValidator.cs" />
+    <Compile Include="Scanning\FileLoading\ExcelFileLoader.cs" />
+    <Compile Include="Scanning\ImageValidator.cs" />
+    <Compile Include="Scanning\Pipeline\Details\NullProductScraper.cs" />
+    <Compile Include="Scanning\Pipeline\Discovery\NullFullUpdateChecker.cs" />
+    <Compile Include="Scanning\Pipeline\ScanOptions.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\BookInfo.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\RollDimensions.cs" />
+    <Compile Include="Scanning\Products\FieldTypes\TagList.cs" />
+    <Compile Include="Scanning\Products\Vendor\ExcludedReason.cs" />
+    <Compile Include="Scanning\Products\Vendor\HomewareProduct.cs" />
+    <Compile Include="Scanning\Products\Vendor\RugProduct.cs" />
+    <Compile Include="Scanning\Products\Vendor\ScanDataConverter.cs" />
+    <Compile Include="Scanning\Products\Vendor\StockData.cs" />
+    <Compile Include="Scanning\Products\Vendor\VendorProduct.cs" />
+    <Compile Include="Scanning\Products\Vendor\VendorVariant.cs" />
+    <Compile Include="Scanning\StaticVersionMismatchException.cs" />
+    <Compile Include="Sessions\IVendorScanSessionManager.cs" />
+    <Compile Include="Sessions\IVendorStatusManager.cs" />
+    <Compile Include="Sessions\VendorStatusManager.cs" />
+    <Compile Include="SimpleInjector\DefaultContainerConfiguration.cs" />
+    <Compile Include="Scanning\Pipeline\Variants\NullVariantMerger.cs" />
+    <Compile Include="Sessions\IVendorSessionManager.cs" />
+    <Compile Include="Authentication\NullVendorAuthenticator.cs" />
+    <Compile Include="Sessions\VendorScanSessionManager.cs" />
+    <Compile Include="Sessions\VendorSession.cs" />
+    <Compile Include="Sessions\VendorSessionManager.cs" />
+    <Compile Include="StockChecks\DTOs\VendorStatusData.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\IVendorStockCheckMediator.cs" />
+    <Compile Include="WebClient\PageDownloadException.cs" />
+    <Compile Include="WebClient\WebClientExtended.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StockChecks\Caching\IMemoryCacheService.cs" />
+    <Compile Include="StockChecks\Caching\MemoryCacheService.cs" />
+    <Compile Include="WebClient\IWebClientExtensions.cs" />
+    <Compile Include="WebClient\WebClientLoggingDecorator.cs" />
+    <Compile Include="DataInterfaces\IStoreDatabase.cs" />
+    <Compile Include="Monitoring\ApiRequestData.cs" />
+    <Compile Include="Monitoring\AuthenticationFailure.cs" />
+    <Compile Include="Monitoring\AuthenticationFailureDTO.cs" />
+    <Compile Include="PlatformEntities\AppSetting.cs" />
+    <Compile Include="PlatformEntities\ScanLog.cs" />
+    <Compile Include="PlatformEntities\ScannerCheckpoint.cs" />
+    <Compile Include="PlatformEntities\ScannerCommit.cs" />
+    <Compile Include="Scanning\Checkpoints\DatabaseCheckpointService.cs" />
+    <Compile Include="Scanning\Checkpoints\MemoryCheckpointService.cs" />
+    <Compile Include="Scanning\Commits\CommitDataBuilder.cs" />
+    <Compile Include="Scanning\Commits\CommitSubmitter.cs" />
+    <Compile Include="Scanning\Commits\ICommitSubmitter.cs" />
+    <Compile Include="Scanning\Commits\IBatchCommitter.cs" />
+    <Compile Include="Scanning\Commits\BatchCommitter.cs" />
+    <Compile Include="Scanning\Commits\ProductPriceChange.cs" />
+    <Compile Include="Scanning\Commits\VariantPriceChange.cs" />
+    <Compile Include="Scanning\Pipeline\Correlators\CorrelatorSetter.cs" />
+    <Compile Include="Scanning\Pipeline\Correlators\ICorrelatorSetter.cs" />
+    <Compile Include="Scanning\Products\Vendor\DiscoveredProduct.cs" />
+    <Compile Include="Scanning\EventLogs\EventLogRecord.cs" />
+    <Compile Include="Scanning\EventLogs\VendorSessionStats.cs" />
+    <Compile Include="Scanning\EventLogs\EventType.cs" />
+    <Compile Include="Scanning\FileLoading\ExcelColumnInfo.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Scanning\FileLoading\FileProperty.cs" />
+    <Compile Include="Scanning\FileLoading\NullProductFileLoader.cs" />
+    <Compile Include="Scanning\FileLoading\ProductFileLoader.cs" />
+    <Compile Include="Scanning\Commits\ICommitDataBuilder.cs" />
+    <Compile Include="Scanning\IStoreDatabaseFactory.cs" />
+    <Compile Include="Scanning\Products\Vendor\FabricProduct.cs" />
+    <Compile Include="Scanning\Products\StoreProduct.cs" />
+    <Compile Include="Scanning\Products\StoreProductVariant.cs" />
+    <Compile Include="Scanning\ProductProperties\ProductProperty.cs" />
+    <Compile Include="Scanning\Reports\IAuditFileCreator.cs" />
+    <Compile Include="Scanning\ProductProperties\ExcludedProductPropertyAttribute.cs" />
+    <Compile Include="Scanning\ProductProperties\ProductPropertyAttribute.cs" />
+    <Compile Include="Scanning\ProductProperties\ProductPropertyType.cs" />
+    <Compile Include="Scanning\FileLoading\IProductFileLoader.cs" />
+    <Compile Include="Scanning\Checkpoints\ICheckpointService.cs" />
+    <Compile Include="Scanning\Reports\AuditFileCreator.cs" />
+    <Compile Include="Scanning\Commits\CommitData.cs" />
+    <Compile Include="Scanning\Pipeline\Builder\IProductBuilder.cs" />
+    <Compile Include="Scanning\Pipeline\Metadata\IMetadataCollector.cs" />
+    <Compile Include="Scanning\Storage\IPageFetcher.cs" />
+    <Compile Include="Scanning\Pipeline\Details\IProductScraper.cs" />
+    <Compile Include="Scanning\Storage\IStorageProvider.cs" />
+    <Compile Include="Scanning\Pipeline\IVendorScanner.cs" />
+    <Compile Include="WebClient\IWebClientFactory.cs" />
+    <Compile Include="Scanning\Pipeline\Discovery\IProductDiscoverer.cs" />
+    <Compile Include="Scanning\Pipeline\Variants\IVariantMerger.cs" />
+    <Compile Include="Scanning\Pipeline\Metadata\NullMetadataCollector.cs" />
+    <Compile Include="Scanning\Storage\PageFetcher.cs" />
+    <Compile Include="Scanning\Pipeline\Discovery\NullProductDiscoverer.cs" />
+    <Compile Include="Scanning\Pipeline\Details\ProductScraper.cs" />
+    <Compile Include="Scanning\Checkpoints\CheckpointData.cs" />
+    <Compile Include="Scanning\Storage\FileStorageProvider.cs" />
+    <Compile Include="Scanning\StoreDatabaseFactory.cs" />
+    <Compile Include="Scanning\Products\Vendor\ScanData.cs" />
+    <Compile Include="Scanning\VendorRunner.cs" />
+    <Compile Include="Scanning\Pipeline\VendorScanner.cs" />
+    <Compile Include="WebClient\WebClientFactory.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\MonitoredStockCheckManager.cs" />
+    <Compile Include="VendorTesting\IVendorTestMediator.cs" />
+    <Compile Include="VendorTesting\VendorTestMediator.cs" />
+    <Compile Include="VendorTesting\TestTypes\IVendorTest.cs" />
+    <Compile Include="VendorTesting\TestTypes\ProductScrapeTest.cs" />
+    <Compile Include="VendorTesting\TestResult.cs" />
+    <Compile Include="VendorTesting\TestResultCode.cs" />
+    <Compile Include="VendorTesting\TestTypes\VendorTest.cs" />
+    <Compile Include="Vendor.cs" />
+    <Compile Include="PlatformEntities\DetailUrl.cs" />
+    <Compile Include="StockChecks\DTOs\StockQueryResult.cs" />
+    <Compile Include="PlatformEntities\VendorData.cs" />
+    <Compile Include="DataInterfaces\IPlatformDatabase.cs" />
+    <Compile Include="WebClient\IWebClientEx.cs" />
+    <Compile Include="LoadTesting\ILoadTester.cs" />
+    <Compile Include="LoadTesting\IRandomRequestGenerator.cs" />
+    <Compile Include="LoadTesting\LoadTester.cs" />
+    <Compile Include="LoadTesting\RandomRequestGenerator.cs" />
+    <Compile Include="Monitoring\IStorePerformanceMonitor.cs" />
+    <Compile Include="Monitoring\StockCheckNotification.cs" />
+    <Compile Include="Monitoring\StorePerformanceMonitor.cs" />
+    <Compile Include="Monitoring\VendorPerformanceMonitor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockChecks\Aggregators\AuthenticatingStockCheckAggregator.cs" />
+    <Compile Include="StockChecks\Aggregators\IStockCheckAggregator.cs" />
+    <Compile Include="StockChecks\Checkers\IStockChecker.cs" />
+    <Compile Include="StockChecks\Checkers\NullStockChecker.cs" />
+    <Compile Include="StockChecks\Aggregators\PreFlightStockCheckAggregator.cs" />
+    <Compile Include="StockChecks\DTOs\ProductStockInfo.cs" />
+    <Compile Include="StockChecks\DTOs\StockCapabilities.cs" />
+    <Compile Include="StockChecks\DTOs\StockCheck.cs" />
+    <Compile Include="StockChecks\Aggregators\StockCheckAggregator.cs" />
+    <Compile Include="StockChecks\Checkers\StockChecker.cs" />
+    <Compile Include="StockChecks\DTOs\StockCheckResult.cs" />
+    <Compile Include="StockChecks\DTOs\StockCheckStatus.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\CachedStockCheckManager.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\IStockCheckManager.cs" />
+    <Compile Include="Monitoring\IVendorPerformanceMediator.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\SqlLoadStockCheckManager.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\StockCheckManager.cs" />
+    <Compile Include="Monitoring\VendorPerformanceMediator.cs" />
+    <Compile Include="StockChecks\StockCheckManagers\VendorStockCheckMediator.cs" />
+    <Compile Include="WebStoreType.cs" />
+    <Compile Include="StockChecks\DTOs\VendorInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\FabricUpdater.ServiceLibrary.Product.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReportingEngine\ReportingEngine.csproj">
+      <Project>{d5ac1096-767b-4698-b97a-58f9ba58bfec}</Project>
+      <Name>ReportingEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{9FDCEE7E-25DF-4724-B7A4-DE36A979B236}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

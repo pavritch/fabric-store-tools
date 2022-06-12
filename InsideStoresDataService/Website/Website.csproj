@@ -1,0 +1,856 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{090EC789-7892-4061-8249-3DBDF6706B2F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Website</RootNamespace>
+    <AssemblyName>Website</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SilverlightApplicationList>{B14F6A34-BBFD-4AB6-9AE7-B2CF5DCCEFF3}|..\ControlPanel\ControlPanel.csproj|ClientBin|False</SilverlightApplicationList>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Algolia.Search, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Algolia.Search.4.0.0\lib\net462\Algolia.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BitMiracle.LibJpeg.NET">
+      <HintPath>..\External\BitMiracle.LibJpeg.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
+    </Reference>
+    <Reference Include="CsQuery">
+      <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Fizzler, Version=0.1.15619.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Fizzler.1.0.0\lib\net35\Fizzler.dll</HintPath>
+    </Reference>
+    <Reference Include="Gen4.Util.Misc">
+      <HintPath>..\External\Gen4UtilMisc\Gen4.Util.Misc.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\packages\DotNetZip.Reduced.1.9.1.8\lib\net20\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="Irony">
+      <HintPath>..\External\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SqlServerSDK\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SqlServerSDK\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SqlServerSDK\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SqlServerSDK\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\SqlServerSDK\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+    </Reference>
+    <Reference Include="Neodynamic.WebControls.ImageDraw, Version=5.0.2000.0, Culture=neutral, PublicKeyToken=49ea6b0547247dc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.WebControls.ImageDraw.5.0.2000.8\lib\Neodynamic.WebControls.ImageDraw.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Postal">
+      <HintPath>..\packages\Postal.Mvc4.1.2.0\lib\net40\Postal.dll</HintPath>
+    </Reference>
+    <Reference Include="PreMailer.Net, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PreMailer.Net.1.4.2\lib\net40\PreMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RazorEngine, Version=3.6.4.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RazorEngine.3.6.4\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.1\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail, Version=6.1.0.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Sendgrid.6.1.0\lib\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="ShopifySharp, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShopifySharp.3.9.0\lib\net45\ShopifySharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SmartThreadPool">
+      <HintPath>..\External\SmartThreadPool.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.registration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.DomainServices.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Server, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Windows.RadUploadHandler, Version=2016.1.112.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RCSL\2016.1.112.1050\ServerSide\Telerik.Windows.RadUploadHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\AlgoliaProductRecord.cs" />
+    <Compile Include="Classes\AlgoliaSuggestionRecord.cs" />
+    <Compile Include="Classes\FacetSearchLogger.cs" />
+    <Compile Include="Classes\InsideAvenueSearchGalleryManager.cs" />
+    <Compile Include="Classes\InsideFabricSearchGalleryManager.cs" />
+    <Compile Include="Classes\InsideRugsSearchGalleryManager.cs" />
+    <Compile Include="Classes\InsideWallpaperSearchGalleryManager.cs" />
+    <Compile Include="Classes\OnlySwatchesTicklerCampaignHandler.cs" />
+    <Compile Include="Classes\AspStoreDataContextReadOnly.cs" />
+    <Compile Include="Classes\AuthorizeAPI.cs" />
+    <Compile Include="Classes\BookProductCollectionUpdater.cs" />
+    <Compile Include="Classes\CachedAutoSuggestResult.cs" />
+    <Compile Include="Classes\CachedBooksByManufacturerResult.cs" />
+    <Compile Include="Classes\CachedCollectionsByManufacturerResult.cs" />
+    <Compile Include="Classes\CachedListByPatternCorrelatorResult.cs" />
+    <Compile Include="Classes\CachedNewProductsByManufacturerResult.cs" />
+    <Compile Include="Classes\CachedPatternsByManufacturerResult.cs" />
+    <Compile Include="Classes\CachedProductCollectionsByManufacturerResult.cs" />
+    <Compile Include="Classes\CachedProductListByProductCollectionResult.cs" />
+    <Compile Include="Classes\CachedSearchResult.cs" />
+    <Compile Include="Classes\CategoryInformation.cs" />
+    <Compile Include="Classes\CollectionListActionResult.cs" />
+    <Compile Include="Classes\CollectionProductCollectionUpdater.cs" />
+    <Compile Include="Classes\CryptoRandom.cs" />
+    <Compile Include="Classes\CsvFieldAttribute.cs" />
+    <Compile Include="Classes\CustomPrincipalPolicy.cs" />
+    <Compile Include="Classes\DatabaseExtensions.cs" />
+    <Compile Include="Classes\DownloadedProductImage.cs" />
+    <Compile Include="Classes\DownloadedRugProductImage.cs" />
+    <Compile Include="Classes\Dump.cs" />
+    <Compile Include="Classes\EnumRouteContstraint.cs" />
+    <Compile Include="Classes\ExtensionMethods.cs" />
+    <Compile Include="Classes\FroogleDescriptionMakerWallpaper.cs" />
+    <Compile Include="Classes\GenericTicklerCampaignHandler.cs" />
+    <Compile Include="Classes\InsideAvenueProductImageProcessor.cs" />
+    <Compile Include="Classes\AbandonedCartTicklerCampaignHandler.cs" />
+    <Compile Include="Classes\LongOperationProgress.cs" />
+    <Compile Include="Classes\SearchGalleryManager.cs" />
+    <Compile Include="Classes\ShopifyApiSentry.cs" />
+    <Compile Include="Classes\ShopifyDataContextReadOnly.cs" />
+    <Compile Include="Classes\ShopifySyncProduct.cs" />
+    <Compile Include="Classes\TicklerCampaignHandler.cs" />
+    <Compile Include="Classes\TicklerCampaignsManager.cs" />
+    <Compile Include="Classes\TicklerCampaignsService.cs" />
+    <Compile Include="Classes\WallpaperDescriptionMakerBase.cs" />
+    <Compile Include="Classes\FeedProductAttribute.cs" />
+    <Compile Include="Classes\FileUtils.cs" />
+    <Compile Include="Classes\FroogleDescriptionMakerFabric.cs" />
+    <Compile Include="Classes\Hashing.cs" />
+    <Compile Include="Classes\HealthEvents.cs" />
+    <Compile Include="Classes\ImageSearch.cs" />
+    <Compile Include="Classes\InsideRugsProductImageProcessor.cs" />
+    <Compile Include="Classes\InsideFabricProductImageProcessor.cs" />
+    <Compile Include="Classes\InsideStoresCategories.cs" />
+    <Compile Include="Classes\InsideWallpaperProductSync.cs" />
+    <Compile Include="Classes\IpAddressTracker.cs" />
+    <Compile Include="Classes\JsonNetResult.cs" />
+    <Compile Include="Classes\MEFDependencyResolver.cs" />
+    <Compile Include="Classes\MultiTimeline.cs" />
+    <Compile Include="Classes\PageViewsMultiTimeline.cs" />
+    <Compile Include="Classes\PageViewsTimeline.cs" />
+    <Compile Include="Classes\PatternProductCollectionUpdater.cs" />
+    <Compile Include="Classes\PerformanceMonitor.cs" />
+    <Compile Include="Classes\PhraseManager.cs" />
+    <Compile Include="Classes\PhraseSet.cs" />
+    <Compile Include="Classes\PhraseVariant.cs" />
+    <Compile Include="Classes\PrimativeToStringConverter.cs" />
+    <Compile Include="Classes\ProductCollectionUpdaterBase.cs" />
+    <Compile Include="Classes\ProductDataCacheService.cs" />
+    <Compile Include="Classes\ProductExifProperties.cs" />
+    <Compile Include="Classes\ProductFeedAttribute.cs" />
+    <Compile Include="Classes\ProductImageProcessor.cs" />
+    <Compile Include="Classes\AffiliateProductListActionResult.cs" />
+    <Compile Include="Classes\ProductListActionResult.cs" />
+    <Compile Include="Classes\ProductUpdateManager.cs" />
+    <Compile Include="Classes\RobotData.cs" />
+    <Compile Include="Classes\FabricDescriptionMakerBase.cs" />
+    <Compile Include="Classes\RugsDescriptionMakerBase.cs" />
+    <Compile Include="Classes\SanitizeCollectionImages.cs" />
+    <Compile Include="Classes\FroogleDescriptionMakerRugs.cs" />
+    <Compile Include="Classes\LongDescriptionMakerRugs.cs" />
+    <Compile Include="Classes\SEDescriptionMakerRugs.cs" />
+    <Compile Include="Classes\ShareASaleManager.cs" />
+    <Compile Include="Classes\RobotsManager.cs" />
+    <Compile Include="Classes\RouteCollectionExtensions.cs" />
+    <Compile Include="Classes\RunProductActionAttribute.cs" />
+    <Compile Include="Classes\RunStoreActionAttribute.cs" />
+    <Compile Include="Classes\SanitizeImages.cs" />
+    <Compile Include="Classes\SearchGrammar.cs" />
+    <Compile Include="Classes\SEDescriptionMaker.cs" />
+    <Compile Include="Classes\SEDescriptionMakerWallpaper.cs" />
+    <Compile Include="Classes\SEKeywordsMaker.cs" />
+    <Compile Include="Classes\SimpleWorkerServiceBase.cs" />
+    <Compile Include="Classes\SqlDataCacheBase.cs" />
+    <Compile Include="Classes\SqlQueryExtensions.cs" />
+    <Compile Include="Classes\StockCheckNotificationService.cs" />
+    <Compile Include="Classes\StockCheckQuery.cs" />
+    <Compile Include="Classes\StockCheckApiResult.cs" />
+    <Compile Include="Classes\StockCheckResult.cs" />
+    <Compile Include="Classes\StockCheckVendorInfo.cs" />
+    <Compile Include="Classes\StringExtensions.cs" />
+    <Compile Include="Classes\Timeline.cs" />
+    <Compile Include="Classes\WcfFaultModifier.cs" />
+    <Compile Include="Classes\WebClientEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ShopifyController.cs" />
+    <Compile Include="Controllers\TicklerCampaignsController.cs" />
+    <Compile Include="Controllers\CampaignsController.cs" />
+    <Compile Include="Controllers\CollectionListController.cs" />
+    <Compile Include="Controllers\PreviewEmailsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\PageViewsController.cs" />
+    <Compile Include="Controllers\ProductFeedsController.cs" />
+    <Compile Include="Controllers\ProductGalleryController.cs" />
+    <Compile Include="Controllers\ShareASaleController.cs" />
+    <Compile Include="Controllers\RobotsController.cs" />
+    <Compile Include="Controllers\StockCheckController.cs" />
+    <Compile Include="Controllers\ProductListController.cs" />
+    <Compile Include="Controllers\ProductSearchController.cs" />
+    <Compile Include="Database\AspDotNetStoreFront.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AspDotNetStoreFront.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\InsideWallpaperSync.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsideWallpaperSync.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Shopify.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shopify.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Emails\OnlySwatchesEmail.cs" />
+    <Compile Include="Emails\EmailTemplate.cs" />
+    <Compile Include="Emails\AbandonedCartEmail.cs" />
+    <Compile Include="Emails\LongTimeNoSeeEmail.cs" />
+    <Compile Include="Emails\SampleHtmlOnlyEmail.cs" />
+    <Compile Include="Emails\SampleTextOnlyEmail.cs" />
+    <Compile Include="Emails\InStockNotificationEmail.cs" />
+    <Compile Include="Enums\AutoSuggestMode.cs" />
+    <Compile Include="Enums\CampaignSubscriberListAction.cs" />
+    <Compile Include="Enums\CollectionKind.cs" />
+    <Compile Include="Enums\InventoryStatus.cs" />
+    <Compile Include="Enums\PageViewType.cs" />
+    <Compile Include="Enums\ProductFeedFormats.cs" />
+    <Compile Include="Enums\ProductFeedKeys.cs" />
+    <Compile Include="Enums\ProductGroup.cs" />
+    <Compile Include="Enums\ProductSortOrder.cs" />
+    <Compile Include="Enums\QueryRequestMethods.cs" />
+    <Compile Include="Enums\ShopifyDisqualifiedReason.cs" />
+    <Compile Include="Enums\ShopifyLiveStatus.cs" />
+    <Compile Include="Enums\ShopifyLogLocus.cs" />
+    <Compile Include="Enums\ShopifyLogType.cs" />
+    <Compile Include="Enums\ShopifyProductEventResult.cs" />
+    <Compile Include="Enums\ShopifyProductOperations.cs" />
+    <Compile Include="Enums\StockCheckStatus.cs" />
+    <Compile Include="Enums\StoreEntityKeys.cs" />
+    <Compile Include="Enums\StoreKeys.cs" />
+    <Compile Include="Enums\TimelineSeries.cs" />
+    <Compile Include="FileUploadHandler.ashx.cs">
+      <DependentUpon>FileUploadHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\MaintenanceHub.cs" />
+    <Compile Include="Hubs\productGalleryHub.cs" />
+    <Compile Include="Interfaces\ICategoryFilter.cs" />
+    <Compile Include="Interfaces\ICategoryFilterRoot.cs" />
+    <Compile Include="Interfaces\IImageSearch.cs" />
+    <Compile Include="Interfaces\IProductCollectionQuery.cs" />
+    <Compile Include="Interfaces\IProductCollectionUpdater.cs" />
+    <Compile Include="Interfaces\IProductDataCache.cs" />
+    <Compile Include="Interfaces\IProductFeed.cs" />
+    <Compile Include="Interfaces\IProductFeedManager.cs" />
+    <Compile Include="Interfaces\IProductImageProcessor.cs" />
+    <Compile Include="Interfaces\IProductQuery.cs" />
+    <Compile Include="Interfaces\IQueryRequest.cs" />
+    <Compile Include="Interfaces\IShareASaleManager.cs" />
+    <Compile Include="Interfaces\ITicklerCampaignHandler.cs" />
+    <Compile Include="Interfaces\ITicklerCampaignsManager.cs" />
+    <Compile Include="Interfaces\IShutdownNotify.cs" />
+    <Compile Include="Interfaces\IStockCheckProvider.cs" />
+    <Compile Include="Interfaces\IStoreFeedProduct.cs" />
+    <Compile Include="Interfaces\IRobotsManager.cs" />
+    <Compile Include="Interfaces\IStoreProductFeed.cs" />
+    <Compile Include="Interfaces\IUpdatableProduct.cs" />
+    <Compile Include="Interfaces\ICategoryFilterManager.cs" />
+    <Compile Include="Interfaces\IWebStore.cs" />
+    <Compile Include="Models\AdvSearchProductQuery.cs" />
+    <Compile Include="Models\AffiliateProduct.cs" />
+    <Compile Include="Models\AutoSuggestQuery.cs" />
+    <Compile Include="Models\BooksCollectionQuery.cs" />
+    <Compile Include="Models\CategoryFilterBase.cs" />
+    <Compile Include="Models\FacetSearchProductQuery.cs" />
+    <Compile Include="Models\Feeds\1stDibs\InsideFabricDibsFeedProduct.cs" />
+    <Compile Include="Models\Feeds\1stDibs\InsideWallpaperDibsFeedProduct.cs" />
+    <Compile Include="Models\Feeds\1stDibs\DibsFeedProduct.cs" />
+    <Compile Include="Models\Feeds\1stDibs\DibsProductFeed.cs" />
+    <Compile Include="Models\Feeds\Shopify\InsideAvenueShopifyFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopify\ShopifyFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopify\ShopifyProductFeed.cs" />
+    <Compile Include="Models\Feeds\Shopify\InsideFabricShopifyFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopify\InsideWallpaperShopifyFeedProduct.cs" />
+    <Compile Include="Models\FindProductsByDominantColorQuery.cs" />
+    <Compile Include="Models\ProductCountsByManufacturerMetric.cs" />
+    <Compile Include="Models\RugsCategoryFilter.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootBase.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootMaterial.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootColor.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootPileHeight.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootWeave.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootStyle.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootShape.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootSize.cs" />
+    <Compile Include="Models\RugsCategoryFilterRootPrice.cs" />
+    <Compile Include="Models\RugsCategoryFilterManager.cs" />
+    <Compile Include="Models\CategoryFilterManagerBase.cs" />
+    <Compile Include="Models\CacheProduct.cs" />
+    <Compile Include="Models\CategoryProductQuery.cs" />
+    <Compile Include="Models\CollectionQueryBase.cs" />
+    <Compile Include="Models\CollectionsAutoSuggestQuery.cs" />
+    <Compile Include="Models\CollectionsCollectionQuery.cs" />
+    <Compile Include="Models\CombinedRequestsMetric.cs" />
+    <Compile Include="Models\CrossMarketingProductQuery.cs" />
+    <Compile Include="Models\MissingImagesProductQuery.cs" />
+    <Compile Include="Models\Feeds\Amazon\AmazonFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Amazon\AmazonProductFeed.cs" />
+    <Compile Include="Models\Feeds\Amazon\InsideFabricAmazonFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Amazon\InsideRugsAmazonFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Amazon\InsideWallpaperAmazonFeedProduct.cs" />
+    <Compile Include="Models\Feeds\AppFeedManager.cs" />
+    <Compile Include="Models\Feeds\Bing\BingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Bing\BingProductFeed.cs" />
+    <Compile Include="Models\Feeds\Bing\InsideFabricBingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Bing\InsideRugsBingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Bing\InsideWallpaperBingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\FeedProduct.cs" />
+    <Compile Include="Models\Feeds\Google\GoogleFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Google\GoogleProductFeed.cs" />
+    <Compile Include="Models\Feeds\Google\InsideAvenueGoogleFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Google\InsideFabricGoogleFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Google\InsideRugsGoogleFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Google\InsideWallpaperGoogleFeedProduct.cs" />
+    <Compile Include="Models\Feeds\InsideAvenueFeedProduct.cs" />
+    <Compile Include="Models\Feeds\InsideAvenueProductFeedManager.cs" />
+    <Compile Include="Models\Feeds\InsideFabricFeedProduct.cs" />
+    <Compile Include="Models\Feeds\InsideFabricProductFeedManager.cs" />
+    <Compile Include="Models\Feeds\InsideRugsFeedProduct.cs" />
+    <Compile Include="Models\Feeds\InsideRugsProductFeedManager.cs" />
+    <Compile Include="Models\Feeds\InsideWallpaperFeedProduct.cs" />
+    <Compile Include="Models\Feeds\InsideWallpaperProductFeedManager.cs" />
+    <Compile Include="Models\Feeds\Nextag\InsideFabricNextagFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Nextag\InsideRugsNextagFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Nextag\InsideWallpaperNextagFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Nextag\NextagFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Nextag\NextagProductFeed.cs" />
+    <Compile Include="Models\Feeds\PriceGrabber\InsideFabricPriceGrabberFeedProduct.cs" />
+    <Compile Include="Models\Feeds\PriceGrabber\InsideRugsPriceGrabberFeedProduct.cs" />
+    <Compile Include="Models\Feeds\PriceGrabber\InsideWallpaperPriceGrabberFeedProduct.cs" />
+    <Compile Include="Models\Feeds\PriceGrabber\PriceGrabberFeedProduct.cs" />
+    <Compile Include="Models\Feeds\PriceGrabber\PriceGrabberProductFeed.cs" />
+    <Compile Include="Models\Feeds\ProductFeed.cs" />
+    <Compile Include="Models\Feeds\ProductFeedManager.cs" />
+    <Compile Include="Models\Feeds\Pronto\InsideFabricProntoFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Pronto\InsideRugsProntoFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Pronto\InsideWallpaperProntoFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Pronto\ProntoFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Pronto\ProntoProductFeed.cs" />
+    <Compile Include="Models\Feeds\Shopping\InsideFabricShoppingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopping\InsideRugsShoppingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopping\InsideWallpaperShoppingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopping\ShoppingFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopping\ShoppingProductFeed.cs" />
+    <Compile Include="Models\Feeds\Shopzilla\InsideFabricShopzillaFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopzilla\InsideRugsShopzillaFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopzilla\InsideWallpaperShopzillaFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopzilla\ShopzillaFeedProduct.cs" />
+    <Compile Include="Models\Feeds\Shopzilla\ShopzillaProductFeed.cs" />
+    <Compile Include="Models\Feeds\TheFind\InsideFabricTheFindFeedProduct.cs" />
+    <Compile Include="Models\Feeds\TheFind\InsideRugsTheFindFeedProduct.cs" />
+    <Compile Include="Models\Feeds\TheFind\InsideWallpaperTheFindFeedProduct.cs" />
+    <Compile Include="Models\Feeds\TheFind\TheFindFeedProduct.cs" />
+    <Compile Include="Models\Feeds\TheFind\TheFindProductFeed.cs" />
+    <Compile Include="Models\InsideRugsProduct.cs" />
+    <Compile Include="Models\InsideAvenueProduct.cs" />
+    <Compile Include="Models\InsideAvenueWebStore.cs" />
+    <Compile Include="Models\InsideFabricAnchorTextSpinner.cs" />
+    <Compile Include="Models\InsideFabricProduct.cs" />
+    <Compile Include="Models\InsideFabricWebStore.cs" />
+    <Compile Include="Models\InsideRugsWebStore.cs" />
+    <Compile Include="Models\InsideStoresProductBase.cs" />
+    <Compile Include="Models\InsideWallpaperProduct.cs" />
+    <Compile Include="Models\InsideWallpaperWebStore.cs" />
+    <Compile Include="Models\LabelProductQuery.cs" />
+    <Compile Include="Models\ManufacturerIdentity.cs" />
+    <Compile Include="Models\ManufacturerMetric.cs" />
+    <Compile Include="Models\DiscontinuedProductQuery.cs" />
+    <Compile Include="Models\ManufacturerProductQuery.cs" />
+    <Compile Include="Models\NewProductsByManufacturerAutoSuggestQuery.cs" />
+    <Compile Include="Models\NewProductsByManufacturerProductQuery.cs" />
+    <Compile Include="Models\PageViewStats.cs" />
+    <Compile Include="Models\PatternCorrelatorProductQuery.cs" />
+    <Compile Include="Models\PatternsCollectionQuery.cs" />
+    <Compile Include="Models\ProductCollectionAutoSuggestQuery.cs" />
+    <Compile Include="Models\ProductCollectionProductQuery.cs" />
+    <Compile Include="Models\ProductDataCache.cs" />
+    <Compile Include="Models\ProductQueryBase.cs" />
+    <Compile Include="Models\ProductSetProductQuery.cs" />
+    <Compile Include="Models\RelatedProductQuery.cs" />
+    <Compile Include="Models\RequestsMetric.cs" />
+    <Compile Include="Models\SalesByManufacturerMetric.cs" />
+    <Compile Include="Models\SalesSummaryMetric.cs" />
+    <Compile Include="Models\SearchCriteria.cs" />
+    <Compile Include="Models\SearchMetric.cs" />
+    <Compile Include="Models\FindSimilarProductsQuery.cs" />
+    <Compile Include="Models\SearchProductQuery.cs" />
+    <Compile Include="Models\ShopifyLocalProduct.cs" />
+    <Compile Include="Models\ShopifyStore.cs" />
+    <Compile Include="Models\SqlSearchMetric.cs" />
+    <Compile Include="Models\StockCheckManager.cs" />
+    <Compile Include="Models\WebStoreBase.cs" />
+    <Compile Include="Models\WebStoreBaseQueries.cs" />
+    <Compile Include="Models\WebStoreInformation.cs" />
+    <Compile Include="Models\WebStoreMaintenanceStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ControlPanelDomainService.cs" />
+    <Compile Include="Services\DomainServiceBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Misc\email-suppression-list.txt" />
+    <Content Include="App_Data\Robots\good-agent-default.txt" />
+    <Content Include="App_Data\Robots\bad-agent-default.txt" />
+    <Content Include="App_Data\Robots\bad-ip-default.txt" />
+    <Content Include="App_Data\Robots\good-ip-default.txt" />
+    <Content Include="App_Data\Robots\whitelist-ip-default.txt" />
+    <Content Include="App_Data\Robots\ReadMe.txt" />
+    <Content Include="App_Data\Robots\trap-urls.txt" />
+    <Content Include="App_Data\Sql\InsideRugsCleanup.sql" />
+    <Content Include="App_Data\Sql\InsideAvenueCleanup.sql" />
+    <Content Include="App_Data\Sql\InsideAvenueRebuildCategories.sql" />
+    <Content Include="App_Data\Sql\InsideRugsRebuildSearchData.sql" />
+    <Content Include="App_Data\Sql\InsideAvenueRebuildSearchData.sql" />
+    <Content Include="App_Data\Sql\InsideFabricCleanup.sql" />
+    <Content Include="App_Data\Sql\InsideFabricRebuildCategories.sql" />
+    <Content Include="App_Data\Sql\InsideFabricRebuildSearchData.sql" />
+    <Content Include="App_Data\Sql\InsideWallpaperCleanup.sql" />
+    <Content Include="App_Data\Sql\InsideRugsRebuildCategories.sql" />
+    <Content Include="App_Data\Sql\InsideWallpaperRebuildCategories.sql" />
+    <Content Include="App_Data\Sql\InsideWallpaperRebuildSearchData.sql" />
+    <Content Include="App_Data\Sql\PurgeProductCategoryExclusions.sql" />
+    <Content Include="App_Data\Templates\ImageDescriptorTest.html" />
+    <Content Include="ClientAccessPolicy.xml" />
+    <Content Include="ClientBin\ControlPanel.xap" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Splash\Background.jpg" />
+    <Content Include="Content\Splash\InsideStoresDataServiceLogo.png" />
+    <Content Include="Content\Splash\InsideStoresLogo317.png" />
+    <Content Include="Content\Splash\InsideStoresQRcode.png" />
+    <Content Include="Content\Splash\SplashScreen.js" />
+    <Content Include="Content\Splash\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ControlPanel.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Icon.png" />
+    <Content Include="Images\InsideStoresLogo.gif" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="FileUploadHandler.ashx" />
+    <Content Include="Database\AspDotNetStoreFront.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>AspDotNetStoreFront.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Database\InsideWallpaperSync.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>InsideWallpaperSync.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\System.ComponentModel.Composition.zip" />
+    <Content Include="ClientBin\System.ComponentModel.DataAnnotations.zip" />
+    <Content Include="ClientBin\System.ServiceModel.DomainServices.Client.zip" />
+    <Content Include="ClientBin\System.ServiceModel.DomainServices.Client.Web.zip" />
+    <Content Include="ClientBin\System.ServiceModel.Web.Extensions.zip" />
+    <Content Include="ClientBin\System.Windows.Controls.Navigation.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.Chart.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.Charting.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.DataVisualization.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.GridView.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.Input.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Controls.Navigation.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Data.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Themes.Windows7.zip" />
+    <Content Include="ClientBin\Telerik.Windows.Themes.Windows8.zip" />
+    <Content Include="ClientBin\System.Xml.Linq.zip" />
+    <Content Include="ClientBin\System.Windows.Data.zip" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Database\Shopify.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Shopify.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\Publish Folder.pubxml" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\ProductGalleryApp.js" />
+    <Content Include="Scripts\ProductGalleryApp.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Maintenance.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\TestWallpaper.cshtml" />
+    <Content Include="Views\Maintenance\RebuildAll.cshtml" />
+    <Content Include="Views\Maintenance\RebuildProductCategoryTable.cshtml" />
+    <Content Include="Views\Maintenance\RebuildProductSearchExtensionData.cshtml" />
+    <Content Include="Views\Maintenance\RepopulateProducts.cshtml" />
+    <Content Include="Views\Maintenance\RunActionForAllProducts.cshtml" />
+    <Content Include="Views\Maintenance\RunActionForStore.cshtml" />
+    <Content Include="Views\Maintenance\SpinQuery.cshtml" />
+    <Content Include="Views\ProductFeeds\GenerateAllProductFeeds.cshtml" />
+    <Content Include="Views\ProductFeeds\GenerateProductFeed.cshtml" />
+    <Content Include="Views\ProductGallery\Home.cshtml" />
+    <Content Include="Views\ProductGallery\Templates\First.cshtml" />
+    <Content Include="Views\ProductGallery\Templates\Second.cshtml" />
+    <Content Include="Views\ProductGallery\Templates\_Layout.cshtml" />
+    <Content Include="Views\ProductGallery\Templates\_ViewStart.cshtml" />
+    <Content Include="Views\ProductGallery\_Layout.cshtml" />
+    <Content Include="Views\ProductGallery\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Scripts\ProductGalleryApp.min.js.map" />
+    <Content Include="Views\Maintenance\GeneralStatus.cshtml" />
+    <Content Include="Views\Emails\Web.config" />
+    <Content Include="Views\Emails\_ViewStart.cshtml" />
+    <Content Include="Views\Emails\InStockNotification.html.cshtml" />
+    <Content Include="Views\Emails\InStockNotification.text.cshtml" />
+    <Content Include="Views\Emails\InStockNotification.cshtml" />
+    <Content Include="Views\Emails\SampleTextOnly.cshtml" />
+    <Content Include="Views\Emails\SampleHtmlOnly.cshtml" />
+    <Content Include="Views\Home\TestRugs.cshtml" />
+    <Content Include="Views\Emails\AbandonedCart.cshtml" />
+    <Content Include="Views\Emails\AbandonedCart.html.cshtml" />
+    <Content Include="Views\Emails\AbandonedCart.text.cshtml" />
+    <Content Include="Views\Home\ShopifyProducts.cshtml" />
+    <Content Include="Views\Shopify\SimpleResult.cshtml" />
+    <Content Include="Views\Shopify\ShowLongOperation.cshtml" />
+    <Content Include="Views\Shopify\ListLongOperations.cshtml" />
+    <Content Include="Views\Emails\LongTimeNoSee.cshtml" />
+    <Content Include="Views\Emails\LongTimeNoSee.text.cshtml" />
+    <Content Include="Views\Emails\LongTimeNoSee.html.cshtml" />
+    <Content Include="Views\Home\TicklerCampaigns.cshtml" />
+    <Content Include="Views\TicklerCampaigns\Status.cshtml" />
+    <Content Include="Views\Emails\OnlySwatches.html.cshtml" />
+    <Content Include="Views\Emails\OnlySwatches.cshtml" />
+    <Content Include="Views\Emails\OnlySwatches.text.cshtml" />
+    <Content Include="Views\Emails\RecentSwatchPurchase.cshtml" />
+    <Content Include="Views\Emails\RecentSwatchPurchase.html.cshtml" />
+    <Content Include="Views\Emails\RecentSwatchPurchase.text.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\AutoSuggest\" />
+    <Folder Include="Views\PageViews\" />
+    <Folder Include="Views\PreviewEmails\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExifLibrary\ExifLibrary.csproj">
+      <Project>{c29ba585-e27b-4ad0-9ad1-490b5e0e2a5e}</Project>
+      <Name>ExifLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Imaging\Imaging.csproj">
+      <Project>{faf68550-4ade-4bb0-99f0-b454c0d50ecc}</Project>
+      <Name>Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InsideFabric.Data\InsideFabric.Data.csproj">
+      <Project>{b3a08e67-0118-4969-8897-5878e8c1da99}</Project>
+      <Name>InsideFabric.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shopify\ShopifyCommon\ShopifyCommon.csproj">
+      <Project>{451f17b7-b941-47bb-896f-8ab2c7ba49f3}</Project>
+      <Name>ShopifyCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\AspDotNetStoreFront.dbml.layout">
+      <DependentUpon>AspDotNetStoreFront.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\InsideWallpaperSync.dbml.layout">
+      <DependentUpon>InsideWallpaperSync.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database\Shopify.dbml.layout">
+      <DependentUpon>Shopify.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>22864</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60724/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

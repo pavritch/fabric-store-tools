@@ -1,0 +1,118 @@
+﻿@model WebStoreMaintenanceStatus
+@{
+    ViewBag.Title = "General Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    <!-- scripts here -->
+}
+
+
+
+<h2>General Status</h2>
+<p>Report of which internal operations are currently running.</p>
+
+<style type="text/css">
+
+.dataTable .tdLabel
+{
+    text-align:left;
+    width:300px;
+    padding-right:10px;
+}
+
+.dataTable .tdData
+{
+    text-align:left;
+    width:400px;
+}
+
+    h5 {
+        margin-top:20pt;
+        margin-bottom:3pt;
+    }
+</style>
+
+<h5>Rebuilding</h5>
+<table class="dataTable">
+    <tr>
+        <td class="tdLabel">Is Rebuilding All:</td>
+        <td class="tdData">@Model.IsRebuildingAll</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Is Rebuilding Categories:</td>
+        <td class="tdData">@Model.IsRebuildingCategories</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Is Rebuilding Search Data:</td>
+        <td class="tdData">@Model.IsRebuildingSearchData</td>
+    </tr>
+</table>
+
+<h5>Store Actions</h5>
+<table class="dataTable">
+    <tr>
+        <td class="tdLabel">Is Store Action Running:</td>
+        <td class="tdData">@Model.IsStoreActionRunning</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Action Name:</td>
+        <td class="tdData">@Model.StoreActionName</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Time Started:</td>
+        <td class="tdData">@Model.StoreActionTimeStarted</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Percent Complete:</td>
+        <td class="tdData">@Model.StoreActionPercentComplete</td>
+    </tr>
+
+</table>
+
+<h5>Product Actions</h5>
+<table class="dataTable">
+    <tr>
+        <td class="tdLabel">Is Product Action Running:</td>
+        <td class="tdData">@Model.IsProductActionRunning</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Action Name:</td>
+        <td class="tdData">@Model.ProductActionName</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Time Started:</td>
+        <td class="tdData">@Model.ProductActionTimeStarted</td>
+    </tr>
+
+    <tr>
+        <td class="tdLabel">Percent Complete:</td>
+        <td class="tdData">@Model.ProductActionPercentComplete</td>
+    </tr>
+
+</table>
+
+
+<h5>Background Task</h5>
+<table class="dataTable">
+    <tr>
+        <td class="tdLabel">Is Background Task Running:</td>
+        <td class="tdData">@Model.IsBackgroundTaskRunning  
+        @if (@Model.IsBackgroundTaskRunning == "Yes")
+        { 
+            <span style="margin-left:20px;"><a href="/Maintenance/BackgroundTask/@(Model.StoreKey)/cancel">cancel</a></span>
+        }
+        <td class="tdData"></td>
+    </tr>
+</table>
+
+
+

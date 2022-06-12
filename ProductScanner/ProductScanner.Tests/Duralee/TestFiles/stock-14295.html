@@ -1,0 +1,71 @@
+ <div class="ajaxPopup" id="ajaxPopup-1">
+ 	<div class="popupheader">Colors for 14295<a class="closelink" href="javascript:void(0);" onclick="$('#ajaxPopup-1').fadeOut();">close</a></div>
+<table class="popupTable" cellspacing="0" cellpadding="0">
+		<tr>
+			<th class="color-header">Color</th>
+			<th class="desc">Description</th>
+			<th class="available-th">Available</th>
+		</tr>
+<tr>
+	<td class="color-code">615</td>
+	<td class="desc">Conch</td>
+	<td>
+ 			 <input name="PatternCode--1-0" id="PatternCode--1-0" type="hidden" value="14295" />
+ 			 <input name="ColorCode--1-0" id="ColorCode--1-0" type="hidden" value="615" />
+  		 <div class="secondaryPopup" id="lotDetail--1-0"></div>
+	</td>
+</tr>
+<tr class="on" >
+	<td class="color-code">587</td>
+	<td class="desc">Latte</td>
+	<td>
+ 			 <input name="PatternCode--1-1" id="PatternCode--1-1" type="hidden" value="14295" />
+ 			 <input name="ColorCode--1-1" id="ColorCode--1-1" type="hidden" value="587" />
+  		 <div class="secondaryPopup" id="lotDetail--1-1"></div>
+	</td>
+</tr>
+<tr>
+	<td class="color-code">450</td>
+	<td class="desc">Maroon</td>
+	<td>
+ 			 <input name="PatternCode--1-2" id="PatternCode--1-2" type="hidden" value="14295" />
+ 			 <input name="ColorCode--1-2" id="ColorCode--1-2" type="hidden" value="450" />
+  		 <div class="secondaryPopup" id="lotDetail--1-2"></div>
+	</td>
+</tr>
+<tr class="on" >
+	<td class="color-code">190</td>
+	<td class="desc">Rum</td>
+	<td>
+ 			 <input name="PatternCode--1-3" id="PatternCode--1-3" type="hidden" value="14295" />
+ 			 <input name="ColorCode--1-3" id="ColorCode--1-3" type="hidden" value="190" />
+  		 <div class="secondaryPopup" id="lotDetail--1-3"></div>
+	</td>
+</tr>
+</table>
+ </div>
+<script type="text/javascript" language="javascript">
+  $(document).ready(function () { 
+        $(".showColorPopup").click(function () { 
+				  var id = $(this).attr('rel'); 
+				$('div.lotDetailPopup').hide(); 	 
+				  $('#popuploader-' + id).show(); 
+				  $.get("/admin/code/postback/getLotDetails.ashx?pattern=" + $('#PatternCode-' + id).val() + "&color=" + $('#ColorCode-' + id).val() + "&i=" + id , function (data) {    
+				 			$('#lotDetail-' + id).html(data);   
+				 			$('#lotDetailPopup' + id).fadeIn();   
+				 			$('#popuploader-' + id).hide();   
+				 		}, 'html');   
+        }); 
+        $(".showOnOrdersPopup").click(function () { 
+				$('div.lotDetailPopup').hide(); 	 
+				  var id = $(this).attr('rel'); 
+				  $('#popupOrderLoading-' + id).show(); 
+				  $.get("/admin/code/postback/getOnOrderDetails.ashx?pattern=" + $('#PatternCode-' + id).val() + "&color=" + $('#ColorCode-' + id).val() + "&i=" + id , function (data) {    
+				 			$('#onOrderDetail-' + id).html(data);   
+				 			$('#onOrderDetailPopup' + id).fadeIn();   
+				 			$('#popupOrderLoading-' + id).hide();   
+				 		}, 'html');   
+        }); 
+  }); 
+</script> 
+

@@ -1,0 +1,76 @@
+
+<html>
+<head>
+  <link href="/chcusts.css" rel="stylesheet" type="text/css">
+  <title>Clarence House Product Lookup</title>
+</head>
+<body onload="javascript:document.forms[0].ID.focus()">
+<strong><font color="#008080"><h1><center>Product Lookup</h1></font></strong><hr>
+<form name="MyForm" method="POST" action="readitem.asp?action=read&acct=&ltype=1" onsubmit="return(ValidateFunction())">
+<strong><center>Select how you want to lookup a product:</strong><br>
+<select name="ltype">
+  
+    <option value="1">By Item No.</option>
+    <option value="2">By Pattern Name</option>
+  
+</select>
+<br><br><strong>Enter the Item No. <font color="#FF0000">OR</font> part of a pattern name (Whichever you selected above):</center></strong>
+<center><input type="text" name="ID" size="40"></center>
+<center><input type="submit" value="Get Info."></center>
+<br>
+<center><strong>Then select from the list, by clicking on an Item No.  below:</center></strong><br>
+
+	<CENTER>
+	<table border="2" bordercolordark="#808080">
+  	<tr>
+	  <td bgcolor="#00ffff"><b>Pattern</b></td>
+      <td bgcolor="#00ffff"><b>Color</b></td>
+   	  <td bgcolor="#00ffff"><b>Item No</b></td>
+	  <td bgcolor="#00ffff"><b>Category</b></td>
+	  <td bgcolor="#00ffff"><b>Content</b></td>
+    </tr>	  
+    
+	<tr>
+	  <td>GENOA VELVET        </td>
+	  <td>BLACK               </td>
+      <td><a  href="itemdetailnew.asp?acct=&prcode=&pattno=10475&pattcd=001&pattco=13&itemno=34348-13      ">34348-13      </a></td> 
+	  <td>FOREIGN WOVEN                 </td> 
+	  <td>55% COTTON 45% LINEN100% LINEN PILE     </td> 
+    </tr>
+	
+    </table>
+	</CENTER>
+    <br>
+  
+<br><br>
+<center>
+
+
+<div class="footer">
+	| <a href="/welcome.asp?acct=" >Home</a>
+	| <a href="/readsocust.asp?acct=" >Shipments & tracking</a>
+	| <a href="/readitem.asp?acct=" style="color:#808080;">Product & Stock Info</a>
+    | <a href="/pricelist.asp?acct=" >Download Price List</a>
+	
+	| <a href="/loggedout.asp" >Logout</a> |<p/>
+	<span class="copyright">&copy; 2003-2014 <font color="#FF3636">C</font><font color="#0000CE">L</font><font color="#FF6300">A</font><font color="#006300">R</font><font color="#009CFF">E</font><font color="#CE0000">N</font><font color="#9C31C3">C</font><font color="#319C00">E</font> <font color="#FF3163">H</font><font color="#310063">O</font><font color="#0031FF">U</font><font color="#FF9C00">S</font><font color="#FF009C">E</font></font></font></span><p/>
+	<span class="contact">If you have any problems using our site, or would like to comment on our web site:
+	<a href="mailto:customerservice@clarencehouse.com?bcc=webmaster@clarencehouse.com&subject=Clarence House Customer Web Site Inquiry">Click Here</a></span>
+</div><p>
+</center>
+</form>
+<script> 
+function ValidateFunction() 
+{ 
+ if (document.MyForm.ID.value == "") 
+ { 
+  alert("Please fill in your search criteria") 
+  document.MyForm.ID.focus() 
+  return(false) 
+ } 
+ return(true) 
+} 
+
+</script> 
+</body>
+</html>

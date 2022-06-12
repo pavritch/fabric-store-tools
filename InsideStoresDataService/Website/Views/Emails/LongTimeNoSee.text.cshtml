@@ -1,0 +1,60 @@
+﻿@model Website.Emails.LongTimeNoSeeEmail
+Content-Type: text/plain; charset=utf-8
+
+Hello,
+
+We miss you!
+
+A lot has happened since you've been gone.  We've added thousands of new patterns, new designers and fresh looks.
+
+Use coupon code "tenoff" at time of check out to save 10%.
+
+We hope to see you soon!
+
+
+@if (@Model.CartProducts.Count() > 0) {<text>    
+You left something in your shopping cart at @Model.StoreName.
+
+Shopping cart:
+
+</text>foreach(var item in @Model.CartProducts.Take(5))
+{
+    @item.Name
+    @Html.Raw("\n")
+    @item.PageUrl
+    @Html.Raw("\n\n")
+}
+}
+
+@if (@Model.FavoriteProducts.Count() > 0)
+{
+    if (@Model.CartProducts.Count() > 0)
+    {
+
+<text>
+You also marked a few favorites:
+</text>
+    }
+    else
+    {
+<text>
+    Just a reminder of the products you marked as favorites:
+
+</text>
+    }
+
+    foreach (var item in @Model.FavoriteProducts.Take(5))
+    {
+        @item.Name
+        @Html.Raw("\n")
+        @item.PageUrl
+        @Html.Raw("\n\n")
+    }
+}
+
+
+Thank you!
+Inside Stores
+Customer Service
+https://www.insidestores.com
+

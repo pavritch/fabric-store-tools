@@ -1,0 +1,161 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+             xmlns:local="clr-namespace:ProductScanner.App"
+             xmlns:views="clr-namespace:ProductScanner.App.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="ProductScanner.App.Views.CommitSummaryPage"
+           
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="CommitSummaryPageViewModel" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
+    <Grid>
+
+        <Grid.Resources>
+            <ItemsPanelTemplate x:Key="RingItemsPanelTemplate">
+                <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+
+            <Style TargetType="{x:Type telerik:GridViewRow}">
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Pending" >
+                        <Setter Property="Background" Value="#FFF8F8F8"/>
+                    </DataTrigger>
+                </Style.Triggers>
+
+            </Style>
+            
+
+            <local:CommitBatchStatusIconConverter x:Key="CommitBatchStatusIconConverter" />
+
+        
+        </Grid.Resources>
+
+        <Grid Margin="0,0,0,0" Width="700" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- top -->
+                <RowDefinition MinHeight="300" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="95"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+
+                <StackPanel Orientation="Horizontal" />
+
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal"  >
+                        <ItemsControl ItemsPanel="{StaticResource RingItemsPanelTemplate}">
+                            <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#8ec441" Value="{Binding TotalCommitsCount}" Label="TOTAL" Visibility="{Binding TotalCommitsCount, Converter={StaticResource MaxValueVisibilityConverter}, ConverterParameter=199}" />
+                            <controls:LabelledValue Style="{StaticResource RingItemStyleSmallK}" Background="#8ec441" StringValue="{Binding TotalCommitsCount, Converter={StaticResource ThousandsConverter}}" Label="TOTAL" Visibility="{Binding TotalCommitsCount, Converter={StaticResource MaxValueInverseVisibilityConverter}, ConverterParameter=199}" />
+                            <controls:LabelledValue Style="{StaticResource RingItemStyleSmall}" Background="#FFF4B400" Value="{Binding PendingCommitsCount}" Label="PENDING" />
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"  >
+                        <StackPanel Orientation="Horizontal"  Margin="0,20,0,3">
+
+                            <telerik:RadButton   Width="110" Content="Commit Pending"   Command="{Binding CommitPendingCommand}"  Margin="10,0,8,0"  VerticalAlignment="Center" />
+                            <telerik:RadButton   Width="110" Content="Discard Pending"  Command="{Binding DiscardPendingCommand}"   VerticalAlignment="Center" />
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+
+
+                <Border Background="#FF25A0DA" CornerRadius="5,5,0,0"  HorizontalAlignment="Stretch" Margin="0,20,0,0">
+                    <Grid  HorizontalAlignment="Stretch" Margin="10,5,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"  Text="COMMIT HISTORY"  Foreground="White" FontFamily="Segoe WP SemiLight" FontSize="18.667" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                            <Button Style="{StaticResource LinkButtonStyle}" Command="{Binding ShowAllRowsCommand}" Content="All" Foreground="White"  />
+                            <Button Style="{StaticResource LinkButtonStyle}" Command="{Binding ShowPendingRowsCommand}" Content="Pending" Foreground="White" Margin="10,0,3,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+
+
+            <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#F0FFFFFF">
+                <Border BorderThickness="1,0,1,1" BorderBrush="#808080"  >
+
+                    <Grid>
+                        <!-- Grid Variable Length -->
+                        <telerik:RadGridView x:Name="radGridView"  telerik:StyleManager.Theme="Windows8" MinHeight="150" IsBusy="{Binding IsBusy}" HorizontalAlignment="Left"  SelectionChanging="RadGridView_SelectionChanging"  ItemsSource="{Binding ItemsSource}" AutoGenerateColumns="False" CanUserFreezeColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="True" RowIndicatorVisibility="Collapsed" DragElementAction="None" ShowGroupPanel="False" Foreground="#FF464646"  FontFamily="Segoe WP" VerticalAlignment="Stretch" SnapsToDevicePixels="True" FontSize="13.333" BorderBrush="{x:Null}">
+                            <telerik:RadGridView.Columns>
+                                <telerik:GridViewDataColumn Header="Batch" IsSortable="True"  DataMemberBinding="{Binding BatchID}" IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="False" Width="80">
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                                                <Image Source="{Binding Status, Converter={StaticResource CommitBatchStatusIconConverter}, ConverterParameter=16}" Width="16" Height="16" />
+                                                <Button Command="{Binding ShowBatchDetailsCommand}" Style="{StaticResource LinkButtonStyle}" Content="{Binding BatchID, Converter={StaticResource ZeroPaddingConverter}, ConverterParameter=5}" Margin="3,0,0,0" />
+
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+
+                                <telerik:GridViewDataColumn Header="Date " IsSortable="True" DataMemberBinding="{Binding Date}" x:Name="DateColumn"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="False" Width="160"  HeaderTextAlignment="Left" TextAlignment="Left">
+                                </telerik:GridViewDataColumn>
+
+                                <telerik:GridViewDataColumn Header="S" IsVisible="{Binding ShowStoreName}" IsSortable="True" DataMemberBinding="{Binding Vendor.ParentStore.ShortName}"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="True" Width="1*"  HeaderTextAlignment="Left" TextAlignment="Left">
+                                </telerik:GridViewDataColumn>
+
+                                <telerik:GridViewDataColumn Header="Vendor " IsVisible="{Binding ShowVendorName}" IsSortable="True" DataMemberBinding="{Binding Vendor.Name}"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="False" Width="3*"  HeaderTextAlignment="Left" TextAlignment="Left">
+                                </telerik:GridViewDataColumn>
+
+                                <telerik:GridViewDataColumn Header="Batch Type " IsSortable="True" DataMemberBinding="{Binding BatchType, Converter={StaticResource EnumDescriptionConverter}}"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="True" Width="3*"  HeaderTextAlignment="Left" TextAlignment="Left">
+                                </telerik:GridViewDataColumn>
+
+                                <telerik:GridViewDataColumn Header="Quantity " IsSortable="True" DataMemberBinding="{Binding QtySubmitted}" DataFormatString="{}{0:N0}"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsGroupable="False" IsFilterable="True" ShowDistinctFilters="False" Width="90"  HeaderTextAlignment="Right" TextAlignment="Right">
+                                </telerik:GridViewDataColumn>
+
+
+                                <telerik:GridViewDataColumn Header="Status " IsSortable="True"  DataMemberBinding="{Binding Status, Converter={StaticResource EnumDescriptionConverter}}"  IsReorderable="False" IsResizable="True" IsReadOnly="True" IsFilterable="True" ShowDistinctFilters="True"  Width="100" HeaderTextAlignment="Left" TextAlignment="Left" >
+                                </telerik:GridViewDataColumn>
+
+
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <Button Style="{StaticResource LinkButtonStyle}"  Content="Delete Batches" Command="{Binding DeleteBatchesCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+
+    </Grid>
+</UserControl>

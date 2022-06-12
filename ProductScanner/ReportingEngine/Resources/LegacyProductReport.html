@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{manufacturer-name}} New Products</title>
+
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.default.min.css" rel="stylesheet" />
+
+    <!-- not presently using dataviz
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
+    -->
+
+    <style type="text/css">
+	.page-header h1 {margin:0px;}
+	.page-header h3 {margin-top:0px;font-size:1.5em}
+        #tabstrip
+        {
+            min-height:400px;
+        }
+
+        .treeview-products
+        {
+            width:500px;
+            margin-top:10px;
+            margin-bottom:10pt;
+        }
+
+
+        .pname
+        {
+            font-size:10pt;
+            color:#808080;
+        }
+
+        .pval{
+            font-size:10pt;
+            color:blue;
+        }
+
+        .pcnt{
+            font-size:10pt;
+            color:#BBBBBB;
+        }
+
+        .pname2
+        {
+            font-size:10pt;
+            color:#808080;
+        }
+
+
+    </style>
+
+    <script id="products-treeview-template" type="text/kendo-ui-template">
+            # if (item.Properties) { #
+                <span class="pSKU">#: item.SKU #</span>
+            # } else { #
+                <span  class="pname">#: item.Name #:</span> <span class="pval">#: item.Value #</span>
+            # } #
+    </script>
+
+
+
+    <script id="properties-treeview-template" type="text/kendo-ui-template">
+            # if (item.Values) { #
+                <span class="pSKU">#: item.Name #</span> <span class="pcnt">(#: item.Count #)</span>
+            # } else { #
+                <span  class="pname2">#: item.Value #:</span> <span class="pval">#: item.Count #</span>
+            # } #
+    </script>
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+    <script type="text/javascript">
+
+        // inject json product array here
+        //{{json-products}}
+
+        // inject json properties array here
+        //{{json-properties}}
+
+
+        // doc ready
+        $(function () {
+
+            $("#tabstrip").kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fadeIn"
+                    }
+                }
+            });
+
+
+            var productsDataSource = new kendo.data.HierarchicalDataSource({
+                data: jsonProducts,
+                schema: {
+                    model: {
+                        id: "SKU",
+                        children: "Properties",
+                        hasChilren: true,
+                    }
+                }
+            });
+
+            $("#treeview-products").kendoTreeView({
+                loadOnDemand: true,
+                //dataTextField: ["SKU", "Name"],
+                template: kendo.template($("#products-treeview-template").html()),
+                dataSource: productsDataSource
+            });
+
+
+            var propertiesDataSource = new kendo.data.HierarchicalDataSource({
+                data: jsonProperties,
+                schema: {
+                    model: {
+                        id: "Name",
+                        children: "Values",
+                        hasChilren: true,
+                    }
+                }
+            });
+
+            $("#treeview-properties").kendoTreeView({
+                loadOnDemand: true,
+                template: kendo.template($("#properties-treeview-template").html()),
+                dataSource: propertiesDataSource
+            });
+
+        });
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container  k-content">
+
+
+        <div class="page-header col-md-12" >
+                <h1>{{manufacturer-name}}</h1>
+            <h3>Legacy Product Report</h3>
+            <div>
+                <p>{{report-date}}</p>
+                <p>{{csv-filename}}</p>
+            </div>
+        </div>
+
+
+        <div class="row ">
+
+            <div class="col-md-12">
+                <div id="tabstrip">
+                    <ul>
+                            <li class="k-state-active">
+                                Products
+                            </li>
+                            <li>
+                                Properties
+                            </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="treeview-products"></div>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div id="treeview-properties"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end container -->
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <!-- if dataviz needed http://cdn.kendostatic.com/2013.2.716/js/kendo.all.min.js -->
+    <script src="http://cdn.kendostatic.com/2013.2.716/js/kendo.web.min.js"></script>
+    <script src="http://demos.flesler.com/jquery/scrollTo/js/jquery.scrollTo-min.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+
+    <style type="text/css">
+        body {
+            margin:10px;
+        }
+
+        .imageCell
+        {
+            float:left;
+            width:225px;
+            height:245px;
+            margin-right:20px;
+            margin-bottom:20px;
+        }
+
+        .imageCell img
+        {
+            width:225px;
+            height:225px;
+        }
+        .legend
+        {
+            font-family:Verdana;
+            font-size:10pt;
+            color:#303030;
+        }
+
+        .imageCell table
+        {
+            width:100%;
+        }
+
+        .testData
+        {
+            margin-bottom:20pt;
+            font-family:Verdana;
+            font-size:10pt;
+            color:#303030;
+        }
+
+        .testData img
+        {
+            width:100px;
+            height:100px;
+        }
+
+        .testData p
+        {
+            margin-top:0px;
+            margin-bottom:3pt;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Results</h1>
+    <div class="testData">
+        <table>
+            <tr>
+                <td style="width:100px;vertical-align:top"><img src="{url-target-image}" /></td>
+                <td style="width:20px;vertical-align:top"></td>
+                <td style="width:400px;vertical-align:top">
+                    <p style="font-weight:bold;color:#505050">ProductID: {product-id}</p>
+                    <p>{test-name}</p>
+                    <p>Minimum Distance: {min-distance}</p>
+                    <p>Maximum Distance: {max-distance}</p>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+
+    <h3>Images</h3>
+    <div class="imageContainer">
+        {products}
+        <!--<div class="imageCell"><img src="{image-url}" /><div class="legend"><table><tr><td>{sku}</td><td align="right">{distance}</td></tr></table></div></div>-->
+    </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿html{
+ height:100%;
+}
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+    height:100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+.module-container {
+
+    margin-top: 20px;
+    height:900px;
+}
+
+
+/*  nest list */
+
+.just-padding {
+  padding: 15px;
+}
+
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+  margin-right: 5px;
+}
+
+
+#wrapper {
+}
+
+
+#filterContainer {
+    width:350px;
+}
+
+#productsContainer {
+}
+
+#detailsContainer
+{
+    width:400px;
+}
+
+
+/*/
+/* gridster
+/*/
+
+.gridster ul {
+    list-style-type: none;
+}
+
+.gridster li {
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 100%;
+}
+
+
+.gridster {
+    margin: 0 auto;
+
+    opacity: .8;
+
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster .gs-w {
+    background: #DDD;
+    cursor: pointer;
+}
+
+    .gridster > * {
+        margin: 0;
+    }

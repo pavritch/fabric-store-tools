@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+@model StoreCurator.ProductList
+
+
+<section class="smallTiles">
+    <div id="productsPagerWrapper">
+        @Html.Pager(Model.PageNumber, Model.TotalResults);
+    </div>
+    <div id="productsTilesWrapper">
+        <div class="gridster">
+            <ul>
+                @{foreach (var item in Model.Products)
+                {
+                    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+                        <div style="width:150px;height:150px;background-color:#F0F0F0">@item.SKU</div>
+                    </li>
+                }
+                }
+            </ul>
+
+        </div>
+
+    </div>
+</section>
+
+

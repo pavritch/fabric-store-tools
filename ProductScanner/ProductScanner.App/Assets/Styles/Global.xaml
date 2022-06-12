@@ -1,0 +1,326 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:vm="clr-namespace:ProductScanner.App.ViewModels"
+    xmlns:local="clr-namespace:ProductScanner.App"
+    xmlns:controls="clr-namespace:ProductScanner.App.Controls"
+    d1p1:Ignorable="d" 
+    xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    >
+
+    <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True"  />
+
+    <local:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
+    <local:InverseBoolVisibilityConverter x:Key="InverseBoolVisibilityConverter" />
+    <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+    <local:ObjectToTypeStringConverter x:Key="ObjectToTypeStringConverter" />
+    <local:ActivityResultIconConverter x:Key="ActivityResultIconConverter" />
+    <local:StringLettercaseConverter x:Key="StringLettercaseConverter" />
+    <local:ThousandsConverter x:Key="ThousandsConverter" />
+    <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    <local:ZeroPaddingConverter x:Key="ZeroPaddingConverter" />
+
+    <local:MaxValueVisibilityConverter x:Key="MaxValueVisibilityConverter" />
+    <local:MaxValueInverseVisibilityConverter x:Key="MaxValueInverseVisibilityConverter" />
+
+    <local:NullCommand x:Key="NullCommand" />
+
+
+    <Style x:Key="ThumbStyle1" TargetType="Thumb">
+        <Setter Property="Background" Value="#FF1F3B53"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+        	<Setter.Value>
+        		<ControlTemplate TargetType="Thumb">
+        			<Rectangle Width="5" Height="10" Fill="#FF25A0DA"  />
+        		</ControlTemplate>
+        	</Setter.Value>
+        </Setter>
+   </Style>    
+
+    <Style x:Key="LinkButtonStyle"  TargetType="Button"  BasedOn="{StaticResource ResourceKey={x:Type Button}}" >
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter Content="{TemplateBinding Content}" 
+                                  ContentTemplate="{TemplateBinding  ContentTemplate}"
+                                  VerticalAlignment="Center"
+                                  >
+                        <ContentPresenter.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="#FF25A0DA" />
+        <!--<Setter Property="Cursor" Value="Hand" />-->
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="#A0A0A0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="GroupBox">
+        <Setter Property="Foreground" Value="#FF0FAFE1"/>
+        <Setter Property="BorderBrush" Value="#FFBBBBBB"/>
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="10.667"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="RadioButton">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF666666" />
+    </Style>
+
+    <Style x:Key="ContextMenuStyle" TargetType="telerik:RadContextMenu">
+        <Setter Property="Foreground" Value="#FF666666" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+
+    <Style TargetType="telerik:RadNumericUpDown">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF666666" />
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF666666" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Foreground" Value="#FF404040" />
+    </Style>
+    
+    <Style TargetType="telerik:RadAlert">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Foreground" Value="#FF545454"/>
+        <Setter Property="FontSize" Value="13.333"/>
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <!--<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="telerik:RadAlert">
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>-->
+    </Style>
+
+
+    <Style TargetType="telerik:RadComboBox">
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+    </Style>
+    
+    <Style TargetType="telerik:RadButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <Style TargetType="telerik:RadToggleButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    
+    <Style TargetType="telerik:RadListBox">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    
+    <Style TargetType="telerik:RadSplitButton">
+        <Setter Property="Foreground" Value="#FF25A0DA"/>
+        <Setter Property="telerik:StyleManager.Theme" Value="Windows8"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+    
+    <Style TargetType="{x:Type telerik:GridViewFooterRow}">
+        <Setter Property="Background" Value="#F8F8F8"/>
+    </Style>
+
+
+    <Style TargetType="{x:Type telerik:GridViewFooterCell}">
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="Foreground" Value="#808080"/>
+        <Setter Property="Margin" Value="0,0,3,0"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+    </Style>
+
+    <Style TargetType="{x:Type telerik:GridViewCell}">
+        <Setter Property="Margin" Value="0,0,3,0"/>
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+    </Style>
+
+    <Style  TargetType="{x:Type telerik:GridViewHeaderCell}">
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Foreground" Value="#808080"/>
+
+    </Style>
+
+    <Style  x:Key="RingItemStyle" TargetType="{x:Type controls:LabelledValue}">
+        <Setter Property="FontSize" Value="70"/>
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="Foreground" Value="#FF0FAFE0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LabelledValue}">
+                    <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <StackPanel>
+                            <ContentControl  Width="140" Height="140"  HorizontalAlignment="Left" Margin="0,0,0,0"  Background="{TemplateBinding Background}">
+                                <Grid >
+                                    <Ellipse  StrokeThickness="0" Fill="#D0FFFFFF" />
+                                    <controls:Arc StrokeThickness="10" Stroke="#FFE5E5E5" Margin="0" StartAngle="0" EndAngle="359.999"   />
+                                    <controls:Arc StrokeThickness="10" Stroke="{TemplateBinding Background}" Margin="0" StartAngle="240" EndAngle="-60" StrokeStartLineCap="Round"  StrokeEndLineCap="Round" />
+                                    <TextBlock Text="{TemplateBinding StringValue}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="0" Y="-4"/>
+                                            </TransformGroup>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Grid>
+                            </ContentControl>
+                            <TextBlock Text="{TemplateBinding Label}" Margin="0,10,0,0" FontSize="18.667" HorizontalAlignment="Center" FontFamily="Segoe WP"	/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Width="46" Visibility="Visible" >
+                        <!--<Grid.Resources>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="XXXXXX" Value="true" >
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </Grid.Resources>-->
+                    </Grid>                        
+                        
+                        
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  x:Key="RingItemStyleSmall" TargetType="{x:Type controls:LabelledValue}">
+        <Setter Property="FontSize" Value="45"/>
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="Foreground" Value="#FF0FAFE0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LabelledValue}">
+                    <Grid Margin="0,0,35,0">
+                        <StackPanel>
+                            <ContentControl  Width="90" Height="90"  HorizontalAlignment="Left" Margin="0,0,0,0"  Background="{TemplateBinding Background}">
+                                <Grid >
+                                    <Ellipse  StrokeThickness="0" Fill="#D0FFFFFF" />
+                                    <controls:Arc StrokeThickness="10" Stroke="#FFE5E5E5" Margin="0" StartAngle="0" EndAngle="359.999"   />
+                                    <controls:Arc StrokeThickness="10" Stroke="{TemplateBinding Background}" Margin="0" StartAngle="240" EndAngle="-60" StrokeStartLineCap="Round"  StrokeEndLineCap="Round" />
+                                    <TextBlock Text="{TemplateBinding StringValue}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="0" Y="-4"/>
+                                            </TransformGroup>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Grid>
+                            </ContentControl>
+                            <TextBlock Text="{TemplateBinding Label}" Margin="0,5,0,0" FontSize="16" HorizontalAlignment="Center" FontFamily="Segoe WP"	/>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style  x:Key="RingItemStyleSmallK" TargetType="{x:Type controls:LabelledValue}">
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="Foreground" Value="#FF0FAFE0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:LabelledValue}">
+                    <Grid Margin="0,0,35,0">
+                        <StackPanel>
+                            <ContentControl  Width="90" Height="90"  HorizontalAlignment="Left" Margin="0,0,0,0"  Background="{TemplateBinding Background}">
+                                <Grid >
+                                    <Ellipse  StrokeThickness="0" Fill="#D0FFFFFF" />
+                                    <controls:Arc StrokeThickness="10" Stroke="#FFE5E5E5" Margin="0" StartAngle="0" EndAngle="359.999"   />
+                                    <controls:Arc StrokeThickness="10" Stroke="{TemplateBinding Background}" Margin="0" StartAngle="240" EndAngle="-60" StrokeStartLineCap="Round"  StrokeEndLineCap="Round" />
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <TextBlock Text="{TemplateBinding StringValue}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform X="0" Y="0"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                        <TextBlock Text="K" FontSize="13" FontFamily="Segoe WP" >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform X="0" Y="6"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+
+                                        <StackPanel.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="0" Y="0"/>
+                                            </TransformGroup>
+                                        </StackPanel.RenderTransform>
+
+                                    
+                                    </StackPanel>
+                                </Grid>
+                            </ContentControl>
+                            <TextBlock Text="{TemplateBinding Label}" Margin="0,5,0,0" FontSize="16" HorizontalAlignment="Center" FontFamily="Segoe WP"	/>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

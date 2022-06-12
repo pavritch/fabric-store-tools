@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Shopify" EntityNamespace="Website.Shopify.Entities" ContextNamespace="Website" Class="ShopifyDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=Shopify;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ShopifyConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[Log]" Member="Logs">
+    <Type Name="Log">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Locus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LiveShopifyProducts" Member="LiveShopifyProducts">
+    <Type Name="LiveShopifyProduct">
+      <Column Name="ShopifyProductID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ShopifyHandle" Type="System.String" DbType="NVarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductEvents" Member="ProductEvents">
+    <Type Name="ProductEvent">
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Operation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="PkID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShopifyProductID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DisqualifiedReason" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastFullUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastAvailabilityUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedOnShopify" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastOperation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastOperationResult" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastOperationErrorData" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FullUpdateRequired" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

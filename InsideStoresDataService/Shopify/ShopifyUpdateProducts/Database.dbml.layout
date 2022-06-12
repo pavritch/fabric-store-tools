@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Database">
+  <DataContextMoniker Name="/AspStoreDataContext" />
+  <nestedChildShapes>
+    <classShape Id="76677bc6-e484-4786-ae7c-7f9358035b5b" isExpanded="false" absoluteBounds="0.875, 0.875, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="49d375ac-902f-4a07-9c1b-2a10592c381b" absoluteBounds="0.89000000000000012, 1.335, 1.9700000000000002, 14.6719970703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8156c7e-a3c6-439e-972e-5a376017a8f8" isExpanded="false" absoluteBounds="0.875, 1.625, 2, 0.45">
+      <DataClassMoniker Name="/AspStoreDataContext/ProductVariant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c57d3647-0115-4d90-bb64-08917ae920b5" absoluteBounds="0.89000000000000012, 2.085, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

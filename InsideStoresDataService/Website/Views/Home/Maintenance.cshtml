@@ -1,0 +1,383 @@
+﻿@{
+    ViewBag.Title = "Maintenance Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+
+    <script>
+
+        $(function () {
+
+            $(".confirmAction").click(function (evt) {
+                evt.preventDefault();
+                var href = $(this).attr("href");
+                bootbox.confirm("Run " + $(this).text() + "?", function (result) {
+
+                    if (result === true) {
+                        location.href = href;
+                    }
+                });
+
+            })
+
+        });
+    </script>
+
+}
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#insideFabric" data-toggle="tab">Inside Fabric</a></li>
+    <li><a href="#insideWallpaper" data-toggle="tab">Inside Wallpaper</a></li>
+    <li><a href="#insideRugs" data-toggle="tab">Inside Rugs</a></li>
+    <li><a href="#insideAvenue" data-toggle="tab">Inside Avenue</a></li>
+    <li><a href="#productFeeds" data-toggle="tab">Product Feeds</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="insideFabric">
+
+        <h2>General</h2>
+        <p><a href="Maintenance/Status/InsideFabric">Report Status</a></p>
+
+        <h2>Population</h2>
+        <p>All operations run immediately.</p>
+        <p><a href="Maintenance/RepopulateProducts/InsideFabric">Repopulate Products</a></p>
+        <p><a href="Maintenance/RebuildProductCategoryTable/InsideFabric">Rebuild Product Category Table</a></p>
+        <p><a href="Maintenance/RebuildProductSearchExtensionData/InsideFabric">Rebuild Product Search ExtensionData</a></p>
+        <p><a href="Maintenance/RebuildAll/InsideFabric">Rebuild All</a> (runs in background)</p>
+
+
+        <h2>Product Actions</h2>
+
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=RegenerateDescriptions">RegenerateDescriptions (All 4)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=UpdateImageDimensions">UpdateImageDimensions</a></p>
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=FillInMissingImageSizes&tag=looks:1" title="First set product looks to 1.">FillInMissingImageSizes (uses Looks)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=RecreateAllImageSizes&tag=looks:1" title="First set product looks to 1.">RecreateAllImageSizes (uses Looks)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=CleanUpExtensionData4">CleanUpExtensionData4</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=AddMissingProductToProductLabelsTable">AddMissingProductToProductLabelsTable</a></p>
+
+
+                    <!--
+                                <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=RemoveKravetDropShadows&tag=looks:1" title="First set product looks to 1.">RemoveKravetDropShadows (uses Looks)</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=RefreshXmlExtensionData">RefreshXmlExtensionData</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=TweakCollectionNames">TweakCollectionNames</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=ChangeImageFilenames">ChangeImageFilenames</a></p>
+                    -->
+                </td>
+
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=FillMissingImageFeatures">Fill Missing Image Features</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=ReCreateImageFeatures&tag=looks:1" title="First set product looks to 1.">ReCreate Image Features (uses Looks)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideFabric?method=ReCreateSimilarByProductFeatures&tag=looks:1" title="First set product looks to 1.">ReCreate SimilarBy Features (uses Looks)</a></p>
+                </td>
+
+            </tr>
+        </table>
+
+        <h2>Global Actions</h2>
+        <p>All operations run immediately.</p>
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=ProcessImageQueue">ProcessImageQueue</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=UpdateProductCollections">UpdateProductCollections</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=Cleanup">Cleanup</a></p>
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=RebuildProductCollectionImages">RebuildProductCollectionImages</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=RebuildProductLabelsTable">RebuildProductLabelsTable</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=RepopulateAutoSuggestTable">RepopulateAutoSuggestTable</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=GenerateAlgoliaSuggestions">GenerateAlgoliaSuggestions</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=PopulateAlgoliaSuggestions">PopulateAlgoliaSuggestions</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=SyncAlgoliaProductsAction">SyncAlgoliaProducts</a></p>
+
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=ReviewSearchGalleries">ReviewSearchGalleries</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideFabric?method=PopulateMissingSearchGalleries">PopulateMissingSearchGalleries</a></p>
+
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade" id="insideWallpaper">
+
+        <h2>General</h2>
+        <p><a href="Maintenance/Status/InsideWallpaper">Report Status</a></p>
+
+        <h2>Population</h2>
+        <p>All operations run immediately.</p>
+        <p><a href="Maintenance/RepopulateProducts/InsideWallpaper">Repopulate Products</a></p>
+        <p><a href="Maintenance/RebuildProductCategoryTable/InsideWallpaper">Rebuild Product Category Table</a></p>
+        <p><a href="Maintenance/RebuildProductSearchExtensionData/InsideWallpaper">Rebuild Product Search ExtensionData</a></p>
+        <p><a href="Maintenance/RebuildAll/InsideWallpaper">Rebuild All</a> (runs in background)</p>
+
+
+        <h2>Product Actions</h2>
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideWallpaper?method=RegenerateDescriptions">RegenerateDescriptions (All 4)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideWallpaper?method=UpdateImageDimensions">UpdateImageDimensions</a></p>
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideWallpaper?method=FillInMissingImageSizes&tag=looks:1" title="First set product looks to 1.">FillInMissingImageSizes (uses Looks)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideWallpaper?method=RecreateAllImageSizes&tag=looks:1" title="First set product looks to 1.">RecreateAllImageSizes (uses Looks)</a></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <h2>Global Actions</h2>
+        <p>All operations run immediately.</p>
+
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=SyncProductsFromInsideFabric">SyncProducts</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=SyncProductsFromInsideFabricQuick">SyncProducts - Quick</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=SyncProductsFromInsideFabricInsert">SyncProducts - Insert Only</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=SyncProductsFromInsideFabricSingleVendor&tag=KR">Sync Products - Single Vendor</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=ProcessImageQueue">ProcessImageQueue</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=UpdateProductCollections">UpdateProductCollections</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=Cleanup">Cleanup</a></p>
+
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=RebuildProductCollectionImages">RebuildProductCollectionImages</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=RebuildProductLabelsTable">RebuildProductLabelsTable</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=RepopulateAutoSuggestTable">RepopulateAutoSuggestTable</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=GenerateAlgoliaSuggestions">GenerateAlgoliaSuggestions</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=PopulateAlgoliaSuggestions">PopulateAlgoliaSuggestions</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=SyncAlgoliaProductsAction">SyncAlgoliaProducts</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=ReviewSearchGalleries">ReviewSearchGalleries</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideWallpaper?method=PopulateMissingSearchGalleries">PopulateMissingSearchGalleries</a></p>
+
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+
+    <div class="tab-pane fade" id="insideRugs">
+
+        <h2>General</h2>
+        <p><a href="Maintenance/Status/InsideRugs">Report Status</a></p>
+
+        <h2>Population</h2>
+        <p>All operations run immediately.</p>
+
+        <p><a href="Maintenance/RepopulateProducts/InsideRugs">Repopulate Products</a></p>
+        <p><a href="Maintenance/RebuildProductCategoryTable/InsideRugs">Rebuild Product Category Table (no real logic)</a></p>
+        <p><a href="Maintenance/RebuildProductSearchExtensionData/InsideRugs">Rebuild Product Search ExtensionData</a></p>
+        <p><a href="Maintenance/RebuildAll/InsideRugs">Rebuild All</a></p>
+
+        <h2>Product Actions</h2>
+
+
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=UpdateProductCategories">UpdateProductCategories (recently touched)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=RebuildProductCategories">Rebuild Product Categories (all)</a></p>
+
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=RegenerateDescriptions">Rebuild Meta/Long/Short Descriptions (all)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=FillMissingImageFeatures">Fill Missing Image Features</a></p>
+                </td>
+
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=ReCreateImageFeatures&tag=looks:1" title="First set product looks to 1.">ReCreate Image Features (uses Looks)</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideRugs?method=ReCreateSimilarByProductFeatures&tag=looks:1" title="First set product looks to 1.">ReCreate SimilarBy Features (uses Looks)</a></p>
+                </td>
+
+            </tr>
+        </table>
+
+
+        <h2>Global Actions</h2>
+        <p>All operations run immediately.</p>
+        <table>
+            <tr>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=ProcessImageQueue">ProcessImageQueue</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=UpdateProductCollections">UpdateProductCollections</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=Cleanup">Cleanup</a></p>
+                </td>
+                <td style="width:30px;"></td>
+                <td valign="top" style="width:300px;">
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=RebuildColorFilters">RebuildColorFilters</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=RebuildProductCollectionImages">RebuildProductCollectionImages</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=RebuildProductLabelsTable">RebuildProductLabelsTable</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=RepopulateAutoSuggestTable">RepopulateAutoSuggestTable</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=GenerateAlgoliaSuggestions">GenerateAlgoliaSuggestions</a></p>
+
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=PopulateAlgoliaSuggestions">PopulateAlgoliaSuggestions</a></p>
+                    <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideRugs?method=SyncAlgoliaProductsAction">SyncAlgoliaProducts</a></p>
+
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade" id="insideAvenue">
+
+        <h2>General</h2>
+        <p><a href="Maintenance/Status/InsideAvenue">Report Status</a></p>
+
+        <h2>Population</h2>
+        <p>All operations run immediately.</p>
+
+        <p><a href="Maintenance/RepopulateProducts/InsideAvenue">Repopulate Products</a></p>
+        <p><a href="Maintenance/RebuildProductCategoryTable/InsideAvenue">Rebuild Product Category Table</a></p>
+        <p><a href="Maintenance/RebuildProductSearchExtensionData/InsideAvenue">Rebuild Product Search ExtensionData</a></p>
+        <p><a href="Maintenance/RebuildAll/InsideAvenue">Rebuild All</a> (runs in background)</p>
+
+        <h2>Product Actions</h2>
+        <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideAvenue?method=RegenerateDescriptions">RegenerateDescriptions (All 4)</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideAvenue?method=RebuildProductLabels">Rebuild Product Labels</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideAvenue?method=RebuildCategoriesFromExt">RebuildCategoriesFromExt</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideAvenue?method=EnsureSinglePrimaryCategory">EnsureSinglePrimaryCategory</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForAllProducts/InsideAvenue?method=DetectHumanReviewedProducts">DetectHumanReviewedProducts</a></p>
+
+        <h2>Global Actions</h2>
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=ProcessImageQueue">ProcessImageQueue</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=Cleanup">Cleanup</a></p>
+
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=PopulateCategories">Populate Categories</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=PrintCategoryTree">Print Category Tree</a></p>
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=InjectCategories">Inject Categories</a></p>
+
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=GenerateAlgoliaSuggestions">GenerateAlgoliaSuggestions</a></p>
+
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=PopulateAlgoliaSuggestions">PopulateAlgoliaSuggestions</a></p>
+
+        <p><a class="confirmAction" href="Maintenance/RunActionForStore/InsideAvenue?method=SyncAlgoliaProductsAction">SyncAlgoliaProducts</a></p>
+
+    </div>
+
+    <div class="tab-pane fade" id="productFeeds">
+        <h2>Generate</h2>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateAllProductFeeds">Generate All Product Feeds</a> (runs in background)</p>
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Google">Enqueue InsideFabric Google Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Bing">Enqueue InsideFabric Bing Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Amazon">Enqueue InsideFabric Amazon Product Feed</a></p>
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/Google">Enqueue InsideWallpaper Google Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideAvenue/Google">Enqueue InsideAvenue Google Product Feed</a></p>
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Shopify">Enqueue InsideFabric Shopify Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/Shopify">Enqueue InsideWallpaper Shopify Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideAvenue/Shopify">Enqueue InsideAvenue Shopify Product Feed</a></p>
+
+
+        <h2>Generate and Download</h2>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Google?download=true">Generate and Download InsideFabric Google Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Bing?download=true">Generate and Download InsideFabric Bing Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Amazon?download=true">Generate and Download InsideFabric Amazon Product Feed</a></p>
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/Shopify?download=true">Generate and Download InsideFabric Shopify Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/Shopify?download=true">Generate and Download InsideWallpaper Shopify Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideAvenue/Shopify?download=true">Generate and Download InsideAvenue Shopify Product Feed</a></p>
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/Google?download=true">Generate and Download InsideWallpaper Google Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideAvenue/Google?download=true">Generate and Download InsideAvenue Google Product Feed</a></p>
+
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/GoogleCanada?download=true">Generate and Download InsideFabric Google Canada Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/GoogleCanada?download=true">Generate and Download InsideWallpaper Google Canada Product Feed</a></p>
+
+
+        <br />
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideFabric/FirstDibs?download=true">Generate and Download InsideFabric 1stDibs Product Feed</a></p>
+        <p><a class="confirmAction" href="ProductFeeds/GenerateProductFeed/InsideWallpaper/FirstDibs?download=true">Generate and Download InsideWallpaper 1stDibs Product Feed</a></p>
+
+
+        <h2>Download</h2>
+        <p><a href="ProductFeeds/InsideFabric/Google">InsideFabric Google default</a></p>
+        <p><a href="ProductFeeds/InsideFabric/Google/txt">InsideFabric Google txt</a></p>
+        <p><a href="ProductFeeds/InsideFabric/Google/zip">InsideFabric Google zip</a></p>
+        <p><a href="ProductFeeds/InsideFabric/Bing/zip">InsideFabric Bing zip</a></p>
+
+        <br />
+
+        <p><a href="ProductFeeds/InsideFabric/GoogleCanada">InsideFabric Google Canada default</a></p>
+        <p><a href="ProductFeeds/InsideFabric/GoogleCanada/txt">InsideFabric Google Canada txt</a></p>
+        <p><a href="ProductFeeds/InsideFabric/GoogleCanada/zip">InsideFabric Google Canada zip</a></p>
+
+        <br />
+
+        <p><a href="ProductFeeds/InsideFabric/Shopify/csv">InsideFabric Shopify csv</a></p>
+        <p><a href="ProductFeeds/InsideFabric/Shopify/zip">InsideFabric Shopify zip</a></p>
+
+        <br />
+
+        <p><a href="ProductFeeds/InsideWallpaper/Shopify/csv">InsideWallpaper Shopify csv</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/Shopify/zip">InsideWallpaper Shopify zip</a></p>
+
+        <br />
+
+        <p><a href="ProductFeeds/InsideAvenue/Shopify/csv">InsideAvenue Shopify csv</a></p>
+        <p><a href="ProductFeeds/InsideAvenue/Shopify/zip">InsideAvenue Shopify zip</a></p>
+
+        <br />
+
+        <p><a href="ProductFeeds/InsideWallpaper/Google">InsideWallpaper Google default</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/Google/txt">InsideWallpaper Google txt</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/Google/zip">InsideWallpaper Google zip</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/Bing/zip">InsideWallpaper Bing zip</a></p>
+
+        <br />
+        <p><a href="ProductFeeds/InsideWallpaper/GoogleCanada">InsideWallpaper Google Canada default</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/GoogleCanada/txt">InsideWallpaper Google Canada txt</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/GoogleCanada/zip">InsideWallpaper Google Canada zip</a></p>
+
+        <br />
+        <p><a href="ProductFeeds/InsideRugs/Google">InsideRugs Google default</a></p>
+        <p><a href="ProductFeeds/InsideRugs/Google/txt">InsideRugs Google txt</a></p>
+        <p><a href="ProductFeeds/InsideRugs/Google/zip">InsideRugs Google zip</a></p>
+        <p><a href="ProductFeeds/InsideRugs/Bing/zip">InsideRugs Bing zip</a></p>
+
+        <br />
+        <p><a href="ProductFeeds/InsideAvenue/Google/zip">InsideAvenue Google zip</a></p>
+        <p><a href="ProductFeeds/InsideAvenue/GoogleCanada/zip">InsideAvenue Google Canada zip</a></p>
+
+
+        <br />
+        <p><a href="ProductFeeds/InsideFabric/FirstDibs/zip">InsideFabric 1stDibs zip</a></p>
+        <p><a href="ProductFeeds/InsideWallpaper/FirstDibs/zip">InsideWallpaper 1stDibs zip</a></p>
+
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,25 @@
+﻿@model Website.Emails.RecentSwatchPurchaseEmail
+Content-Type: text/plain; charset=utf-8
+
+Hello,
+
+We just wanted to follow up on your recent swatch purchases to see if there was anything we could do to help with your final selection.
+
+Order Numbmer: @Model.Order.OrderNumber
+
+Swatches Purchased:
+
+@foreach (var item in @Model.PurchasedProducts.Take(5))
+{
+    @item.Name
+    @Html.Raw("\n")
+    @item.PageUrl
+    @Html.Raw("\n\n")
+}
+
+
+Thank you!
+Inside Stores
+Customer Service
+https://www.insidestores.com
+

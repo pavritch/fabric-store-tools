@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B14F6A34-BBFD-4AB6-9AE7-B2CF5DCCEFF3}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ControlPanel</RootNamespace>
+    <AssemblyName>ControlPanel</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>ControlPanel.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>ControlPanel.App</SilverlightAppEntry>
+    <TestPageFileName>ControlPanelTestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
+    <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>true</UsePlatformExtensions>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>..\Website\Website.csproj</LinkedServerProject>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>47432685</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Intersoft.Client.Framework, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Aqua, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Aqua.UXCollection, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Aqua.UXDesktop, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Aqua.UXStackMenu, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Controls, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Controls.Interactivity, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="Intersoft.Client.UI.Navigation, Version=3.0.5000.1, Culture=neutral, PublicKeyToken=c3d9b11444163e76, processorArchitecture=MSIL" />
+    <Reference Include="MEFedMVVM.SL">
+      <HintPath>..\External\MEFedMVVM.SL\MEFedMVVM.SL.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\sl4\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\sl4\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Silverlight, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\sl4\Microsoft.Threading.Tasks.Extensions.Silverlight.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.Composition.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\sl5\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.9.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\sl5\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.DomainServices.Client, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Client.Web, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.Web.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ServiceModel.Web.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.9.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\sl5\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Browser" />
+    <Reference Include="Telerik.Windows.Controls, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Charting, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.DataVisualization, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.GridView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.Input.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Controls.Navigation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Themes.Windows7, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Themes.Windows7.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Themes.Windows8, Version=2016.1.112.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCSL\2016.1.112.1050\Telerik.Windows.Themes.Windows8.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\Splash\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AppSvc.cs" />
+    <Compile Include="Classes\ControlPanelDomainContext.cs" />
+    <Compile Include="Classes\DefaultPropertyValueAttribute.cs" />
+    <Compile Include="Classes\EnumDataProvider.cs" />
+    <Compile Include="Classes\Execute.cs" />
+    <Compile Include="Classes\ExtensionMethods.cs" />
+    <Compile Include="Classes\MediatorMessages.cs" />
+    <Compile Include="Classes\PropertyChangedBase.cs" />
+    <Compile Include="Classes\PropertyObserver.cs" />
+    <Compile Include="Classes\UXScreen.cs" />
+    <Compile Include="Classes\UXViewPage.cs" />
+    <Compile Include="Classes\ValidatingModelBase.cs" />
+    <Compile Include="Classes\ValidatingViewModelBase.cs" />
+    <Compile Include="Classes\ValidationErrorInfo.cs" />
+    <Compile Include="Controls\Spinner.xaml.cs">
+      <DependentUpon>Spinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\Converters.cs" />
+    <Compile Include="Enums\ActionStates.cs" />
+    <Compile Include="Interfaces\IViewModelPageNavigation.cs" />
+    <Compile Include="Interfaces\IUXScreen.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Pages\CombinedSalesSummaryPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\PageViewsPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ProductUploadPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SalesComparisonByManufacturerPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SalesByStoreSummaryPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SalesByManufacturerPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SalesSummaryPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ManufacturerCountsPieChartPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ManufacturerCountsPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SqlSearchMetricsPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\StoreDashboardPageViewModel.cs" />
+    <Compile Include="ViewModels\Screens\HomeScreenViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Screens\LoginScreenViewModel.cs" />
+    <Compile Include="Views\ActionStateIndicator.xaml.cs">
+      <DependentUpon>ActionStateIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\BlankPage.xaml.cs">
+      <DependentUpon>BlankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CombinedSalesSummaryPage.xaml.cs">
+      <DependentUpon>CombinedSalesSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ManufacturerCountsPage.xaml.cs">
+      <DependentUpon>ManufacturerCountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ManufacturerCountsPieChartPage.xaml.cs">
+      <DependentUpon>ManufacturerCountsPieChartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\PageViewsPage.xaml.cs">
+      <DependentUpon>PageViewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ProductUploadPage.xaml.cs">
+      <DependentUpon>ProductUploadPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SalesByManufacturerPage.xaml.cs">
+      <DependentUpon>SalesByManufacturerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SalesByStoreSummaryPage.xaml.cs">
+      <DependentUpon>SalesByStoreSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SalesComparisonByManufacturerPage.xaml.cs">
+      <DependentUpon>SalesComparisonByManufacturerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SalesSummaryPage.xaml.cs">
+      <DependentUpon>SalesSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SqlSearchMetricsPage.xaml.cs">
+      <DependentUpon>SqlSearchMetricsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\StoreDashboardPage.xaml.cs">
+      <DependentUpon>StoreDashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Screens\HomeScreen.xaml.cs">
+      <DependentUpon>HomeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Screens\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\TransitionStylishLabel.xaml.cs">
+      <DependentUpon>TransitionStylishLabel.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="licenses.islicx" />
+    <None Include="packages.config" />
+    <None Include="Properties\AppManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Assets\Splash\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Styles\App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Spinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActionStateIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\BlankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CombinedSalesSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ManufacturerCountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ManufacturerCountsPieChartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\PageViewsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ProductUploadPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SalesByManufacturerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SalesByStoreSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SalesComparisonByManufacturerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SalesSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SqlSearchMetricsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\StoreDashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Screens\HomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Screens\LoginScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TransitionStylishLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\InsideStoresLogo317.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\InsideStoresQRcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\StartButtonHover.png" />
+    <Resource Include="Assets\Images\StartButtonNormal.png" />
+    <Resource Include="Assets\Images\StartButtonPressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\StartButtonPressed2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\InsideStoresDataServiceLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\bullet_ball_glass_blue.png" />
+    <Resource Include="Assets\Images\bullet_ball_glass_yellow.png" />
+    <Resource Include="Assets\Images\Warning16.png" />
+    <Resource Include="Assets\Images\Warning24.png" />
+    <Resource Include="Assets\Images\Warning48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\RoundCheck32.png" />
+    <Resource Include="Assets\Images\Warning32.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+</Project>

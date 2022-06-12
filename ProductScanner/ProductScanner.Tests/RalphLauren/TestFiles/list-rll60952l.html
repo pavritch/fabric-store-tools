@@ -1,0 +1,83 @@
+
+
+<html>
+<body bgcolor="#EAEAD7" onload="javascript:document.forms[0].ID.focus()">
+<head>
+<link href="/foliacusts.css" rel="stylesheet" type="text/css">
+<title>Folia Fine Fabrics Product Lookup</title>
+</head>
+<hr>
+<form name="MyForm" method="post" action="readitem.asp?acct=01022149&action=read&ltype=1"  onsubmit="return(ValidateFunction())">
+<center><br>
+<select name="ltype">
+  
+    <option value="1">By Item No.</option>
+    <option value="2">By Pattern Name</option>
+  
+</select>
+<br><br><strong>Enter the Item No. <font color="#FF0000">OR</font> part of a pattern name (Whichever you selected above):</center></strong>
+<center><input type="text" name="ID" size="40"></center>
+<center><input type="submit" value="Get Info."></center>
+<br>
+<center><strong>Then select from the list, by clicking on an Item No.  below:</center></strong><br>
+
+	<CENTER>
+	<table border="2" bordercolordark="#808080">
+  	<tr>
+	  <td bgcolor="#00ffff"><b>Pattern</b></td>
+      <td bgcolor="#00ffff"><b>Color</b></td>
+   	  <td bgcolor="#00ffff"><b>Item No</b></td>
+	  <td bgcolor="#00ffff"><b>Category</b></td>
+	  <td bgcolor="#00ffff"><b>Content</b></td>
+    </tr>	  
+    
+	<tr>
+	  <td>STAFFORD            </td>
+	  <td>ACORN               </td>
+      <td><a href="itemdetail.asp?acct=01022149&prcode=&pattno=4068&pattcd=RLL&pattco=1&itemno=RLL60952L&ltype=1">RLL60952L</a></td> 
+	  <td>LEATHER                       </td> 
+	  <td>FULL GRAIN & ANILINE VACUMMED CRUST     </td> 
+    </tr>
+	
+    </table>
+    <br>
+  
+<br><br>
+
+
+<div class="footer">
+	| <a href="/welcome.asp?acct=01022149" >Home</a>
+    | <a href="/readsocust.asp?acct=01022149" >Shipments & tracking</a>
+	| <a href="/readitem.asp?acct=01022149" style="color:#808080;">Product & Stock Info</a>
+	| <a href="/reportmain.asp?acct=01022149" >Reports</a>
+	
+	|
+	
+	| <a href="javascript:void(0)" onclick="javascript:window.open('Sordhdr.asp?acct=01022149','win1','scrollbars=1,width=800,height=550')" >Order Samples</a>
+	
+	| <a href="/loggedout.asp" >Logout</a> |<p/>
+	<span class="footer"><br>
+	
+	    <a href="javascript:void(0)" onclick="javascript:window.open('ordhdr.asp?acct=01022149','win1','scrollbars=1,width=800,height=650')">Place an Order</a> |
+	
+	<a href="/downloads.asp?acct=01022149" >Downloads</a> | <a href="javascript:void(0)" onclick="javascript:window.open('http://www.ralphlaurenhome.com/products/Fabric')">View Fabrics</a> | <a href="javascript:void(0)" onclick="javascript:window.open('http://www.ralphlaurenhome.com/products/Wallcovering/')">View Wallcoverings</a><br><br></span><span class="copyright"><a href="mailto:customerservice@folia-fabrics.com?bcc=webmaster@folia-fabrics.com&subject=Folia Customer Web Site Inquiry">Send us an email</a> if you have any problems using our site, or would like to comment on our web site.<br><br>&copy; 2003-2014 folia Fine Fabrics & Wallcoverings</span>
+</div><p>
+
+
+</form>
+<script> 
+function ValidateFunction() 
+{ 
+ if (document.MyForm.ID.value == "") 
+ { 
+  alert("Please fill in your search criteria") 
+  document.MyForm.ID.focus() 
+  return(false) 
+ } 
+ return(true) 
+} 
+
+</script> 
+
+</body>
+</html>

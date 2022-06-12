@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Product Gallery Designer";
+}
+
+@section scripts {
+<script type="text/javascript">
+
+    /// <reference path="~/scripts/jquery-1.8.2.js" />
+
+    $(function () {
+
+        var productGalleryHub = $.connection.productGalleryHub;
+
+        productGalleryHub.client.runProductActionPctComplete = function (pct) {
+            $("#meterbar").width(pct * 4);
+
+            if (pct == 100)
+                disableCancelButton();
+        };
+
+
+        productGalleryHub.client.runProductActionStatus = function (msg) {
+
+            $("#statusText").html(msg);
+
+            if (msg == "Cancelled.") {
+                disableCancelButton();
+            }
+        };
+
+        $.connection.hub.start().done(function () {
+
+            // send msg to the server, hoooking up the handler only afer initialized
+            $("#btnCancel").click(function () {
+                productGalleryHub.server.cancelProductAction("@ViewBag.StoreKey");
+            });
+
+        });
+
+
+    });
+
+</script>
+
+<script src="/Scripts/ProductGalleryApp.js"></script>
+
+}
+
+<h3>Product Gallery Designer</h3>
+
+

@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Shopify Product Maintenance Page";
+}
+
+@section scripts {
+    <!-- scripts here -->
+
+    <script>
+
+        $(function () {
+
+            $(".confirmAction").click(function (evt) {
+                evt.preventDefault();
+                var href = $(this).attr("href");
+                bootbox.confirm("Run " + $(this).text() + "?", function (result) {
+
+                    if (result === true) {
+                        location.href = href;
+                    }
+                });
+
+            })
+
+        });
+    </script>
+
+}
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTabs" style="margin-top:20pt;">
+    <li class="active"><a href="#productevents" data-toggle="tab">Product Events</a></li>
+    <li><a href="#log" data-toggle="tab">Log</a></li>
+    <li><a href="#products" data-toggle="tab">Products</a></li>
+    <li><a href="#developer" data-toggle="tab">Developer</a></li>
+    <li><a href="#test" data-toggle="tab">Test</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="productevents">
+
+        <h2>General</h2>
+        <p>Stats for Queue</p>
+        <p>Table of what's in Queue</p>
+
+
+    </div>
+
+    <div class="tab-pane fade" id="log">
+
+        <h2>General</h2>
+        <p>Show recent log entries</p>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="products">
+
+        <h2>General</h2>
+        <p>Update Price and Availability for all existing</p>
+        <p>Full update for all existing</p>
+        <p>Full update for flagged as required</p>
+        <p>Reset flagged as required</p>
+        <p>Retry Errors</p>
+        <p>Add Missing Products</p>
+
+    </div>
+
+    <div class="tab-pane fade" id="developer">
+
+        <h2>General</h2>
+
+        <p><a href="/Shopify/ListRunningLongOperations">List Running Operations</a></p>
+
+        <h2>SQL Tables</h2>
+        <p><a class="confirmAction" href="/Shopify/Truncate/All">Truncate All Tables (Products, Events, Log)</a></p>
+        <p><a class="confirmAction" href="/Shopify/Truncate/Log">Truncate Log</a></p>
+        <p><a class="confirmAction" href="/Shopify/Truncate/Products">Truncate Products</a></p>
+        <p><a class="confirmAction" href="/Shopify/Truncate/ProductEvents">Truncate Product Events</a></p>
+        <p><a class="confirmAction" href="/Shopify/Truncate/LiveShopifyProducts">Truncate Live Shopify Products</a></p>
+
+
+        <h2>Population</h2>
+        <p><a class="confirmAction" href="/Shopify/PullShopifyProductList?truncate=false">Pull Shopify Product List (do not truncate)</a></p>
+        <p><a class="confirmAction" href="/Shopify/PullShopifyProductList?truncate=true">Pull Shopify Product List (truncate first)</a></p>
+
+        <p><a class="confirmAction" href="/Shopify/EnqueueVirginReadProducts">Enqueue Virgin Read Products</a></p>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="test">
+        <h2>Generate</h2>
+        <p>Process single event</p>
+        <p>Other API test points</p>
+
+    </div>
+
+</div>
+
+
+

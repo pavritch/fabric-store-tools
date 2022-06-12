@@ -1,0 +1,380 @@
+﻿<views:UXViewPage 
+    xmlns:views="clr-namespace:ControlPanel.Views"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Intersoft="http://intersoft.clientui.com/schemas" 
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"             
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:vm="clr-namespace:ControlPanel.ViewModels"
+    xmlns:converters="clr-namespace:ControlPanel.Converters"    
+    xmlns:controls="clr-namespace:ControlPanel.Controls"    
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:charting="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:chartView="clr-namespace:Telerik.Windows.Controls.ChartView;assembly=Telerik.Windows.Controls.Chart"
+    xmlns:MEFedMVVM_Services_CommonServices="clr-namespace:MEFedMVVM.Services.CommonServices;assembly=MEFedMVVM.SL" 
+    d:DataContext="{d:DesignInstance vm:ProductUploadPageViewModel, IsDesignTimeCreatable=True}"    
+    mc:Ignorable="d"
+    IsBusy="{Binding IsBusy}"
+    x:Class="ControlPanel.Views.ProductUploadPage" 
+	Title="Product Upload Page"
+	d:DesignWidth="800" d:DesignHeight="700">
+    <views:UXViewPage.Resources>
+
+
+    	<SolidColorBrush x:Key="Upload_Background" Color="#FFFFFFFF"/>
+    	<SolidColorBrush x:Key="Upload_OuterBorder" Color="#FF848484"/>
+    	<SolidColorBrush x:Key="Upload_InnerBorder" Color="Transparent"/>
+    	<Thickness x:Key="ControlInnerBorder_Thickness">0</Thickness>
+    	<SolidColorBrush x:Key="ControlHeader_OuterBorderBrush" Color="#FF282828"/>
+    	<LinearGradientBrush x:Key="ControlHeader_Background" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FF5B5B5B" Offset="1"/>
+    		<GradientStop Color="#FF868686"/>
+    		<GradientStop Color="#FF4F4F4F" Offset="0.42"/>
+    		<GradientStop Color="#FF0E0E0E" Offset="0.43"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="ControlHeader_InnerBorderBrush" Color="#FFB5B5B5"/>
+    	<SolidColorBrush x:Key="ControlHeader_Foreground" Color="#FFFFFFFF"/>
+    	<telerik:Office_BlackTheme x:Key="Theme"/>
+    	<SolidColorBrush x:Key="Upload_BottomPartBorder" Color="#FF848484"/>
+    	<Thickness x:Key="Upload_BottomPartBorder_Thickness">0 1 0 0</Thickness>
+    	<LinearGradientBrush x:Key="Upload_BottomPartBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFBEBEBE"/>
+    		<GradientStop Color="#FFF0F0F0" Offset="0.3"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="Upload_BottomPartInnerBorder" Color="Transparent"/>
+    	<Thickness x:Key="Upload_BottomPartInnerBorder_Thickness">0</Thickness>
+    	<CornerRadius x:Key="Upload_InnerCornerRadius">0</CornerRadius>
+    	<CornerRadius x:Key="Upload_OuterCornerRadius">0</CornerRadius>
+    	<Style x:Key="RadUploadStyle1" TargetType="telerik:RadUpload">
+    		<Setter Property="MinHeight" Value="175"/>
+    		<Setter Property="MinWidth" Value="350"/>
+    		<Setter Property="MaxHeight" Value="300"/>
+    		<Setter Property="MaxWidth" Value="400"/>
+    		<Setter Property="IsEnabled" Value="True"/>
+    		<Setter Property="Background" Value="{StaticResource Upload_Background}"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource Upload_OuterBorder}"/>
+    		<Setter Property="BorderThickness" Value="1"/>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="telerik:RadUpload">
+    					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource Upload_OuterCornerRadius}">
+    						<VisualStateManager.VisualStateGroups>
+    							<VisualStateGroup x:Name="UploadingStates">
+    								<VisualState x:Name="Initial">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="SelectedFiles">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="SelectedMoreFiles">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Uploading">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="UploadingPause">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Paused">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Uploaded">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Dismissed">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BrowseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CancelButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PauseButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResumeButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="UploadButton">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Collapsed"/>
+    										</ObjectAnimationUsingKeyFrames>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ProgressArea">
+    											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Visible"/>
+    										</ObjectAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    							</VisualStateGroup>
+    						</VisualStateManager.VisualStateGroups>
+    						<Border BorderBrush="{StaticResource Upload_InnerBorder}" BorderThickness="{StaticResource ControlInnerBorder_Thickness}" CornerRadius="{StaticResource Upload_InnerCornerRadius}">
+    							<Grid x:Name="RootElement">
+    								<Grid.RowDefinitions>
+    									<RowDefinition Height="auto"/>
+    									<RowDefinition Height="*"/>
+    									<RowDefinition Height="auto"/>
+    									<RowDefinition Height="auto"/>
+    								</Grid.RowDefinitions>
+    								<Border BorderBrush="{StaticResource ControlHeader_OuterBorderBrush}" BorderThickness="1" Background="{StaticResource ControlHeader_Background}" Margin="-1 -1 -1 0">
+    									<Border BorderBrush="{StaticResource ControlHeader_InnerBorderBrush}" BorderThickness="1"/>
+    								</Border>
+    								<TextBlock Foreground="{StaticResource ControlHeader_Foreground}" Margin="12,7,12,6" Text="{TemplateBinding CaptionText}"/>
+    								<ContentControl HorizontalAlignment="Right" ToolTipService.ToolTip="{TemplateBinding ErrorMessage}" Visibility="{TemplateBinding ErrorIconVisibility}" VerticalAlignment="Center">
+    									<ContentControl.Template>
+    										<ControlTemplate TargetType="ContentControl">
+    											<Grid Height="17.97" Margin="0,0,10,0" Width="14.609">
+    												<Path Data="M577.89149,269.68195 L584.80031,257.78582 591.50111,269.64775 z" Margin="0,1.786,0,3.288" Stretch="Fill" Stroke="#FFFFFFFF">
+    													<Path.Fill>
+    														<LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+    															<GradientStop Color="#FFFFC600" Offset="0"/>
+    															<GradientStop Color="#FFFDFF00" Offset="1"/>
+    														</LinearGradientBrush>
+    													</Path.Fill>
+    												</Path>
+    												<TextBlock FontWeight="Bold" FontSize="8" Height="Auto" Margin="6,4,6,4" TextWrapping="Wrap" Text="!" Width="Auto"/>
+    											</Grid>
+    										</ControlTemplate>
+    									</ContentControl.Template>
+    								</ContentControl>
+    								<Border Background="{TemplateBinding Background}" Grid.Row="1" Grid.RowSpan="2"/>
+    								<ScrollViewer x:Name="ScrollViewer" BorderThickness="0" Margin="12,8" Grid.Row="1" telerik:StyleManager.Theme="{StaticResource Theme}" VerticalScrollBarVisibility="Auto">
+    									<ItemsPresenter/>
+    								</ScrollViewer>
+    								<Grid x:Name="ProgressArea" Margin="0 10 0 10" Grid.Row="2" Visibility="Collapsed">
+    									<telerik:RadProgressBar Background="Transparent" Height="27" Maximum="100" Margin="5,0" Minimum="0" MinHeight="20" Value="{TemplateBinding ProgressValue}"/>
+    									<Grid VerticalAlignment="Center">
+    										<TextBlock x:Name="TotalText" FontWeight="Bold" Margin="12, 5" telerik:LocalizationManager.ResourceKey="UploadTotal" Text="Total"/>
+    										<TextBlock FontWeight="Bold" HorizontalAlignment="Center" Margin="5" Text="{TemplateBinding TotalPercent}"/>
+    										<TextBlock FontWeight="Bold" HorizontalAlignment="Right" Margin="5,5,12,5" Text="{TemplateBinding TotalSize}"/>
+    									</Grid>
+    								</Grid>
+    								<Border BorderBrush="{StaticResource Upload_BottomPartBorder}" BorderThickness="{StaticResource Upload_BottomPartBorder_Thickness}" Background="{StaticResource Upload_BottomPartBackground}" Grid.Row="3">
+    									<Border BorderBrush="{StaticResource Upload_BottomPartInnerBorder}" BorderThickness="{StaticResource Upload_BottomPartInnerBorder_Thickness}">
+    										<StackPanel HorizontalAlignment="Right" Margin="3" Orientation="Horizontal" VerticalAlignment="Center">
+    											<telerik:RadButton x:Name="CancelButton" Content="Cancel" Command="{TemplateBinding CancelCommand}" Margin="5" Padding="15 3" telerik:LocalizationManager.ResourceKey="UploadCancel" telerik:StyleManager.Theme="{StaticResource Theme}" Visibility="Collapsed"/>
+    											<telerik:RadButton x:Name="UploadButton" Content="Upload" Command="{TemplateBinding UploadCommand}" Margin="5" Padding="15 3" telerik:LocalizationManager.ResourceKey="UploadUpload" telerik:StyleManager.Theme="{StaticResource Theme}" Visibility="Collapsed"/>
+    											<Grid>
+    												<telerik:RadButton x:Name="PauseButton" Content="Pause" Command="{TemplateBinding PauseCommand}" Margin="5" Padding="15 3" telerik:LocalizationManager.ResourceKey="UploadPause" telerik:StyleManager.Theme="{StaticResource Theme}" Visibility="Collapsed"/>
+    												<telerik:RadButton x:Name="ResumeButton" Content="Resume" Command="{TemplateBinding PauseCommand}" Margin="5" Padding="15 3" telerik:LocalizationManager.ResourceKey="UploadResume" telerik:StyleManager.Theme="{StaticResource Theme}" Visibility="Collapsed"/>
+    											</Grid>
+    											<telerik:RadButton x:Name="BrowseButton" Content="Browse" Margin="5" Padding="15 3" telerik:LocalizationManager.ResourceKey="UploadBrowse" telerik:StyleManager.Theme="{StaticResource Theme}" Visibility="Collapsed"/>
+    										</StackPanel>
+    									</Border>
+    								</Border>
+    							</Grid>
+    						</Border>
+    					</Border>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
+
+
+    </views:UXViewPage.Resources>
+
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
+		<Grid>
+				
+				<Grid.RowDefinitions>
+					<RowDefinition Height="73" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Vertical">
+					
+				<TextBlock Text="Upload Product Image Zip File" FontFamily="Segoe UI" FontSize="21.333" Foreground="#FF6BA7C7" Margin="0,0,0,6" />
+				<TextBlock Text="Please select a ZIP file which contains large product images. All other image sizes will be generated automatically." Foreground="#FF636363" />
+
+				</StackPanel>
+
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="220" />
+						<ColumnDefinition Width="30"/>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition  />
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="50" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition  />
+					</Grid.RowDefinitions>
+
+
+					<Rectangle Fill="#FFEBEBEB" Stroke="#FFBEBEBE" StrokeDashArray="4 4"/>
+					<telerik:RadUploadDropPanel VerticalAlignment="Stretch" telerik:StyleManager.Theme="Windows8" 
+												HorizontalAlignment="Stretch" DragEnter="RadUploadDropPanel1_DragEnter"  
+												DragLeave="RadUploadDropPanel_DragLeave" x:Name="RadUploadDropPanel1" RadUpload="{Binding ElementName=RadUpload1}">
+						<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 -15 0 0">
+							<Path Data="M5,0 L19,0 L19,12 L24,12 L12,26 L0,12 L5,12 z" Fill="#FF79C2E5" Height="26" Stretch="Fill" Margin="0 0 0 15" Width="24">
+								<Path.Effect>
+									<DropShadowEffect BlurRadius="1" ShadowDepth="1.5" Direction="275" Color="White"/>
+								</Path.Effect>
+							</Path>
+							<TextBlock TextWrapping="Wrap" Text="Drag ZIP File here to Upload" FontSize="15"
+									   Foreground="#FF25A0DA" FontFamily="Segoe UI Light" UseLayoutRounding="True" >
+								<TextBlock.Effect>
+									<DropShadowEffect BlurRadius="1" ShadowDepth="1" Direction="275" Color="White"/>
+								</TextBlock.Effect>
+							</TextBlock>
+						</StackPanel>
+					</telerik:RadUploadDropPanel>
+					<telerik:RadUpload Grid.Column="2" telerik:StyleManager.Theme="Windows8" Height="213" CaptionText="Select ZIP File"
+								x:Name="RadUpload1"
+								Filter="All files (*.zip)|*.zip" 
+								FilterIndex="0" MaxFileCount="1"    
+								AllowDrop="true" Width="415"
+								IsAutomaticUpload="false"
+								OverwriteExistingFiles="True"
+								UploadServiceUrl="/FileUploadHandler.ashx"
+								TargetFolder=""
+								HorizontalAlignment="Left" Foreground="#FF474747" SingleFilePerPostRequest="True" IsMultiselect="False"  />
+
+        			<StackPanel Grid.ColumnSpan="3" Orientation="Vertical" x:Name="ProgressGrid"  Opacity="1.0" Grid.Row="2" VerticalAlignment="Top"  >
+        				<TextBlock Text="{Binding ProgressMessage}" Foreground="#FF686868" FontSize="13.333" Margin="0,0,0,4"  />
+        				<telerik:RadProgressBar IsIndeterminate="True" Height="30" telerik:StyleManager.Theme="Office_Black" Width="650" Visibility="{Binding IsBusy, Converter={StaticResource BoolVisibilityConverter}}" />
+        			</StackPanel>
+
+        		    <TextBlock Text="{Binding ErrorMessage}" Grid.ColumnSpan="3" Foreground="#FFEE2121"  Grid.Row="3" Margin="0,27,0,0" FontSize="13.333" TextWrapping="Wrap"  />
+
+				</Grid>
+		</Grid>
+
+    </Grid>
+</views:UXViewPage>

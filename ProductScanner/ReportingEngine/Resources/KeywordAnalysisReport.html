@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{manufacturer-name}} Keywords</title>
+
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.default.min.css" rel="stylesheet" />
+
+    <!-- not presently using dataviz
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.dataviz.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
+    -->
+
+    <style type="text/css">
+	.page-header h1 {margin:0px;}
+	.page-header h3 {margin-top:0px;font-size:1.5em}
+        #tabstrip
+        {
+            min-height:400px;
+        }
+
+        .treeview-products
+        {
+            width:100%;
+            margin:10px;
+        }
+
+        .mt
+        {
+            font-size:10pt;
+            color:#404040;
+        }
+
+        .frg
+        {
+            font-size:10pt;
+            color:#404040;
+        }
+
+        .pcnt{
+            font-size:10pt;
+            color:#AAAAAA;
+        }
+
+        .pcnt2{
+            font-size:10pt;
+            color:#2279c3;
+        }
+
+
+    </style>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+
+    <script id="matched-treeview-template" type="text/kendo-ui-template">
+            # if (item.Snippets) { #
+                <span class="kw">#: item.SearchPhrase #</span> <span class="pcnt">(#: item.Count #)</span>
+            # } else if (item.Locations) { #
+                <span  class="mt">#: item.MatchText #</span> <span class="pcnt">(#: item.Count #)</span>
+            # } else { #
+                <span title="#: item.Path #" class="frg">#: item.Fragment #</span>
+            # } #
+    </script>
+
+    <script id="phrases-treeview-template" type="text/kendo-ui-template">
+            # if (item.Phrases) { #
+                <span class="kw">#: item.SearchPhrase #</span> <span class="pcnt">(#: item.Count #)</span>
+            # } else { #
+                <span  class="frg">#: item.Fragment # </span> <span class="pcnt2">(#: item.Count #)</span>
+            # } #
+    </script>
+
+
+    <script type="text/javascript">
+
+        // inject json data array here
+        //{{json-data-matched}}
+
+        // inject json data array here
+        //{{json-data-phrases}}
+
+        // doc ready
+        $(function () {
+
+            $("#tabstrip").kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fadeIn"
+                    }
+                }
+            });
+
+            // matched
+
+            var matchedDataSource = new kendo.data.HierarchicalDataSource({
+                data: jsonDataMatched,
+
+                schema: {
+                    model: {
+                        id: "SearchPhrase",
+                        children: {
+                            schema: {
+                                data: "Snippets",
+                                model: {
+                                    id: "MatchText",
+                                    children: "Locations"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            });
+
+            $("#treeview-matched").kendoTreeView({
+                loadOnDemand: true,
+                template: kendo.template($("#matched-treeview-template").html()),
+                dataSource: matchedDataSource
+            });
+
+            // phrases
+
+            var phrasesDataSource = new kendo.data.HierarchicalDataSource({
+                data: jsonDataPhrases,
+                schema: {
+                    model: {
+                        id: "SearchPhrase",
+                        children: "Phrases",
+                        hasChilren: true,
+                    }
+                }
+
+            });
+
+            $("#treeview-phrases").kendoTreeView({
+                loadOnDemand: true,
+                template: kendo.template($("#phrases-treeview-template").html()),
+                dataSource: phrasesDataSource
+            });
+        });
+
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container  k-content">
+
+
+        <div class="page-header col-md-12" >
+                <h1>{{manufacturer-name}}</h1>
+            <h3>Keyword Analysis Report</h3>
+            <div>
+                <p>{{report-date}}</p>
+                <p>{{csv-filename}}</p>
+            </div>
+        </div>
+
+
+        <div class="row ">
+
+            <div class="col-md-12">
+                <div id="tabstrip">
+                    <ul>
+                            <li class="k-state-active">
+                                Phrases
+                            </li>
+
+                            <li>
+                                Locations
+                            </li>
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="treeview-phrases"></div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="treeview-matched"></div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+
+    </div><!-- end container -->
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <!-- if dataviz needed http://cdn.kendostatic.com/2013.2.716/js/kendo.all.min.js -->
+    <script src="http://cdn.kendostatic.com/2013.2.716/js/kendo.web.min.js"></script>
+    <script src="http://demos.flesler.com/jquery/scrollTo/js/jquery.scrollTo-min.js"></script>
+</body>
+</html>

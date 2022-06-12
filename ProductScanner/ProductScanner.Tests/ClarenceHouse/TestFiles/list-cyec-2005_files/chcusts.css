@@ -1,0 +1,128 @@
+/*
+basic page layouts
+*/
+body{
+	background-color: Silver;
+	font-family: verdana;
+	font-size: .8em;
+}
+table{
+	empty-cells:show;
+	font-size:1em;
+}
+td{
+	vertical-align:top;
+	font-size:inherit;
+}
+table td{
+	padding:0;
+}
+hr{
+	color:grey;
+}
+div.header{
+	color: #008080;
+	text-align: center;
+	margin:auto;
+	font-size: 1.8em;
+	font-weight: bold;
+}
+div.message{
+	font-size:.9em;
+	font-style:italic;
+	width:600px;
+	padding:9px;
+}
+span.error{
+	font-weight:bold;
+	color:#ff0000;
+}
+/*
+##################
+#specific content#
+##################
+footer styles
+*/
+div.footer{
+	text-align:center;
+	/*width:800px;*/
+	margin:0 auto;
+}
+div.footer a{
+	font-weight:bold;
+	color:blue;
+	text-decoration:underline;
+}
+#selectedFooter a{
+	color:#808080;
+}
+/*
+copyright style
+*/
+span.copyright{
+	font-family:times new roman;
+	font-weight:bold;
+}
+/*
+contact style
+*/
+span.contact{
+	font-weight:normal;
+}
+span.contact a{
+	font-weight:normal;
+}
+/*
+warning style
+	-essentially just bold and red text
+	-created for login page
+*/
+.warning{
+	font-weight:bold;
+	color:red;
+}
+/*
+login page
+*/
+div.login{
+	font-weight:bold;
+	width:800px;
+	text-align:center;
+	margin:auto
+}
+div.login table{
+	font-weight:bold;
+	margin:auto
+}
+span.loginInstructions{
+	color:blue;
+}
+/*
+sample order styles
+*/
+td.orderLabel{
+	background-color: #00ffff;
+	width:100;
+}
+table#ItemTable{
+	align:center;
+	table-layout:fixed;
+	border-collapse:separate;
+	border-style:outset;
+	border-width:1px;
+	border-spacing:2px;
+	border-color:#c4c4c4;
+}
+table#ItemTable th{
+	border-style:inset;
+	border-width:1px;
+	padding:1px;
+	border-color:#c4c4c4;
+	text-align:left;
+}
+table#ItemTable td{
+	border-style:inset;
+	border-width:1px;
+	padding:1px;
+	border-color:#c4c4c4;
+}

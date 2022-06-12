@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model StoreCurator.Controllers.HomeController.IndexPageViewData
+
+@section scripts
+{
+    <script type="text/javascript">
+
+
+
+        $(function () {
+            console.log("running page scripts");
+
+            $('.list-group-item').on('click', function () {
+                $('.glyphicon', this)
+                  .toggleClass('glyphicon-chevron-right')
+                  .toggleClass('glyphicon-chevron-down');
+            });
+
+        });
+
+    </script>
+}
+
+
+
+
+<div id="wrapper">
+
+    <table style="width:100%;min-width:800px">
+        <tr>
+            <!-- left -->
+            <td style="width:350px">
+                <div id="filterContainer" class="module-container" >
+
+                    <div>
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a id="tabLinkManufacturers" href="#tabManufacturers" aria-controls="manufacturers" role="tab" data-toggle="tab">Manufacturers</a></li>
+                            <li role="presentation"><a id="tabLinkCategories" href="#tabCategories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a></li>
+                            <li role="presentation"><a id="tabLinkSearch" href="#tabSearch" aria-controls="search" role="tab" data-toggle="tab">Search</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tabManufacturers">
+                                <div class="list-group" style="margin-top:15px">
+                                    @Html.DisplayManufacturers(Model.Manufacturers);
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tabCategories">
+                                <div style="margin-top:15px;">
+                                    @Html.DisplayCategories(Model.Categories);
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tabSearch">
+
+                                <p style="margin-top:15px;">Search for products using full text search:</p>
+
+                                <div>
+                                    <input id="searchQuery" type="text" class="form-control" placeholder="Search for...">
+                                </div>
+                                <div style="text-align:right;margin-top:8px;">
+                                    <a id="btnSearchProducts" href="#" style="width:100px;" class="btn btn-default" role="button">Search</a>
+                                </div>
+
+
+
+                                <div style="margin-top:50px;">
+                                    <p style="margin-top:15px;">Specialized Search:</p>
+                                    <a id="btnSearchUnclassified" href="#" style="margin-top:10px;width:100%;" class="btn btn-default" role="button">Unclassified Products</a>
+                                    <a id="btnSearchUnpublished" href="#" style="margin-top:10px;width:100%;" class="btn btn-default" role="button">Unpublished Products</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </td>
+            <td style="width:25px"><div style="width:25px;"></div></td>
+            <!-- middle -->
+            <td style="min-width:600px">
+                <div id="productsContainer" class="module-container">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none;position:relative;height:49px;">
+                            <h3 id="productsContainerTitle" style="margin:0;float:left;">No Products</h3>
+                            <div class="btn-toolbar" role="toolbar" style="float:right;">
+                                <div class="btn-group" style="margin:-4px;">
+                                    <button id="btnProductsLargeTiles" type="button" class="btn btn-default" aria-label="Large Tiles"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
+                                    <button id="btnProductsSmallTiles" type="button" class="btn btn-default" aria-label="Small Tiles"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
+                                    <button id="btnProductsListTiles" type="button" class="btn btn-default" aria-label="List Tiles"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+
+                    <div>
+                        <div id="productsHtmlContainer">
+                            <!-- the html fragment returned from product listing requests gets inserted here -->
+                            <!-- the fragment will contain the pager control if one is appropriate -->
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+
+        </tr>
+    </table>
+
+
+
+</div>
+<div style="clear:both"></div>
+

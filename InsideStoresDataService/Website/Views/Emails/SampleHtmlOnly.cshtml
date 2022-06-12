@@ -1,0 +1,23 @@
+﻿@model Website.Emails.SampleHtmlOnlyEmail
+To: @Html.Raw(@Model.To)
+From: @Html.Raw(@Model.From)
+Subject: @Html.Raw(@Model.Subject)
+
+<html>
+<head>
+    <title>View</title>
+</head>
+<body>
+    <div>
+        <p>Hello,</p>
+
+        <p>This is my html only email.</p>
+
+        <p>-cat-</p>
+
+        <p>Thanks!</p>
+
+        <p><a href="-unsubscribe-">Unsubscribe Me </a></p>
+    </div>
+</body>
+</html>

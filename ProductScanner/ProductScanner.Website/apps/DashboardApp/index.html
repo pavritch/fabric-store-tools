@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html ng-app="DashboardApp" lang="en">
+<head>
+    <title>Live Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.css" />
+    <link rel="stylesheet" href="/Content/fullcalendar.css" />
+    <link rel="stylesheet" href="/Content/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="/Content/unicorn.css" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body data-color="grey" class="flat">
+    <div id="wrapper">
+        <div id="header">
+            <h1><a href="./index.html">Admin</a></h1>
+            <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <div id="sidebar">
+            <ul>
+                <li class="active"><a href="../DashboardApp/index.html"><i class="fa fa-home"></i> <span>Live Dashboard</span></a></li>
+                <li><a href="../RequestTesterApp/index.html"><i class="fa fa-home"></i> <span>Request Tester</span></a></li>
+                <li><a href="../VendorStatusApp/index.html"><i class="fa fa-home"></i> <span>Vendor Status</span></a></li>
+            </ul>
+        </div>
+
+        <div id="content" ng-controller="MainController">
+            <div id="content-header" class="mini">
+                <h1>Live Dashboard</h1>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6" style='text-align:center;'>
+                                <div style='margin-top:16px;margin-bottom:16px;float:right;' class='btn-group'>
+                                    <button data-toggle="dropdown" class="btn btn-dark-blue dropdown-toggle">{{selectedVendor}} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu" class='pull-right' style='right:0;left:auto;text-align:right;min-width:0;'>
+                                        <li ng-repeat="vendor in vendors">
+                                            <a href ng-click='selectVendor(vendor.DisplayName)'>{{vendor.DisplayName}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget-box">
+                                    <div class="widget-title">
+                                        <span class="icon">
+                                            <i class="fa fa-th"></i>
+                                        </span>
+                                        <h5>Stats</h5>
+                                    </div>
+                                    <div class="widget-content nopadding">
+                                        <ul class="stat-boxes">
+                                            <li class="popover-visits" data-original-title="" title="">
+                                                <div class="right">
+                                                    <strong>{{totalRequests}}</strong>
+                                                    Requests
+                                                </div>
+                                            </li>
+                                            <li class="popover-tickets" data-original-title="" title="">
+                                                <div class="right">
+                                                    <strong>{{cachePercentage}}</strong>
+                                                    Cache Hits
+                                                </div>
+                                            </li>
+                                            <li class="popover-tickets" data-original-title="" title="">
+                                                <div class="right">
+                                                    <strong>{{requestsPerMinute}}</strong>
+                                                    Requests Per Minute
+                                                </div>
+                                            </li>
+                                            <li class="popover-tickets" ng-hide="selectedVendor == 'All'" data-original-title="" title="">
+                                                <div class="right">
+                                                    <strong>{{lastLogin}}</strong>
+                                                    Last Login
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget-box" ng-show="selectedVendor == 'All'">
+                                    <div class="widget-title">
+                                        <span class="icon">
+                                            <i class="fa fa-th"></i>
+                                        </span>
+                                        <h5>Authentication Failures</h5>
+                                    </div>
+                                    <div class="widget-content nopadding">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Vendor</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="failure in authenticationFailures">
+                                                    <td style="background-color:sandybrown">{{failure.VendorDisplayName}}</td>
+                                                    <td style="background-color: sandybrown; ">{{toFormattedDate(failure.DateTime)}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="widget-box">
+                                    <div class="widget-title">
+                                        <span class="icon">
+                                            <i class="fa fa-th"></i>
+                                        </span>
+                                        <h5>Recent Checks</h5>
+                                    </div>
+                                    <div class="widget-content nopadding">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Variant Id</th>
+                                                    <th>MPN</th>
+                                                    <th>Status</th>
+                                                    <th ng-show="selectedVendor =='All'">Vendor</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="request in recentRequests">
+                                                    <td ng-style="getRowColor(request)">{{request.VariantId}}</td>
+                                                    <td ng-style="getRowColor(request)">{{request.MPN}}</td>
+                                                    <td ng-style="getRowColor(request)">{{request.StockCheckStatus}}</td>
+                                                    <td ng-style="getRowColor(request)" ng-show="selectedVendor =='All'">{{request.Vendor}}</td>
+                                                    <td ng-style="getRowColor(request)">{{toFormattedTime(request.DateTime)}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6" style='text-align:center;'>
+                                <div class='widget-box'>
+                                    <div class='widget-title'>
+                                        <span class="icon">
+                                            <i class="fa fa-th"></i>
+                                        </span>
+                                        <h5>Stock Check Requests</h5>
+                                    </div>
+                                    <div class='widget-content'>
+                                        <highchart id='byStatusChart' config='byStatusChart'></highchart>
+                                        <div class="btn-group">
+                                            <label class="btn btn-primary" ng-model="selectedInterval" btn-radio="'Days'">Days</label>
+                                            <label class="btn btn-primary" ng-model="selectedInterval" btn-radio="'Hours'">Hours</label>
+                                            <label class="btn btn-primary" ng-model="selectedInterval" btn-radio="'Minutes'">Minutes</label>
+                                            <label class="btn btn-primary" ng-model="selectedInterval" btn-radio="'Seconds'">Seconds</label>
+                                        </div>
+                                        <highchart id='requestsChart' config='requestsChart'></highchart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="footer" class="col-xs-12">
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/excanvas.min.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/jquery-ui.custom.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/fullcalendar.min.js"></script>
+    <script src="/Scripts/jquery.nicescroll.min.js"></script>
+    <script src="/Scripts/unicorn.js"></script>
+    <script src="/Scripts/moment.js"></script>
+    
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/jquery.signalR-2.1.0.min.js"></script>
+    <script src="/Scripts/underscore-min.js"></script>
+    <script src="/Scripts/highcharts.js"></script>
+    <script src="/Scripts/highcharts-ng.js"></script>
+    <script src="/Scripts/ui-bootstrap-0.11.0.min.js"></script>
+    <script src="/Scripts/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+    <script src="controllers.js"></script>
+</body>
+</html>

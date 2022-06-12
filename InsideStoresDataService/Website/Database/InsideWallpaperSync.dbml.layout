@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="InsideWallpaperSync">
+  <DataContextMoniker Name="/InsideWallpaperSyncDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f62d8b5e-00b3-4436-acc6-a28a5e53164d" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/InsideWallpaperSyncDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0f94478a-7bbb-48e7-919d-928bd5756702" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 14.6719970703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6f9681cb-0da0-45e5-8ff6-fa8bfb6aa89a" isExpanded="false" absoluteBounds="3, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/InsideWallpaperSyncDataContext/ProductVariant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="22f1413b-aebc-4754-b925-d68cd249ca60" absoluteBounds="3.0150000000000006, 0.96, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="871b31d0-12a1-4204-9bf5-f7e1f7294803" isExpanded="false" absoluteBounds="5.625, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/InsideWallpaperSyncDataContext/Manufacturer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b2d11db7-6627-4ad0-897c-1bcba464e98f" absoluteBounds="5.6400000000000006, 0.96, 1.9700000000000002, 8.7106526692708321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="79652cdc-b282-4a09-8d2b-6024415ab58f" isExpanded="false" absoluteBounds="0.5, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/InsideWallpaperSyncDataContext/ProductManufacturer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e55f12f6-256d-4c58-a48c-abf4429c3098" absoluteBounds="0.51500000000000012, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b62c2826-3620-4e27-ad9f-068bbb378c93" isExpanded="false" absoluteBounds="3, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/InsideWallpaperSyncDataContext/ProductFeature" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0a3b9f5d-02ac-4cce-bd9a-eac9189225d7" absoluteBounds="3.0149999999999997, 1.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
